@@ -525,6 +525,23 @@ footer {
     font-size: 0.85rem;
 }
 
+.footer-funding-card {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    padding: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-top: 3px solid var(--terracotta);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transition: var(--transition-smooth);
+}
+
+.footer-funding-card:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    border-top-color: var(--terracotta);
+    transform: translateY(-5px);
+}
+
 .footer-bottom-top {
     width: 100%;
     display: flex;
@@ -558,22 +575,31 @@ footer {
 }
 
 .footer-copyright {
-    text-align: right;
+    text-align: left;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
 }
 
+.footer-github-ref {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: flex-start;
+    margin-top: 0.8rem;
+}
+
 .platform-info {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 12px;
     flex-wrap: wrap;
     padding: 1rem 2rem;
     background: rgba(255, 255, 255, 0.02);
     border-radius: 30px;
     border: 1px solid rgba(255, 255, 255, 0.05);
+    width: 100%;
 }
 
 /* 3D Asset Attribution */
