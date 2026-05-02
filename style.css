@@ -2,7 +2,7 @@
 
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 130px; /* Increased for better clearance */
+    scroll-padding-top: 0px;
 }
 
 
@@ -171,7 +171,7 @@ nav.scrolled .logo {
     align-items: center;
     justify-content: space-between;
     position: relative;
-    padding: 0 10%;
+    padding: 120px 10% 0; /* top padding accounts for fixed nav */
     gap: 4rem;
 }
 
@@ -299,7 +299,7 @@ model-viewer.visible {
 }
 /* --- Sections --- */
 section {
-    padding: 10rem 10%;
+    padding: 7rem 10%;
     position: relative;
 }
 
@@ -764,7 +764,7 @@ footer {
     }
     .hero-content {
         flex: none;
-        max-width: 800px;
+        max-width: 100%;
         order: 1;
     }
     .hero-image {
@@ -779,42 +779,19 @@ footer {
 
 @media (max-width: 992px) {
     .nav-links { display: none; }
-}
-
-@media (max-width: 768px) {
     section {
-        padding: 6rem 5%;
+        padding: 5rem 6%;
     }
-    .hero h1 { font-size: 3rem; }
-    .hero-image {
-        height: 40vh;
-        min-height: 300px;
-    }
-    .grid {
-        grid-template-columns: 1fr;
-    }
-    .side-nav {
-        display: none;
-    }
-}
-/* --- Responsive Media Queries --- */
-@media (max-width: 992px) {
-    .nav-links {
-        display: none; /* Hide desktop nav */
-    }
-    
     .logo {
         height: 70px;
         width: 70px;
     }
-    
     nav.scrolled .logo {
         height: 50px;
         width: 50px;
         padding: 0.3rem;
         border-width: 2px;
     }
-    
     .mobile-menu-btn {
         display: block !important;
         background: none;
@@ -826,10 +803,31 @@ footer {
     }
 }
 
+@media (max-width: 768px) {
+    section {
+        padding: 4rem 5%;
+    }
+    .hero {
+        padding: 140px 5% 60px;
+    }
+    .hero h1 { font-size: clamp(2.5rem, 8vw, 3.5rem); }
+    .hero-image {
+        height: 40vh;
+        min-height: 300px;
+    }
+    .grid {
+        grid-template-columns: 1fr;
+    }
+    .side-nav {
+        display: none;
+    }
+}
+/* --- Mobile Nav --- */
+
 .mobile-nav {
     position: fixed;
     top: 0;
-    right: -100%;
+    right: -280px;
     width: 250px;
     height: 100vh;
     background: #0a0a0a;
