@@ -1032,3 +1032,31 @@ footer {
     width: 16px;
     height: 16px;
 }
+
+/* Custom Photocredit Tooltip/Overlay */
+.photocredit-tooltip {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    background: rgba(10, 10, 10, 0.85);
+    color: var(--text-main);
+    font-size: 0.7rem;
+    font-weight: 500;
+    padding: 6px 10px;
+    border-radius: 6px;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition-smooth);
+    pointer-events: none;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.05em;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 10;
+}
+
+.card:hover .photocredit-tooltip {
+    opacity: 1;
+    visibility: visible;
+}
