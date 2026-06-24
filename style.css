@@ -1038,6 +1038,7 @@ footer {
     position: absolute;
     bottom: 12px;
     right: 12px;
+    background: #0a0a0a;
     background: rgba(10, 10, 10, 0.85);
     color: var(--text-main);
     font-size: 0.7rem;
@@ -1045,8 +1046,8 @@ footer {
     padding: 6px 10px;
     border-radius: 6px;
     opacity: 0;
-    visibility: hidden;
-    transition: var(--transition-smooth);
+    transform: translateY(5px);
+    transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     pointer-events: none;
     font-family: 'Inter', sans-serif;
     letter-spacing: 0.05em;
@@ -1056,7 +1057,8 @@ footer {
     z-index: 10;
 }
 
-.card:hover .photocredit-tooltip {
+.card:hover .photocredit-tooltip,
+.card-image-wrapper:hover .photocredit-tooltip {
     opacity: 1;
-    visibility: visible;
+    transform: translateY(0);
 }
