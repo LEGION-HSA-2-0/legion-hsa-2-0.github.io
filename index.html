@@ -1,28 +1,27 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LEGION | AI-Enabled Archaeology</title>
-    <meta name="description" content="LEGION: machine LEarninG-enabled Identification of archaeological Objects in the middle daNube river basin. Innovative AI-based method for automated classification of Roman pottery.">
-    <link rel="canonical" href="https://legion-hsa-2-0.github.io/">
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://legion-hsa-2-0.github.io/">
-    <meta property="og:title" content="LEGION | AI-Enabled Archaeology">
-    <meta property="og:description" content="Decoding the history of Roman Carnuntum through automated classification of Roman pottery using cutting-edge Machine Learning.">
-    <meta property="og:image" content="https://legion-hsa-2-0.github.io/assets/hero-jug.png">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://legion-hsa-2-0.github.io/">
-    <meta property="twitter:title" content="LEGION | AI-Enabled Archaeology">
-    <meta property="twitter:description" content="Decoding the history of Roman Carnuntum through automated classification of Roman pottery using cutting-edge Machine Learning.">
-    <meta property="twitter:image" content="https://legion-hsa-2-0.github.io/assets/hero-jug.png">
-
-    <!-- Structured Data (Schema.org JSON-LD) -->
-    <script type="application/ld+json">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LEGION | AI-Enabled Archaeology</title>
+<meta content="LEGION: machine LEarninG-enabled Identification of archaeological Objects in the middle daNube river basin. Innovative AI-based method for automated classification of Roman pottery." name="description"/>
+<link href="https://legion-hsa-2-0.github.io/" rel="canonical"/>
+<link as="image" href="assets/hero-jug.png" rel="preload"/>
+<!-- Open Graph / Facebook -->
+<meta content="website" property="og:type"/>
+<meta content="https://legion-hsa-2-0.github.io/" property="og:url"/>
+<meta content="LEGION | AI-Enabled Archaeology" property="og:title"/>
+<meta content="Decoding the history of Roman Carnuntum through automated classification of Roman pottery using cutting-edge Machine Learning." property="og:description"/>
+<meta content="https://legion-hsa-2-0.github.io/assets/hero-jug.png" property="og:image"/>
+<!-- Twitter -->
+<meta content="summary_large_image" property="twitter:card"/>
+<meta content="https://legion-hsa-2-0.github.io/" property="twitter:url"/>
+<meta content="LEGION | AI-Enabled Archaeology" property="twitter:title"/>
+<meta content="Decoding the history of Roman Carnuntum through automated classification of Roman pottery using cutting-edge Machine Learning." property="twitter:description"/>
+<meta content="https://legion-hsa-2-0.github.io/assets/hero-jug.png" property="twitter:image"/>
+<!-- Structured Data (Schema.org JSON-LD) -->
+<script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "ResearchProject",
@@ -100,547 +99,485 @@
       ]
     }
     </script>
-    <link rel="icon" type="image/png" href="assets/logo.png">
-    <link rel="stylesheet" href="style.css?v=1.2.2">
-    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+<link href="assets/logo.png" rel="icon" type="image/png"/>
+<link href="style.css?v=1.2.2" rel="stylesheet"/>
+<script src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js" type="module"></script>
 </head>
 <body>
-
-    <nav id="navbar">
-        <a href="#" class="logo">
-            <img src="assets/logo.png" alt="LEGION Logo">
-        </a>
-        <div class="nav-links">
-            <a href="#hero">LEGION</a>
-            <a href="#news">News</a>
-            <a href="#about">Project</a>
-            <a href="#methodology">Innovation</a>
-            <a href="#impact">Impact</a>
-            <a href="#contact">Team</a>
-            <a href="#partners">Partners</a>
-        </div>
-        <button class="mobile-menu-btn">☰</button>
-        <div class="mobile-nav">
-            <a href="#hero">LEGION</a>
-            <a href="#news">News</a>
-            <a href="#about">Project</a>
-            <a href="#methodology">Innovation</a>
-            <a href="#impact">Impact</a>
-            <a href="#contact">Team</a>
-            <a href="#partners">Partners</a>
-        </div>
-    </nav>
-
-    <main>
-        <section id="hero" class="hero">
-            <div class="hero-content">
-                <p class="hero-tagline">HERITAGE SCIENCE AUSTRIA 2.0</p>
-                <h1>LEGION</h1>
-                <p class="hero-subtitle">machine LEarninG-enabled Identification of archaeological Objects in the middle daNube river basin.</p>
-                <p class="hero-description">Decoding the history of Roman Carnuntum through automated classification of common ware pottery using cutting-edge Machine Learning.</p>
-                <a href="#news" class="cta-button">EXPLORE PROJECT</a>
-            </div>
-            <div class="hero-image">
-                <div class="model-loader"></div>
-                <model-viewer 
-                    src="assets/jug1k.glb" 
-                    poster="assets/hero-jug.png"
-                    alt="3D Model of the Roman Jug"
-                    auto-rotate 
-                    camera-controls 
-                    disable-zoom
-                    shadow-intensity="1" 
-                    camera-orbit="30deg 75deg 180%"
-                    interaction-prompt="none"
-                    touch-action="pan-y"
-                    style="width: 100%; height: 100%; background-color: transparent;"
-                    exposure="1.2"
-                    environment-image="neutral"
-                    ar>
-                </model-viewer>
-            </div>
-            <div class="gradient-blob blob-1"></div>
-            <a href="#news" class="scroll-indicator" aria-label="Scroll down to news">
-                <div class="mouse"></div>
-            </a>
-        </section>
-
-        <section id="news">
-            <span class="section-label">Latest Updates</span>
-            <h2 class="section-title">Project News</h2>
-            <div class="grid">
-                <div class="card reveal" style="border-bottom: 4px solid var(--brand-bridge);">
-                    <p style="color: var(--brand-bridge); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;">Coming Soon</p>
-                    <h3>First Data Release</h3>
-                    <p>We are currently preparing the first batch of digitised archaeological drawings for public release.</p>
-                </div>
-                <div class="card reveal" style="padding: 0; border-bottom: 4px solid var(--cyan); display: flex; flex-direction: column;">
-                    <img src="assets/news_erihs.png" alt="E-RIHS.at Logo" style="width: 100%; aspect-ratio: 16/9; object-fit: contain; background: #ffffff; padding: 1.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
-                    <div style="padding: 2.5rem; flex: 1;">
-                        <p style="color: var(--cyan); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;">17 June 2026</p>
-                        <h3>Austria Joins E-RIHS</h3>
-                        <p>Austria has officially joined the European Research Infrastructure for Heritage Science (E-RIHS ERIC). Coordinated by the Austrian Archaeological Institute (OeAI/OeAW) through E-RIHS.at, this milestone strengthens international research cooperation and access to state-of-the-art facilities for cultural heritage preservation.</p>
-                        <a href="https://www.oeaw.ac.at/oeai/medien/newsarchiv/news-detail/beitritt-e-rihs-eric" target="_blank" style="display: inline-block; margin-top: 1rem; color: var(--cyan); text-decoration: none; font-size: 0.9rem; font-weight: 600;">OeAI News (in German) →</a>
-                    </div>
-                </div>
-                <div class="card reveal" style="padding: 0; border-bottom: 4px solid var(--terracotta); display: flex; flex-direction: column;">
-                    <div class="card-image-wrapper" style="position: relative; overflow: hidden; display: block; line-height: 0;">
-                        <img src="assets/news_ai_factory.jpg" alt="AI Factory Austria AI:AT (Photo: APA-Fotoservice / AI:AT - modified using Antigravity AI)" style="width: 100%; aspect-ratio: 16/9; object-fit: cover; border-bottom: 1px solid rgba(255, 255, 255, 0.05); display: block;">
-                        <div class="photocredit-tooltip">Fotocredit: APA-Fotoservice / AI:AT</div>
-                    </div>
-                    <div style="padding: 2.5rem; flex: 1;">
-                        <p style="color: var(--terracotta); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;">15 June 2026</p>
-                        <h3>AI Factory Austria AI:AT</h3>
-                        <p>A delegation from the Austrian Academy of Sciences (ÖAW), including the LEGION project, visited the AI Factory Austria AI:AT in Vienna to explore collaboration opportunities. The visit focused on EuroHPC access, AI services, and research synergies with startups.</p>
-                        <a href="https://ai-at.eu/en/news/oeaw-delegation-visits-the-aiat-coworking-hub/" target="_blank" style="display: inline-block; margin-top: 1rem; color: var(--terracotta); text-decoration: none; font-size: 0.9rem; font-weight: 600;">Full Report →</a>
-                    </div>
-                </div>
-                <div class="card reveal" style="padding: 0; border-bottom: 4px solid var(--terracotta); display: flex; flex-direction: column;">
-                    <img src="assets/news_digital_frontiers_v6.png" alt="Digital Frontiers Workshop" style="width: 100%; aspect-ratio: 16/9; object-fit: cover; object-position: top; border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
-                    <div style="padding: 2.5rem; flex: 1;">
-                        <p style="color: var(--terracotta); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;">22 May 2026</p>
-                        <h3>Workshop: Digital Frontiers</h3>
-                        <p>Dominik Hagmann presented "Reflections on AI Applications in Austrian Roman Archaeology" at the Digital Frontiers workshop, highlighting LEGION's Human-in-the-Loop approach, legacy data digitization, and the transparent, ethical use of Generative AI.</p>
-                        <div style="margin-top: 1rem; display: flex; gap: 1rem; flex-wrap: wrap;">
-                            <a href="https://www.oeaw.ac.at/en/oeai/events/event-detail/digital-frontiers" target="_blank" style="color: var(--terracotta); text-decoration: none; font-size: 0.9rem; font-weight: 600;">Event Details →</a>
-                            <a href="assets/20260522_Workshop_Digital-Frontiers_programme_web.pdf" target="_blank" style="color: var(--terracotta); text-decoration: none; font-size: 0.9rem; font-weight: 600;">Programme (PDF) →</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card reveal" style="padding: 0; border-bottom: 4px solid var(--terracotta); display: flex; flex-direction: column;">
-                    <img src="assets/news_mla2s.jpg" alt="LEGION Presentation at MLA2S (Photo at the MLA2S: after Martin Kampel - modified using ChatGPT 5.5)" style="width: 100%; aspect-ratio: 16/9; object-fit: cover; border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
-                    <div style="padding: 2.5rem; flex: 1;">
-                        <p style="color: var(--terracotta); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;">11 May 2026</p>
-                        <h3>MLA2S Networking Seminar</h3>
-                        <p>Dominik Hagmann and Irene Ballester-Campos presented LEGION at the 9th Networking Seminar of the MLA2S platform, highlighting AI-enabled identification of archaeological objects from Carnuntum.</p>
-                        <a href="https://indico.global/event/17357/" target="_blank" style="display: inline-block; margin-top: 1rem; color: var(--terracotta); text-decoration: none; font-size: 0.9rem; font-weight: 600;">Event Details →</a>
-                    </div>
-                </div>
-                <div class="card reveal" style="padding: 0; border-bottom: 4px solid var(--cyan); display: flex; flex-direction: column;">
-                    <img src="assets/news_maia.jpg" alt="MAIA Second General Meeting in Hainburg (Photo of Hainburg by Onur Birol/MAIA - modified using ChatGPT 5.5)" style="width: 100%; aspect-ratio: 16/9; object-fit: cover; border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
-                    <div style="padding: 2.5rem; flex: 1;">
-                        <p style="color: var(--cyan); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;">7 April 2026</p>
-                        <h3>MAIA General Meeting</h3>
-                        <p>Dominik Hagmann hosted the Second General Meeting of the MAIA COST Action in Hainburg, focusing on managing AI in archaeological research through interdisciplinary collaboration.</p>
-                        <a href="https://maiacost.eu/second-general-meeting-hainburg/" target="_blank" style="display: inline-block; margin-top: 1rem; color: var(--cyan); text-decoration: none; font-size: 0.9rem; font-weight: 600;">Full Report →</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="about">
-            <span class="section-label">Our Challenge</span>
-            <h2 class="section-title">Fragmented Knowledge & Data Overload</h2>
-            <div class="grid">
-                <div class="card reveal" style="border-bottom: 4px solid var(--terracotta);">
-                    <model-viewer 
-                        src="assets/folded_beaker1k.glb" 
-                        alt="3D Model of a Folded Beaker"
-                        auto-rotate 
-                        camera-controls 
-                        disable-zoom
-                        shadow-intensity="1" 
-                        interaction-prompt="none"
-                        touch-action="pan-y"
-                        style="width: 100%; height: 250px; background-color: transparent; margin-bottom: 1.5rem;"
-                        exposure="1.2"
-                        environment-image="neutral"
-                        ar>
-                    </model-viewer>
-                    <h3>The Manual Bottleneck</h3>
-                    <p>Traditional classification of everyday ceramics is too slow for massive, fragmented archaeological datasets. Huge amounts of data remain unassessed.</p>
-                </div>
-                <div class="card reveal" style="border-bottom: 4px solid var(--brand-bridge);">
-                    <model-viewer 
-                        src="assets/incense_bowl1k.glb" 
-                        alt="3D Model of an Incense Bowl"
-                        auto-rotate 
-                        camera-controls 
-                        disable-zoom
-                        shadow-intensity="1" 
-                        interaction-prompt="none"
-                        touch-action="pan-y"
-                        style="width: 100%; height: 250px; background-color: transparent; margin-bottom: 1.5rem;"
-                        exposure="1.2"
-                        environment-image="neutral"
-                        ar>
-                    </model-viewer>
-                    <h3>Untapped Data Points</h3>
-                    <p>Tens of thousands of technical 2D find drawings remain unclassified and unintegrated due to the sheer volume of material.</p>
-                </div>
-                <div class="card reveal" style="border-bottom: 4px solid var(--cyan);">
-                    <model-viewer 
-                        src="assets/pot1k.glb" 
-                        alt="3D Model of a Roman Pot"
-                        auto-rotate 
-                        camera-controls 
-                        disable-zoom
-                        shadow-intensity="1" 
-                        interaction-prompt="none"
-                        touch-action="pan-y"
-                        style="width: 100%; height: 250px; background-color: transparent; margin-bottom: 1.5rem;"
-                        exposure="1.2"
-                        environment-image="neutral"
-                        ar>
-                    </model-viewer>
-                    <h3>Some finds are more equal than other finds</h3>
-                    <p>Funding for mass finds is often restricted. Automated solutions are required to bridge this gap.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="methodology" style="background: rgba(255,255,255,0.01);">
-            <span class="section-label">Our Innovation</span>
-            <h2 class="section-title">AI-Enabled Archaeology</h2>
-            <p style="margin-bottom: 3rem; font-size: 1.1rem; max-width: 800px;">LEGION introduces a <strong>Semi-supervised Computer Vision Pipeline</strong> leveraging thousands of historical documents for deep material insight.</p>
-            <div class="grid">
-                <div class="card reveal" style="padding: 0; border-bottom: 4px solid var(--terracotta); display: flex; flex-direction: column;">
-                    <img src="assets/method_data.jpg" alt="Hybrid Data Input (Photo of analog file folders in the OeAI/OeAW's archive and LSNÖ's archaeological central depot at Hainburg by Dominik Hagmann and LSNÖ, modified using Gemini 3.1 Pro and ChatGPT 5.5)" style="width: 100%; aspect-ratio: 4/3; object-fit: cover; border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
-                    <div style="padding: 2.5rem; flex: 1;">
-                        <h3>Hybrid Data Input</h3>
-                        <p>Processing over 70,000 2D drawings alongside their comprehensive archaeological metadata.</p>
-                    </div>
-                </div>
-                <div class="card reveal" style="padding: 0; border-bottom: 4px solid var(--brand-bridge); display: flex; flex-direction: column;">
-                    <img src="assets/method_hitl.png" alt="Human-in-the-Loop" style="width: 100%; aspect-ratio: 4/3; object-fit: cover; border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
-                    <div style="padding: 2.5rem; flex: 1;">
-                        <h3>Human-in-the-Loop (HITL)</h3>
-                        <p>eXplainable AI (XAI) ensures results are validated by experts to remain archaeologically robust.</p>
-                    </div>
-                </div>
-                <a href="https://github.com/LEGION-HSA-2-0" target="_blank" class="card reveal clickable-card" style="padding: 0; border-bottom: 4px solid var(--cyan); display: flex; flex-direction: column; text-decoration: none; color: inherit;">
-                    <img src="assets/impact_opensource.png" alt="Open Source Integration Visualization" style="width: 100%; aspect-ratio: 4/3; object-fit: cover; border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
-                    <div style="padding: 2.5rem; flex: 1;">
-                        <h3>Open Source Integration</h3>
-                        <p>Fully open-source solutions hosted on GitHub, ensuring long-term accessibility and transparency for the global research community.</p>
-                    </div>
-                </a>
-            </div>
-        </section>
-
-        <section id="impact">
-            <span class="section-label">Our Impact</span>
-            <h2 class="section-title">New Socio-Economic Insights &amp; AI Tools</h2>
-            <div class="grid">
-                <div class="card reveal" style="padding: 0; border-bottom: 4px solid var(--terracotta); display: flex; flex-direction: column;">
-                    <img src="assets/impact_trade.png?v=1.1.1" alt="Local Production & Trade Visualization" style="width: 100%; aspect-ratio: 4/3; object-fit: cover; border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
-                    <div style="padding: 2.5rem; flex: 1;">
-                        <h3>Local Production & Trade</h3>
-                        <p>Revealing complex patterns in local production and tracking trade trends across the entire Middle Danube River Basin.</p>
-                    </div>
-                </div>
-                <div class="card reveal" style="padding: 0; border-bottom: 4px solid var(--brand-bridge); display: flex; flex-direction: column;">
-                    <img src="assets/impact_typochronology.png" alt="New Typochronology Visualization" style="width: 100%; aspect-ratio: 4/3; object-fit: cover; border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
-                    <div style="padding: 2.5rem; flex: 1;">
-                        <h3>New Typochronology</h3>
-                        <p>Establishing a completely new, data-driven typochronology of Roman Common Ware based on large scale analysis.</p>
-                    </div>
-                </div>
-                <a href="https://github.com/LEGION-HSA-2-0" target="_blank" class="card reveal clickable-card" style="padding: 0; border-bottom: 4px solid var(--cyan); display: flex; flex-direction: column; text-decoration: none; color: inherit;">
-                    <img src="assets/method_accuracy.png" alt="High Classification Accuracy" style="width: 100%; aspect-ratio: 4/3; object-fit: cover; border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
-                    <div style="padding: 2.5rem; flex: 1;">
-                        <h3>Free &amp; Open-Source Classification Tool</h3>
-                        <p>A user-friendly, open-source tool built for rapid, automated typochronological dating with &gt;90% classification accuracy.</p>
-                    </div>
-                </a>
-            </div>
-        </section>
-
-        <section id="contact" style="background: rgba(255,255,255,0.01);">
-            <span class="section-label">Our Team</span>
-            <h2 class="section-title">Experts Behind LEGION</h2>
-            <div style="display: flex; gap: 4rem; align-items: flex-start; flex-wrap: wrap;">
-                <div style="flex: 1; min-width: 300px;">
-                    <p style="margin-bottom: 1.5rem; font-size: 1.1rem;">The LEGION project is a multi-disciplinary collaboration bridging the gap between archaeological expertise and advanced computational methods.</p>
-                    <p style="margin-bottom: 2rem; font-size: 1.1rem;">We are always looking for collaboration and feedback. Reach out to the project lead for inquiries regarding data, methodology, or partnership opportunities.</p>
-                    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-                        <a href="https://www.oeaw.ac.at/oeai/forschung/historische-archaeologie/archaeologie-der-roemischen-provinzen-im-lateinischen-westen/legion" target="_blank" style="display: flex; align-items: center; gap: 1rem; color: var(--text-main); text-decoration: none;" class="contact-link">
-                            <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--terracotta-glow); display: flex; align-items: center; justify-content: center; color: var(--terracotta);">
-                                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20"/><path d="M2 12h20"/><path d="M12 2a14.5 14.5 0 0 1 0 20"/></svg>
-                            </div>
-                            <div>
-                                <span style="display: block; font-size: 0.8rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px;">OeAW</span>
-                                <strong style="font-size: 1.1rem;">Official Project Page @OeAI</strong>
-                            </div>
-                        </a>
-                        <a href="https://cvl.tuwien.ac.at/research/projects/legion/" target="_blank" style="display: flex; align-items: center; gap: 1rem; color: var(--text-main); text-decoration: none;" class="contact-link">
-                            <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--brand-bridge-glow); display: flex; align-items: center; justify-content: center; color: var(--brand-bridge);">
-                                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20"/><path d="M2 12h20"/><path d="M12 2a14.5 14.5 0 0 1 0 20"/></svg>
-                            </div>
-                            <div>
-                                <span style="display: block; font-size: 0.8rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px;">TU Wien</span>
-                                <strong style="font-size: 1.1rem;">Official Project Page @CVL</strong>
-                            </div>
-                        </a>
-                        <a href="https://github.com/LEGION-HSA-2-0" target="_blank" style="display: flex; align-items: center; gap: 1rem; color: var(--text-main); text-decoration: none;" class="contact-link">
-                            <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--cyan-glow); display: flex; align-items: center; justify-content: center; color: var(--cyan);">
-                                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.43.372.823 1.102.823 2.222 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
-                            </div>
-                            <div>
-                                <span style="display: block; font-size: 0.8rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px;">GitHub</span>
-                                <strong style="font-size: 1.1rem;">Open Source Repository</strong>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div style="flex: 1; min-width: 300px;">
-                    <div style="display: flex; flex-wrap: wrap; gap: 2rem;">
-                        <div class="card" style="flex: 1; min-width: 250px; border-top: 2px solid var(--terracotta);">
-                            <h4 style="color: var(--terracotta); margin-bottom: 0.5rem;">OeAI Team</h4>
-                            <p style="font-size: 0.9rem; color: var(--text-dim); margin-bottom: 1rem;">Austrian Archaeological Institute (OeAI/OeAW)</p>
-                            <div style="font-size: 0.9rem; line-height: 1.6;">
-                                <div class="researcher-entry">
-                                    <div class="researcher-info">
-                                        <span class="researcher-name">Dominik Hagmann</span>
-                                        <span class="researcher-meta">PI</span>
-                                    </div>
-                                    <div class="researcher-links">
-                                        <a href="https://orcid.org/0000-0002-4481-6234" target="_blank" class="profile-link orcid" title="ORCID Profile">
-                                            <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid"><path d="M256 128c0 70.692-57.308 128-128 128C57.308 256 0 198.692 0 128 0 57.308 57.308 0 128 0c70.692 0 128 57.308 128 128" fill="#A6CE39"/><path d="M86.3 186.2H70.9V79.1h15.4v107.1zM108.9 79.1h36.6c33.6 0 52.8 23.3 52.8 53.5 0 30.2-19.2 53.5-52.8 53.5h-36.6V79.1zm15.4 91.7h20.4c25.6 0 38.1-15.8 38.1-38.1 0-22.4-12.5-38.1-38.1-38.1h-20.4v76.2zM86.3 61.6c0 4.4-3.5 8-8 8s-8-3.5-8-8 3.5-8 8-8 8 3.5 8 8" fill="#FFF"/></svg>
-                                        </a>
-                                        <a href="https://homepage.univie.ac.at/dominik.hagmann" target="_blank" class="profile-link web" title="Personal Website">
-                                            <svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20"/><path d="M2 12h20"/><path d="M12 2a14.5 14.5 0 0 1 0 20"/></svg>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="researcher-entry">
-                                    <div class="researcher-info">
-                                        <span class="researcher-name">Silvia Radbauer</span>
-                                        <span class="researcher-meta">Co-PI</span>
-                                    </div>
-                                    <div class="researcher-links">
-                                        <a href="https://www.oeaw.ac.at/oeai/institut/team/person/silvia-radbauer" target="_blank" class="profile-link web" title="Institutional Profile">
-                                            <svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20"/><path d="M2 12h20"/><path d="M12 2a14.5 14.5 0 0 1 0 20"/></svg>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="researcher-entry">
-                                    <div class="researcher-info">
-                                        <span class="researcher-name">Julia Tanzer</span>
-                                        <span class="researcher-meta">Student Assistant</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card" style="flex: 1; min-width: 250px; border-top: 2px solid var(--cyan);">
-                            <h4 style="color: var(--cyan); margin-bottom: 0.5rem;">CVL Team</h4>
-                            <p style="font-size: 0.9rem; color: var(--text-dim); margin-bottom: 1rem;">Computer Vision Lab, TU Wien</p>
-                            <div style="font-size: 0.9rem; line-height: 1.6;">
-                                <div class="researcher-entry">
-                                    <div class="researcher-info">
-                                        <span class="researcher-name">Irene Ballester Campos</span>
-                                        <span class="researcher-meta">Co-PI</span>
-                                    </div>
-                                    <div class="researcher-links">
-                                        <a href="https://orcid.org/0000-0002-0219-9063" target="_blank" class="profile-link orcid" title="ORCID Profile">
-                                            <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid"><path d="M256 128c0 70.692-57.308 128-128 128C57.308 256 0 198.692 0 128 0 57.308 57.308 0 128 0c70.692 0 128 57.308 128 128" fill="#A6CE39"/><path d="M86.3 186.2H70.9V79.1h15.4v107.1zM108.9 79.1h36.6c33.6 0 52.8 23.3 52.8 53.5 0 30.2-19.2 53.5-52.8 53.5h-36.6V79.1zm15.4 91.7h20.4c25.6 0 38.1-15.8 38.1-38.1 0-22.4-12.5-38.1-38.1-38.1h-20.4v76.2zM86.3 61.6c0 4.4-3.5 8-8 8s-8-3.5-8-8 3.5-8 8-8 8 3.5 8 8" fill="#FFF"/></svg>
-                                        </a>
-                                        <a href="https://cvl.tuwien.ac.at/staff/irene-ballester-campos/" target="_blank" class="profile-link web" title="University Profile">
-                                            <svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20"/><path d="M2 12h20"/><path d="M12 2a14.5 14.5 0 0 1 0 20"/></svg>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="researcher-entry">
-                                    <div class="researcher-info">
-                                        <span class="researcher-name">Martin Kampel</span>
-                                        <span class="researcher-meta">Co-PI</span>
-                                    </div>
-                                    <div class="researcher-links">
-                                        <a href="https://orcid.org/0000-0002-5217-2854" target="_blank" class="profile-link orcid" title="ORCID Profile">
-                                            <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid"><path d="M256 128c0 70.692-57.308 128-128 128C57.308 256 0 198.692 0 128 0 57.308 57.308 0 128 0c70.692 0 128 57.308 128 128" fill="#A6CE39"/><path d="M86.3 186.2H70.9V79.1h15.4v107.1zM108.9 79.1h36.6c33.6 0 52.8 23.3 52.8 53.5 0 30.2-19.2 53.5-52.8 53.5h-36.6V79.1zm15.4 91.7h20.4c25.6 0 38.1-15.8 38.1-38.1 0-22.4-12.5-38.1-38.1-38.1h-20.4v76.2zM86.3 61.6c0 4.4-3.5 8-8 8s-8-3.5-8-8 3.5-8 8-8 8 3.5 8 8" fill="#FFF"/></svg>
-                                        </a>
-                                        <a href="https://cvl.tuwien.ac.at/staff/martin-kampel/" target="_blank" class="profile-link web" title="University Profile">
-                                            <svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20"/><path d="M2 12h20"/><path d="M12 2a14.5 14.5 0 0 1 0 20"/></svg>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="researcher-entry">
-                                    <div class="researcher-info">
-                                        <span class="researcher-name">Sebastian Zambanini</span>
-                                        <span class="researcher-meta">Co-PI</span>
-                                    </div>
-                                    <div class="researcher-links">
-                                        <a href="https://orcid.org/0000-0002-3459-8122" target="_blank" class="profile-link orcid" title="ORCID Profile">
-                                            <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid"><path d="M256 128c0 70.692-57.308 128-128 128C57.308 256 0 198.692 0 128 0 57.308 57.308 0 128 0c70.692 0 128 57.308 128 128" fill="#A6CE39"/><path d="M86.3 186.2H70.9V79.1h15.4v107.1zM108.9 79.1h36.6c33.6 0 52.8 23.3 52.8 53.5 0 30.2-19.2 53.5-52.8 53.5h-36.6V79.1zm15.4 91.7h20.4c25.6 0 38.1-15.8 38.1-38.1 0-22.4-12.5-38.1-38.1-38.1h-20.4v76.2zM86.3 61.6c0 4.4-3.5 8-8 8s-8-3.5-8-8 3.5-8 8-8 8 3.5 8 8" fill="#FFF"/></svg>
-                                        </a>
-                                        <a href="https://cvl.tuwien.ac.at/staff/sebastian-zambanini/" target="_blank" class="profile-link web" title="University Profile">
-                                            <svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20"/><path d="M2 12h20"/><path d="M12 2a14.5 14.5 0 0 1 0 20"/></svg>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="researcher-entry">
-                                    <div class="researcher-info">
-                                        <span class="researcher-name">Valentina Naghavi</span>
-                                        <span class="researcher-meta">Master's student</span>
-                                    </div>
-                                    <div class="researcher-links">
-                                        <a href="https://www.linkedin.com/in/valentina-naghavi-37a6082b9/" target="_blank" class="profile-link web" title="LinkedIn Profile">
-                                            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="researcher-entry">
-                                    <div class="researcher-info">
-                                        <span class="researcher-name">Anna Laczkó</span>
-                                        <span class="researcher-meta">Master's student</span>
-                                    </div>
-                                    <div class="researcher-links">
-                                        <a href="https://www.linkedin.com/in/anna-laczko/" target="_blank" class="profile-link web" title="LinkedIn Profile">
-                                            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="partners">
-            <span class="section-label">Our Partners</span>
-            <h2 class="section-title">Leading Institutions</h2>
-            <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
-                <a href="https://www.oeaw.ac.at/oeai/" target="_blank" class="partner-card">
-                    <img src="assets/logo-oeaw.png" alt="OeAI Logo">
-                    <h4>OeAI / OeAW</h4>
-                    <p>Austrian Archaeological Institute</p>
-                </a>
-                <a href="https://cvl.tuwien.ac.at/" target="_blank" class="partner-card">
-                    <img src="assets/cvl_logo.png" alt="CVL Logo">
-                    <h4>CVL / TU WIEN</h4>
-                    <p>Computer Vision Lab</p>
-                </a>
-                <a href="https://www.oeaw.ac.at/acdh/" target="_blank" class="partner-card">
-                    <img src="assets/logo-acdh.png" alt="ACDH Logo">
-                    <h4>ACDH</h4>
-                    <p>Austrian Centre for Digital Humanities</p>
-                </a>
-                <a href="https://www.landessammlungen-noe.at/" target="_blank" class="partner-card">
-                    <img src="assets/logo-lasc.png" alt="LASC Logo">
-                    <h4>LSNÖ</h4>
-                    <p>Lower Austrian State Collections</p>
-                </a>
-                <a href="https://www.carnuntum.at/" target="_blank" class="partner-card">
-                    <img src="assets/logo-carnuntum.png" alt="Carnuntum Logo">
-                    <h4>CARNUNTUM</h4>
-                    <p>Roman City Carnuntum</p>
-                </a>
-                <a href="https://www.wienmuseum.at/" target="_blank" class="partner-card">
-                    <img src="assets/logo-wienmuseum.png" alt="Wien Museum Logo">
-                    <h4>WIEN MUSEUM</h4>
-                    <p>Vienna Museum</p>
-                </a>
-                <a href="https://www.donau-uni.ac.at/" target="_blank" class="partner-card">
-                    <img src="assets/logo-uwk.png" alt="UWK Logo">
-                    <h4>UWK</h4>
-                    <p>University for Continuing Education Krems</p>
-                </a>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="footer-content">
-            <div class="footer-brand">
-                <a href="#" class="logo" style="height: 100px; width: 100px; margin-bottom: 2rem;">
-                    <img src="assets/logo.png" alt="LEGION Logo">
-                </a>
-                <p style="max-width: 300px; font-size: 0.9rem; color: var(--text-dim);">LEGION: machine LEarninG-enabled Identification of archaeological Objects in the middle daNube river basin.</p>
-            </div>
-            <div class="footer-links">
-                <h4>Project</h4>
-                <ul>
-                    <li><a href="#hero">LEGION</a></li>
-                    <li><a href="#news">News</a></li>
-                    <li><a href="#about">Project</a></li>
-                    <li><a href="#methodology">Innovation</a></li>
-                    <li><a href="#impact">Impact</a></li>
-                    <li><a href="#contact">Team</a></li>
-                    <li><a href="#partners">Partners</a></li>
-                </ul>
-            </div>
-            <div class="footer-links">
-                <h4>3D Assets</h4>
-                <div class="asset-credit">
-                    <img src="https://media.sketchfab.com/avatars/a371dd4670814f9785326b41b544db1d/f0085c684d114b61b9b73c855f8276b7.jpeg" alt="Landessammlungen NOE Logo" class="asset-logo">
-                    <div class="asset-info">
-                        <div style="margin-bottom: 2px;">
-                            <span style="color: var(--text-dim); font-size: 0.9rem;">Provided by </span>
-                            <a href="https://sketchfab.com/landessammlungen-noe" target="_blank" class="asset-link" style="display: inline;">LSNÖ</a>
-                        </div>
-                        <span class="asset-license">CC Attribution-NonCommercial</span>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-links">
-                <h4>Legal</h4>
-                <ul>
-                    <li><a href="legal.html">Imprint & Data Privacy</a></li>
-                </ul>
-            </div>
-            <div class="footer-funding-card" style="max-width: 400px;">
-                <h4 style="color: var(--terracotta); margin-top: 0;">Funding</h4>
-                <p style="font-size: 0.85rem; color: var(--text-dim); margin-bottom: 1.5rem;">LEGION is funded by the <strong><a href="https://www.oeaw.ac.at/en/funding/heritage-science-austria" target="_blank" style="color: inherit; text-decoration: underline;">Heritage Science Austria 2.0</a></strong> program under the program responsibility of the <strong><a href="https://www.oeaw.ac.at/" target="_blank" style="color: inherit; text-decoration: underline;">Austrian Academy of Sciences (OeAW)</a></strong>.</p>
-                <div style="display: flex; gap: 2rem; font-size: 0.8rem; color: var(--text-dim);">
-                    <div>
-                        <strong style="color: white; display: block; margin-bottom: 4px;">Grant Number</strong>
+<nav id="navbar">
+<a class="logo" href="#">
+<img alt="LEGION Logo" src="assets/logo.png"/>
+</a>
+<div class="nav-links">
+<a href="#hero">LEGION</a>
+<a href="#news">News</a>
+<a href="#about">Project</a>
+<a href="#methodology">Innovation</a>
+<a href="#impact">Impact</a>
+<a href="#contact">Team</a>
+<a href="#partners">Partners</a>
+</div>
+<button aria-label="Open navigation menu" class="mobile-menu-btn">☰</button>
+<div class="mobile-nav">
+<a href="#hero">LEGION</a>
+<a href="#news">News</a>
+<a href="#about">Project</a>
+<a href="#methodology">Innovation</a>
+<a href="#impact">Impact</a>
+<a href="#contact">Team</a>
+<a href="#partners">Partners</a>
+</div>
+</nav>
+<main>
+<section class="hero" id="hero">
+<div class="hero-content">
+<p class="hero-tagline">HERITAGE SCIENCE AUSTRIA 2.0</p>
+<h1>LEGION</h1>
+<p class="hero-subtitle">machine LEarninG-enabled Identification of archaeological Objects in the middle daNube river basin.</p>
+<p class="hero-description">Decoding the history of Roman Carnuntum through automated classification of common ware pottery using cutting-edge Machine Learning.</p>
+<a class="cta-button" href="#news">EXPLORE PROJECT</a>
+</div>
+<div class="hero-image">
+<div class="model-loader"></div>
+<model-viewer alt="3D Model of the Roman Jug" ar="" auto-rotate="" camera-controls="" camera-orbit="30deg 75deg 180%" disable-zoom="" environment-image="neutral" exposure="1.2" interaction-prompt="none" poster="assets/hero-jug.png" shadow-intensity="1" src="assets/jug1k.glb" style="width: 100%; height: 100%; background-color: transparent;" touch-action="pan-y">
+</model-viewer>
+</div>
+<div class="gradient-blob blob-1"></div>
+<a aria-label="Scroll down to news" class="scroll-indicator" href="#news">
+<div class="mouse"></div>
+</a>
+</section>
+<section id="news">
+<span class="section-label">Latest Updates</span>
+<h2 class="section-title">Project News</h2>
+<div class="grid">
+<div class="card reveal" style="border-bottom: 4px solid var(--brand-bridge);">
+<p style="color: var(--brand-bridge); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;">Coming Soon</p>
+<h3>First Data Release</h3>
+<p>We are currently preparing the first batch of digitised archaeological drawings for public release.</p>
+</div>
+<div class="card reveal" style="padding: 0; border-bottom: 4px solid var(--cyan); display: flex; flex-direction: column;">
+<img alt="E-RIHS.at Logo" height="225" loading="lazy" src="assets/news_erihs.png" style="width: 100%; aspect-ratio: 16/9; object-fit: contain; background: #ffffff; padding: 1.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.05);" width="400"/>
+<div style="padding: 2.5rem; flex: 1;">
+<p style="color: var(--cyan); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;">17 June 2026</p>
+<h3>Austria Joins E-RIHS</h3>
+<p>Austria has officially joined the European Research Infrastructure for Heritage Science (E-RIHS ERIC). Coordinated by the Austrian Archaeological Institute (OeAI/OeAW) through E-RIHS.at, this milestone strengthens international research cooperation and access to state-of-the-art facilities for cultural heritage preservation.</p>
+<a href="https://www.oeaw.ac.at/oeai/medien/newsarchiv/news-detail/beitritt-e-rihs-eric" rel="noopener" style="display: inline-block; margin-top: 1rem; color: var(--cyan); text-decoration: none; font-size: 0.9rem; font-weight: 600;" target="_blank">OeAI News (in German) →</a>
+</div>
+</div>
+<div class="card reveal" style="padding: 0; border-bottom: 4px solid var(--terracotta); display: flex; flex-direction: column;">
+<div class="card-image-wrapper" style="position: relative; overflow: hidden; display: block; line-height: 0;">
+<img alt="AI Factory Austria AI:AT (Photo: APA-Fotoservice / AI:AT)" height="225" loading="lazy" src="assets/news_ai_factory.jpg?v=1.2.3" style="width: 100%; aspect-ratio: 16/9; object-fit: cover; border-bottom: 1px solid rgba(255, 255, 255, 0.05); display: block;" width="400"/>
+<div class="photocredit-tooltip">Fotocredit: APA-Fotoservice / AI:AT</div>
+</div>
+<div style="padding: 2.5rem; flex: 1;">
+<p style="color: var(--terracotta); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;">15 June 2026</p>
+<h3>AI Factory Austria AI:AT</h3>
+<p>A delegation from the Austrian Academy of Sciences (ÖAW), including the LEGION project, visited the AI Factory Austria AI:AT in Vienna to explore collaboration opportunities. The visit focused on EuroHPC access, AI services, and research synergies with startups.</p>
+<a href="https://ai-at.eu/en/news/oeaw-delegation-visits-the-aiat-coworking-hub/" rel="noopener" style="display: inline-block; margin-top: 1rem; color: var(--terracotta); text-decoration: none; font-size: 0.9rem; font-weight: 600;" target="_blank">Full Report →</a>
+</div>
+</div>
+<div class="card reveal" style="padding: 0; border-bottom: 4px solid var(--terracotta); display: flex; flex-direction: column;">
+<img alt="Digital Frontiers Workshop" height="225" loading="lazy" src="assets/news_digital_frontiers_v6.png" style="width: 100%; aspect-ratio: 16/9; object-fit: cover; object-position: top; border-bottom: 1px solid rgba(255, 255, 255, 0.05);" width="400"/>
+<div style="padding: 2.5rem; flex: 1;">
+<p style="color: var(--terracotta); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;">22 May 2026</p>
+<h3>Workshop: Digital Frontiers</h3>
+<p>Dominik Hagmann presented "Reflections on AI Applications in Austrian Roman Archaeology" at the Digital Frontiers workshop, highlighting LEGION's Human-in-the-Loop approach, legacy data digitization, and the transparent, ethical use of Generative AI.</p>
+<div style="margin-top: 1rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+<a href="https://www.oeaw.ac.at/en/oeai/events/event-detail/digital-frontiers" rel="noopener" style="color: var(--terracotta); text-decoration: none; font-size: 0.9rem; font-weight: 600;" target="_blank">Event Details →</a>
+<a href="assets/20260522_Workshop_Digital-Frontiers_programme_web.pdf" rel="noopener" style="color: var(--terracotta); text-decoration: none; font-size: 0.9rem; font-weight: 600;" target="_blank">Programme (PDF) →</a>
+</div>
+</div>
+</div>
+<div class="card reveal" style="padding: 0; border-bottom: 4px solid var(--terracotta); display: flex; flex-direction: column;">
+<img alt="LEGION Presentation at MLA2S (Photo at the MLA2S: after Martin Kampel - modified using ChatGPT 5.5)" height="225" loading="lazy" src="assets/news_mla2s.jpg" style="width: 100%; aspect-ratio: 16/9; object-fit: cover; border-bottom: 1px solid rgba(255, 255, 255, 0.05);" width="400"/>
+<div style="padding: 2.5rem; flex: 1;">
+<p style="color: var(--terracotta); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;">11 May 2026</p>
+<h3>MLA2S Networking Seminar</h3>
+<p>Dominik Hagmann and Irene Ballester-Campos presented LEGION at the 9th Networking Seminar of the MLA2S platform, highlighting AI-enabled identification of archaeological objects from Carnuntum.</p>
+<a href="https://indico.global/event/17357/" rel="noopener" style="display: inline-block; margin-top: 1rem; color: var(--terracotta); text-decoration: none; font-size: 0.9rem; font-weight: 600;" target="_blank">Event Details →</a>
+</div>
+</div>
+<div class="card reveal" style="padding: 0; border-bottom: 4px solid var(--cyan); display: flex; flex-direction: column;">
+<img alt="MAIA Second General Meeting in Hainburg (Photo of Hainburg by Onur Birol/MAIA - modified using ChatGPT 5.5)" height="225" loading="lazy" src="assets/news_maia.jpg" style="width: 100%; aspect-ratio: 16/9; object-fit: cover; border-bottom: 1px solid rgba(255, 255, 255, 0.05);" width="400"/>
+<div style="padding: 2.5rem; flex: 1;">
+<p style="color: var(--cyan); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;">7 April 2026</p>
+<h3>MAIA General Meeting</h3>
+<p>Dominik Hagmann hosted the Second General Meeting of the MAIA COST Action in Hainburg, focusing on managing AI in archaeological research through interdisciplinary collaboration.</p>
+<a href="https://maiacost.eu/second-general-meeting-hainburg/" rel="noopener" style="display: inline-block; margin-top: 1rem; color: var(--cyan); text-decoration: none; font-size: 0.9rem; font-weight: 600;" target="_blank">Full Report →</a>
+</div>
+</div>
+</div>
+</section>
+<section id="about">
+<span class="section-label">Our Challenge</span>
+<h2 class="section-title">Fragmented Knowledge &amp; Data Overload</h2>
+<div class="grid">
+<div class="card reveal" style="border-bottom: 4px solid var(--terracotta);">
+<model-viewer alt="3D Model of a Folded Beaker" ar="" auto-rotate="" camera-controls="" disable-zoom="" environment-image="neutral" exposure="1.2" interaction-prompt="none" shadow-intensity="1" src="assets/folded_beaker1k.glb" style="width: 100%; height: 250px; background-color: transparent; margin-bottom: 1.5rem;" touch-action="pan-y">
+</model-viewer>
+<h3>The Manual Bottleneck</h3>
+<p>Traditional classification of everyday ceramics is too slow for massive, fragmented archaeological datasets. Huge amounts of data remain unassessed.</p>
+</div>
+<div class="card reveal" style="border-bottom: 4px solid var(--brand-bridge);">
+<model-viewer alt="3D Model of an Incense Bowl" ar="" auto-rotate="" camera-controls="" disable-zoom="" environment-image="neutral" exposure="1.2" interaction-prompt="none" shadow-intensity="1" src="assets/incense_bowl1k.glb" style="width: 100%; height: 250px; background-color: transparent; margin-bottom: 1.5rem;" touch-action="pan-y">
+</model-viewer>
+<h3>Untapped Data Points</h3>
+<p>Tens of thousands of technical 2D find drawings remain unclassified and unintegrated due to the sheer volume of material.</p>
+</div>
+<div class="card reveal" style="border-bottom: 4px solid var(--cyan);">
+<model-viewer alt="3D Model of a Roman Pot" ar="" auto-rotate="" camera-controls="" disable-zoom="" environment-image="neutral" exposure="1.2" interaction-prompt="none" shadow-intensity="1" src="assets/pot1k.glb" style="width: 100%; height: 250px; background-color: transparent; margin-bottom: 1.5rem;" touch-action="pan-y">
+</model-viewer>
+<h3>Some finds are more equal than other finds</h3>
+<p>Funding for mass finds is often restricted. Automated solutions are required to bridge this gap.</p>
+</div>
+</div>
+</section>
+<section id="methodology" style="background: rgba(255,255,255,0.01);">
+<span class="section-label">Our Innovation</span>
+<h2 class="section-title">AI-Enabled Archaeology</h2>
+<p style="margin-bottom: 3rem; font-size: 1.1rem; max-width: 800px;">LEGION introduces a <strong>Semi-supervised Computer Vision Pipeline</strong> leveraging thousands of historical documents for deep material insight.</p>
+<div class="grid">
+<div class="card reveal" style="padding: 0; border-bottom: 4px solid var(--terracotta); display: flex; flex-direction: column;">
+<img alt="Hybrid Data Input (Photo of analog file folders in the OeAI/OeAW's archive and LSNÖ's archaeological central depot at Hainburg by Dominik Hagmann and LSNÖ, modified using Gemini 3.1 Pro and ChatGPT 5.5)" height="300" loading="lazy" src="assets/method_data.jpg" style="width: 100%; aspect-ratio: 4/3; object-fit: cover; border-bottom: 1px solid rgba(255, 255, 255, 0.05);" width="400"/>
+<div style="padding: 2.5rem; flex: 1;">
+<h3>Hybrid Data Input</h3>
+<p>Processing over 70,000 2D drawings alongside their comprehensive archaeological metadata.</p>
+</div>
+</div>
+<div class="card reveal" style="padding: 0; border-bottom: 4px solid var(--brand-bridge); display: flex; flex-direction: column;">
+<img alt="Human-in-the-Loop" height="300" loading="lazy" src="assets/method_hitl.png" style="width: 100%; aspect-ratio: 4/3; object-fit: cover; border-bottom: 1px solid rgba(255, 255, 255, 0.05);" width="400"/>
+<div style="padding: 2.5rem; flex: 1;">
+<h3>Human-in-the-Loop (HITL)</h3>
+<p>eXplainable AI (XAI) ensures results are validated by experts to remain archaeologically robust.</p>
+</div>
+</div>
+<a class="card reveal clickable-card" href="https://github.com/LEGION-HSA-2-0" rel="noopener" style="padding: 0; border-bottom: 4px solid var(--cyan); display: flex; flex-direction: column; text-decoration: none; color: inherit;" target="_blank">
+<img alt="Open Source Integration Visualization" height="300" loading="lazy" src="assets/impact_opensource.png" style="width: 100%; aspect-ratio: 4/3; object-fit: cover; border-bottom: 1px solid rgba(255, 255, 255, 0.05);" width="400"/>
+<div style="padding: 2.5rem; flex: 1;">
+<h3>Open Source Integration</h3>
+<p>Fully open-source solutions hosted on GitHub, ensuring long-term accessibility and transparency for the global research community.</p>
+</div>
+</a>
+</div>
+</section>
+<section id="impact">
+<span class="section-label">Our Impact</span>
+<h2 class="section-title">New Socio-Economic Insights &amp; AI Tools</h2>
+<div class="grid">
+<div class="card reveal" style="padding: 0; border-bottom: 4px solid var(--terracotta); display: flex; flex-direction: column;">
+<img alt="Local Production &amp; Trade Visualization" height="300" loading="lazy" src="assets/impact_trade.png?v=1.1.1" style="width: 100%; aspect-ratio: 4/3; object-fit: cover; border-bottom: 1px solid rgba(255, 255, 255, 0.05);" width="400"/>
+<div style="padding: 2.5rem; flex: 1;">
+<h3>Local Production &amp; Trade</h3>
+<p>Revealing complex patterns in local production and tracking trade trends across the entire Middle Danube River Basin.</p>
+</div>
+</div>
+<div class="card reveal" style="padding: 0; border-bottom: 4px solid var(--brand-bridge); display: flex; flex-direction: column;">
+<img alt="New Typochronology Visualization" height="300" loading="lazy" src="assets/impact_typochronology.png" style="width: 100%; aspect-ratio: 4/3; object-fit: cover; border-bottom: 1px solid rgba(255, 255, 255, 0.05);" width="400"/>
+<div style="padding: 2.5rem; flex: 1;">
+<h3>New Typochronology</h3>
+<p>Establishing a completely new, data-driven typochronology of Roman Common Ware based on large scale analysis.</p>
+</div>
+</div>
+<a class="card reveal clickable-card" href="https://github.com/LEGION-HSA-2-0" rel="noopener" style="padding: 0; border-bottom: 4px solid var(--cyan); display: flex; flex-direction: column; text-decoration: none; color: inherit;" target="_blank">
+<img alt="High Classification Accuracy" height="300" loading="lazy" src="assets/method_accuracy.png" style="width: 100%; aspect-ratio: 4/3; object-fit: cover; border-bottom: 1px solid rgba(255, 255, 255, 0.05);" width="400"/>
+<div style="padding: 2.5rem; flex: 1;">
+<h3>Free &amp; Open-Source Classification Tool</h3>
+<p>A user-friendly, open-source tool built for rapid, automated typochronological dating with &gt;90% classification accuracy.</p>
+</div>
+</a>
+</div>
+</section>
+<section id="contact" style="background: rgba(255,255,255,0.01);">
+<span class="section-label">Our Team</span>
+<h2 class="section-title">Experts Behind LEGION</h2>
+<div style="display: flex; gap: 4rem; align-items: flex-start; flex-wrap: wrap;">
+<div style="flex: 1; min-width: 300px;">
+<p style="margin-bottom: 1.5rem; font-size: 1.1rem;">The LEGION project is a multi-disciplinary collaboration bridging the gap between archaeological expertise and advanced computational methods.</p>
+<p style="margin-bottom: 2rem; font-size: 1.1rem;">We are always looking for collaboration and feedback. Reach out to the project lead for inquiries regarding data, methodology, or partnership opportunities.</p>
+<div style="display: flex; flex-direction: column; gap: 1.5rem;">
+<a class="contact-link" href="https://www.oeaw.ac.at/oeai/forschung/historische-archaeologie/archaeologie-der-roemischen-provinzen-im-lateinischen-westen/legion" rel="noopener" style="display: flex; align-items: center; gap: 1rem; color: var(--text-main); text-decoration: none;" target="_blank">
+<div style="width: 40px; height: 40px; border-radius: 50%; background: var(--terracotta-glow); display: flex; align-items: center; justify-content: center; color: var(--terracotta);">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20"></path><path d="M2 12h20"></path><path d="M12 2a14.5 14.5 0 0 1 0 20"></path></svg>
+</div>
+<div>
+<span style="display: block; font-size: 0.8rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px;">OeAW</span>
+<strong style="font-size: 1.1rem;">Official Project Page @OeAI</strong>
+</div>
+</a>
+<a class="contact-link" href="https://cvl.tuwien.ac.at/research/projects/legion/" rel="noopener" style="display: flex; align-items: center; gap: 1rem; color: var(--text-main); text-decoration: none;" target="_blank">
+<div style="width: 40px; height: 40px; border-radius: 50%; background: var(--brand-bridge-glow); display: flex; align-items: center; justify-content: center; color: var(--brand-bridge);">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20"></path><path d="M2 12h20"></path><path d="M12 2a14.5 14.5 0 0 1 0 20"></path></svg>
+</div>
+<div>
+<span style="display: block; font-size: 0.8rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px;">TU Wien</span>
+<strong style="font-size: 1.1rem;">Official Project Page @CVL</strong>
+</div>
+</a>
+<a class="contact-link" href="https://github.com/LEGION-HSA-2-0" rel="noopener" style="display: flex; align-items: center; gap: 1rem; color: var(--text-main); text-decoration: none;" target="_blank">
+<div style="width: 40px; height: 40px; border-radius: 50%; background: var(--cyan-glow); display: flex; align-items: center; justify-content: center; color: var(--cyan);">
+<svg fill="currentColor" height="20" viewbox="0 0 24 24" width="20"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.43.372.823 1.102.823 2.222 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path></svg>
+</div>
+<div>
+<span style="display: block; font-size: 0.8rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px;">GitHub</span>
+<strong style="font-size: 1.1rem;">Open Source Repository</strong>
+</div>
+</a>
+</div>
+</div>
+<div style="flex: 1; min-width: 300px;">
+<div style="display: flex; flex-wrap: wrap; gap: 2rem;">
+<div class="card" style="flex: 1; min-width: 250px; border-top: 2px solid var(--terracotta);">
+<h3 style="color: var(--terracotta); margin-bottom: 0.5rem; font-size: 1.25rem;">OeAI Team</h3>
+<p style="font-size: 0.9rem; color: var(--text-dim); margin-bottom: 1rem;">Austrian Archaeological Institute (OeAI/OeAW)</p>
+<div style="font-size: 0.9rem; line-height: 1.6;">
+<div class="researcher-entry">
+<div class="researcher-info">
+<span class="researcher-name">Dominik Hagmann</span>
+<span class="researcher-meta">PI</span>
+</div>
+<div class="researcher-links">
+<a class="profile-link orcid" href="https://orcid.org/0000-0002-4481-6234" rel="noopener" target="_blank" title="ORCID Profile">
+<svg preserveaspectratio="xMidYMid" viewbox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M256 128c0 70.692-57.308 128-128 128C57.308 256 0 198.692 0 128 0 57.308 57.308 0 128 0c70.692 0 128 57.308 128 128" fill="#A6CE39"></path><path d="M86.3 186.2H70.9V79.1h15.4v107.1zM108.9 79.1h36.6c33.6 0 52.8 23.3 52.8 53.5 0 30.2-19.2 53.5-52.8 53.5h-36.6V79.1zm15.4 91.7h20.4c25.6 0 38.1-15.8 38.1-38.1 0-22.4-12.5-38.1-38.1-38.1h-20.4v76.2zM86.3 61.6c0 4.4-3.5 8-8 8s-8-3.5-8-8 3.5-8 8-8 8 3.5 8 8" fill="#FFF"></path></svg>
+</a>
+<a class="profile-link web" href="https://homepage.univie.ac.at/dominik.hagmann" rel="noopener" target="_blank" title="Personal Website">
+<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20"></path><path d="M2 12h20"></path><path d="M12 2a14.5 14.5 0 0 1 0 20"></path></svg>
+</a>
+</div>
+</div>
+<div class="researcher-entry">
+<div class="researcher-info">
+<span class="researcher-name">Silvia Radbauer</span>
+<span class="researcher-meta">Co-PI</span>
+</div>
+<div class="researcher-links">
+<a class="profile-link web" href="https://www.oeaw.ac.at/oeai/institut/team/person/silvia-radbauer" rel="noopener" target="_blank" title="Institutional Profile">
+<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20"></path><path d="M2 12h20"></path><path d="M12 2a14.5 14.5 0 0 1 0 20"></path></svg>
+</a>
+</div>
+</div>
+<div class="researcher-entry">
+<div class="researcher-info">
+<span class="researcher-name">Julia Tanzer</span>
+<span class="researcher-meta">Student Assistant</span>
+</div>
+</div>
+</div>
+</div>
+<div class="card" style="flex: 1; min-width: 250px; border-top: 2px solid var(--cyan);">
+<h3 style="color: var(--cyan); margin-bottom: 0.5rem; font-size: 1.25rem;">CVL Team</h3>
+<p style="font-size: 0.9rem; color: var(--text-dim); margin-bottom: 1rem;">Computer Vision Lab, TU Wien</p>
+<div style="font-size: 0.9rem; line-height: 1.6;">
+<div class="researcher-entry">
+<div class="researcher-info">
+<span class="researcher-name">Irene Ballester Campos</span>
+<span class="researcher-meta">Co-PI</span>
+</div>
+<div class="researcher-links">
+<a class="profile-link orcid" href="https://orcid.org/0000-0002-0219-9063" rel="noopener" target="_blank" title="ORCID Profile">
+<svg preserveaspectratio="xMidYMid" viewbox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M256 128c0 70.692-57.308 128-128 128C57.308 256 0 198.692 0 128 0 57.308 57.308 0 128 0c70.692 0 128 57.308 128 128" fill="#A6CE39"></path><path d="M86.3 186.2H70.9V79.1h15.4v107.1zM108.9 79.1h36.6c33.6 0 52.8 23.3 52.8 53.5 0 30.2-19.2 53.5-52.8 53.5h-36.6V79.1zm15.4 91.7h20.4c25.6 0 38.1-15.8 38.1-38.1 0-22.4-12.5-38.1-38.1-38.1h-20.4v76.2zM86.3 61.6c0 4.4-3.5 8-8 8s-8-3.5-8-8 3.5-8 8-8 8 3.5 8 8" fill="#FFF"></path></svg>
+</a>
+<a class="profile-link web" href="https://cvl.tuwien.ac.at/staff/irene-ballester-campos/" rel="noopener" target="_blank" title="University Profile">
+<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20"></path><path d="M2 12h20"></path><path d="M12 2a14.5 14.5 0 0 1 0 20"></path></svg>
+</a>
+</div>
+</div>
+<div class="researcher-entry">
+<div class="researcher-info">
+<span class="researcher-name">Martin Kampel</span>
+<span class="researcher-meta">Co-PI</span>
+</div>
+<div class="researcher-links">
+<a class="profile-link orcid" href="https://orcid.org/0000-0002-5217-2854" rel="noopener" target="_blank" title="ORCID Profile">
+<svg preserveaspectratio="xMidYMid" viewbox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M256 128c0 70.692-57.308 128-128 128C57.308 256 0 198.692 0 128 0 57.308 57.308 0 128 0c70.692 0 128 57.308 128 128" fill="#A6CE39"></path><path d="M86.3 186.2H70.9V79.1h15.4v107.1zM108.9 79.1h36.6c33.6 0 52.8 23.3 52.8 53.5 0 30.2-19.2 53.5-52.8 53.5h-36.6V79.1zm15.4 91.7h20.4c25.6 0 38.1-15.8 38.1-38.1 0-22.4-12.5-38.1-38.1-38.1h-20.4v76.2zM86.3 61.6c0 4.4-3.5 8-8 8s-8-3.5-8-8 3.5-8 8-8 8 3.5 8 8" fill="#FFF"></path></svg>
+</a>
+<a class="profile-link web" href="https://cvl.tuwien.ac.at/staff/martin-kampel/" rel="noopener" target="_blank" title="University Profile">
+<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20"></path><path d="M2 12h20"></path><path d="M12 2a14.5 14.5 0 0 1 0 20"></path></svg>
+</a>
+</div>
+</div>
+<div class="researcher-entry">
+<div class="researcher-info">
+<span class="researcher-name">Sebastian Zambanini</span>
+<span class="researcher-meta">Co-PI</span>
+</div>
+<div class="researcher-links">
+<a class="profile-link orcid" href="https://orcid.org/0000-0002-3459-8122" rel="noopener" target="_blank" title="ORCID Profile">
+<svg preserveaspectratio="xMidYMid" viewbox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M256 128c0 70.692-57.308 128-128 128C57.308 256 0 198.692 0 128 0 57.308 57.308 0 128 0c70.692 0 128 57.308 128 128" fill="#A6CE39"></path><path d="M86.3 186.2H70.9V79.1h15.4v107.1zM108.9 79.1h36.6c33.6 0 52.8 23.3 52.8 53.5 0 30.2-19.2 53.5-52.8 53.5h-36.6V79.1zm15.4 91.7h20.4c25.6 0 38.1-15.8 38.1-38.1 0-22.4-12.5-38.1-38.1-38.1h-20.4v76.2zM86.3 61.6c0 4.4-3.5 8-8 8s-8-3.5-8-8 3.5-8 8-8 8 3.5 8 8" fill="#FFF"></path></svg>
+</a>
+<a class="profile-link web" href="https://cvl.tuwien.ac.at/staff/sebastian-zambanini/" rel="noopener" target="_blank" title="University Profile">
+<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20"></path><path d="M2 12h20"></path><path d="M12 2a14.5 14.5 0 0 1 0 20"></path></svg>
+</a>
+</div>
+</div>
+<div class="researcher-entry">
+<div class="researcher-info">
+<span class="researcher-name">Valentina Naghavi</span>
+<span class="researcher-meta">Master's student</span>
+</div>
+<div class="researcher-links">
+<a class="profile-link web" href="https://www.linkedin.com/in/valentina-naghavi-37a6082b9/" rel="noopener" target="_blank" title="LinkedIn Profile">
+<svg fill="currentColor" viewbox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path></svg>
+</a>
+</div>
+</div>
+<div class="researcher-entry">
+<div class="researcher-info">
+<span class="researcher-name">Anna Laczkó</span>
+<span class="researcher-meta">Master's student</span>
+</div>
+<div class="researcher-links">
+<a class="profile-link web" href="https://www.linkedin.com/in/anna-laczko/" rel="noopener" target="_blank" title="LinkedIn Profile">
+<svg fill="currentColor" viewbox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div></section>
+<section id="partners">
+<span class="section-label">Our Partners</span>
+<h2 class="section-title">Leading Institutions</h2>
+<div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+<a class="partner-card" href="https://www.oeaw.ac.at/oeai/" rel="noopener" target="_blank">
+<img alt="OeAI Logo" height="80" loading="lazy" src="assets/logo-oeaw.png"/>
+<h4>OeAI / OeAW</h4>
+<p>Austrian Archaeological Institute</p>
+</a>
+<a class="partner-card" href="https://cvl.tuwien.ac.at/" rel="noopener" target="_blank">
+<img alt="CVL Logo" height="80" loading="lazy" src="assets/cvl_logo.png"/>
+<h4>CVL / TU WIEN</h4>
+<p>Computer Vision Lab</p>
+</a>
+<a class="partner-card" href="https://www.oeaw.ac.at/acdh/" rel="noopener" target="_blank">
+<img alt="ACDH Logo" height="80" loading="lazy" src="assets/logo-acdh.png"/>
+<h4>ACDH</h4>
+<p>Austrian Centre for Digital Humanities</p>
+</a>
+<a class="partner-card" href="https://www.landessammlungen-noe.at/" rel="noopener" target="_blank">
+<img alt="LASC Logo" height="80" loading="lazy" src="assets/logo-lasc.png"/>
+<h4>LSNÖ</h4>
+<p>Lower Austrian State Collections</p>
+</a>
+<a class="partner-card" href="https://www.carnuntum.at/" rel="noopener" target="_blank">
+<img alt="Carnuntum Logo" height="80" loading="lazy" src="assets/logo-carnuntum.png"/>
+<h4>CARNUNTUM</h4>
+<p>Roman City Carnuntum</p>
+</a>
+<a class="partner-card" href="https://www.wienmuseum.at/" rel="noopener" target="_blank">
+<img alt="Wien Museum Logo" height="80" loading="lazy" src="assets/logo-wienmuseum.png"/>
+<h4>WIEN MUSEUM</h4>
+<p>Vienna Museum</p>
+</a>
+<a class="partner-card" href="https://www.donau-uni.ac.at/" rel="noopener" target="_blank">
+<img alt="UWK Logo" height="80" loading="lazy" src="assets/logo-uwk.png"/>
+<h4>UWK</h4>
+<p>University for Continuing Education Krems</p>
+</a>
+</div>
+</section>
+</main>
+<footer>
+<div class="footer-content">
+<div class="footer-brand">
+<a class="logo" href="#" style="height: 100px; width: 100px; margin-bottom: 2rem;">
+<img alt="LEGION Logo" height="100" loading="lazy" src="assets/logo.png" width="100"/>
+</a>
+<p style="max-width: 300px; font-size: 0.9rem; color: var(--text-dim);">LEGION: machine LEarninG-enabled Identification of archaeological Objects in the middle daNube river basin.</p>
+</div>
+<div class="footer-links">
+<h4>Project</h4>
+<ul>
+<li><a href="#hero">LEGION</a></li>
+<li><a href="#news">News</a></li>
+<li><a href="#about">Project</a></li>
+<li><a href="#methodology">Innovation</a></li>
+<li><a href="#impact">Impact</a></li>
+<li><a href="#contact">Team</a></li>
+<li><a href="#partners">Partners</a></li>
+</ul>
+</div>
+<div class="footer-links">
+<h4>3D Assets</h4>
+<div class="asset-credit">
+<img alt="Landessammlungen NOE Logo" class="asset-logo" loading="lazy" src="https://media.sketchfab.com/avatars/a371dd4670814f9785326b41b544db1d/f0085c684d114b61b9b73c855f8276b7.jpeg"/>
+<div class="asset-info">
+<div style="margin-bottom: 2px;">
+<span style="color: var(--text-dim); font-size: 0.9rem;">Provided by </span>
+<a class="asset-link" href="https://sketchfab.com/landessammlungen-noe" rel="noopener" style="display: inline;" target="_blank">LSNÖ</a>
+</div>
+<span class="asset-license">CC Attribution-NonCommercial</span>
+</div>
+</div>
+</div>
+<div class="footer-links">
+<h4>Legal</h4>
+<ul>
+<li><a href="legal.html">Imprint &amp; Data Privacy</a></li>
+</ul>
+</div>
+<div class="footer-funding-card" style="max-width: 400px;">
+<h4 style="color: var(--terracotta); margin-top: 0;">Funding</h4>
+<p style="font-size: 0.85rem; color: var(--text-dim); margin-bottom: 1.5rem;">LEGION is funded by the <strong><a href="https://www.oeaw.ac.at/en/funding/heritage-science-austria" rel="noopener" style="color: inherit; text-decoration: underline;" target="_blank">Heritage Science Austria 2.0</a></strong> program under the program responsibility of the <strong><a href="https://www.oeaw.ac.at/" rel="noopener" style="color: inherit; text-decoration: underline;" target="_blank">Austrian Academy of Sciences (OeAW)</a></strong>.</p>
+<div style="display: flex; gap: 2rem; font-size: 0.8rem; color: var(--text-dim);">
+<div>
+<strong style="color: white; display: block; margin-bottom: 4px;">Grant Number</strong>
                         Heritage_2024-12_LEGION
                     </div>
-                    <div>
-                        <strong style="color: white; display: block; margin-bottom: 4px;">Duration</strong>
+<div>
+<strong style="color: white; display: block; margin-bottom: 4px;">Duration</strong>
                         02/2026 - 01/2028
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <div class="footer-bottom-top">
-                <div class="license-container">
-                    <div class="license-item">
-                        <a rel="license" href="http://creativecommons.org/licenses/by/4.0/" target="_blank" title="Creative Commons Attribution 4.0 International">
-                            <img alt="CC BY 4.0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" />
-                        </a>
-                        <span>Website content licensed under <a rel="license" href="http://creativecommons.org/licenses/by/4.0/" target="_blank" style="color: inherit; text-decoration: underline;">CC BY 4.0</a>.</span>
-                    </div>
-                    <div class="license-item">
-                        <a href="https://opensource.org/licenses/MIT" target="_blank" title="MIT License">
-                            <img alt="MIT License" style="border-radius: 2px;" src="https://img.shields.io/badge/License-MIT-blue.svg" />
-                        </a>
-                        <span>Project code licensed under the <a href="https://opensource.org/licenses/MIT" target="_blank" style="color: inherit; text-decoration: underline;">MIT License</a>.</span>
-                    </div>
-                </div>
-                <div class="footer-copyright">
-                    <p>&copy; 2026 LEGION Project. <span style="opacity: 0.5; margin: 0 8px;">|</span> Website v1.1.1</p>
-                    <div class="footer-github-ref">
-                        <span style="font-size: 0.85rem;">Project source code on</span>
-                        <a href="https://github.com/LEGION-HSA-2-0" target="_blank" title="GitHub Repository">
-                            <img alt="GitHub" style="border-radius: 2px; height: 22px;" src="https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white" />
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="platform-info">
-                <span>Vibecoded using the agentic development platform</span>
-                <a href="https://antigravity.google/" title="Powered by Google Antigravity" target="_blank" style="display: flex; align-items: center; gap: 6px; color: #fff; text-decoration: none; font-weight: 500; background: rgba(255,255,255,0.05); padding: 4px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease;" onmouseover="this.style.background='rgba(255,255,255,0.1)'; this.style.transform='translateY(-1px)';" onmouseout="this.style.background='rgba(255,255,255,0.05)'; this.style.transform='translateY(0)';">
-                    <img src="assets/antigravity-logo.png" alt="Google Antigravity" width="14" height="14" style="object-fit: contain;">
+</div>
+</div>
+</div>
+<div class="footer-bottom">
+<div class="footer-bottom-top">
+<div class="license-container">
+<div class="license-item">
+<a href="http://creativecommons.org/licenses/by/4.0/" rel="license noopener" target="_blank" title="Creative Commons Attribution 4.0 International">
+<img alt="CC BY 4.0" loading="lazy" src="https://i.creativecommons.org/l/by/4.0/88x31.png"/>
+</a>
+<span>Website content licensed under <a href="http://creativecommons.org/licenses/by/4.0/" rel="license noopener" style="color: inherit; text-decoration: underline;" target="_blank">CC BY 4.0</a>.</span>
+</div>
+<div class="license-item">
+<a href="https://opensource.org/licenses/MIT" rel="noopener" target="_blank" title="MIT License">
+<img alt="MIT License" loading="lazy" src="https://img.shields.io/badge/License-MIT-blue.svg" style="border-radius: 2px;"/>
+</a>
+<span>Project code licensed under the <a href="https://opensource.org/licenses/MIT" rel="noopener" style="color: inherit; text-decoration: underline;" target="_blank">MIT License</a>.</span>
+</div>
+</div>
+<div class="footer-copyright">
+<p>© 2026 LEGION Project. <span style="opacity: 0.5; margin: 0 8px;">|</span> Website v1.1.1</p>
+<div class="footer-github-ref">
+<span style="font-size: 0.85rem;">Project source code on</span>
+<a href="https://github.com/LEGION-HSA-2-0" rel="noopener" target="_blank" title="GitHub Repository">
+<img alt="GitHub" loading="lazy" src="https://img.shields.io/badge/GitHub-181717?logo=github&amp;logoColor=white" style="border-radius: 2px; height: 22px;"/>
+</a>
+</div>
+</div>
+</div>
+<div class="platform-info">
+<span>Vibecoded using the agentic development platform</span>
+<a href="https://antigravity.google/" onmouseout="this.style.background='rgba(255,255,255,0.05)'; this.style.transform='translateY(0)';" onmouseover="this.style.background='rgba(255,255,255,0.1)'; this.style.transform='translateY(-1px)';" rel="noopener" style="display: flex; align-items: center; gap: 6px; color: #fff; text-decoration: none; font-weight: 500; background: rgba(255,255,255,0.05); padding: 4px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease;" target="_blank" title="Powered by Google Antigravity">
+<img alt="Google Antigravity" height="14" loading="lazy" src="assets/antigravity-logo.png" style="object-fit: contain;" width="14"/>
                     Google Antigravity
                 </a>
-                <span style="font-size: 0.75rem; background: rgba(255,255,255,0.05); padding: 3px 8px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); color: var(--text-dim);">v1.1 &bull; <a href="https://deepmind.google/models/gemini/" target="_blank" style="color: inherit; text-decoration: underline; text-underline-offset: 2px; transition: color 0.2s ease;" onmouseover="this.style.color='#fff';" onmouseout="this.style.color='inherit';">Gemini 3.1 Pro</a></span>
-            </div>
-        </div>
-    </footer>
-
-    <div class="side-nav">
-        <a href="#hero" class="side-dot" data-label="Top"></a>
-        <a href="#news" class="side-dot" data-label="News"></a>
-        <a href="#about" class="side-dot" data-label="Project"></a>
-        <a href="#methodology" class="side-dot" data-label="Innovation"></a>
-        <a href="#impact" class="side-dot" data-label="Impact"></a>
-        <a href="#contact" class="side-dot" data-label="Team"></a>
-        <a href="#partners" class="side-dot" data-label="Partners"></a>
-    </div>
-
-    <script src="main.js?v=1.0.2"></script>
+<span style="font-size: 0.75rem; background: rgba(255,255,255,0.05); padding: 3px 8px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); color: var(--text-dim);">v1.1 • <a href="https://deepmind.google/models/gemini/" onmouseout="this.style.color='inherit';" onmouseover="this.style.color='#fff';" rel="noopener" style="color: inherit; text-decoration: underline; text-underline-offset: 2px; transition: color 0.2s ease;" target="_blank">Gemini 3.1 Pro</a></span>
+</div>
+</div>
+</footer>
+<div class="side-nav">
+<a class="side-dot" data-label="Top" href="#hero"></a>
+<a class="side-dot" data-label="News" href="#news"></a>
+<a class="side-dot" data-label="Project" href="#about"></a>
+<a class="side-dot" data-label="Innovation" href="#methodology"></a>
+<a class="side-dot" data-label="Impact" href="#impact"></a>
+<a class="side-dot" data-label="Team" href="#contact"></a>
+<a class="side-dot" data-label="Partners" href="#partners"></a>
+</div>
+<script src="main.js?v=1.0.2"></script>
 </body>
 </html>
