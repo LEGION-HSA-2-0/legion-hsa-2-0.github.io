@@ -116,14 +116,48 @@ function smoothAnimate() {
 
 smoothAnimate();
 
-// 3D Model Fade-in & Loading
+// 3D Model Fade-in & Progress Bar Loading
 const modelViewers = document.querySelectorAll('model-viewer');
 modelViewers.forEach(viewer => {
-    viewer.addEventListener('load', () => {
-        viewer.classList.add('visible');
-        const loader = viewer.parentElement.querySelector('.model-loader');
-        if (loader) loader.remove();
-    });
+    const container = viewer.parentElement;
+    const loader = container ? container.querySelector('.model-loader-container') : null;
+    
+    if (loader) {
+        const fill = loader.querySelector('.model-loader-fill');
+        const percentText = loader.querySelector('.model-loader-percent');
+
+        const updateProgress = (progress) => {
+            const percentage = Math.min(Math.max(Math.round(progress * 100), 0), 100);
+            if (fill) fill.style.width = `${percentage}%`;
+            if (percentText) percentText.textContent = `${percentage}%`;
+        };
+
+        viewer.addEventListener('progress', (event) => {
+            updateProgress(event.detail.totalProgress);
+        });
+
+        const onComplete = () => {
+            updateProgress(1.0);
+            viewer.classList.add('visible');
+            setTimeout(() => {
+                loader.style.opacity = '0';
+                loader.style.transform = 'translate(-50%, -50%) scale(0.95)';
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 500);
+            }, 200);
+        };
+
+        if (viewer.loaded) {
+            onComplete();
+        } else {
+            viewer.addEventListener('load', onComplete, { once: true });
+        }
+    } else {
+        viewer.addEventListener('load', () => {
+            viewer.classList.add('visible');
+        }, { once: true });
+    }
 });
 // Scroll Spy: Highlight active nav link & side dots
 const sections = document.querySelectorAll('section, footer');
