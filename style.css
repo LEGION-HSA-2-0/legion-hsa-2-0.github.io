@@ -537,6 +537,28 @@ section {
     font-size: 0.95rem;
 }
 
+.card-body-scrollable {
+    max-height: 250px;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+    scrollbar-width: thin;
+    scrollbar-color: var(--terracotta) rgba(255, 255, 255, 0.05);
+}
+
+.card-body-scrollable::-webkit-scrollbar {
+    width: 5px;
+}
+
+.card-body-scrollable::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 3px;
+}
+
+.card-body-scrollable::-webkit-scrollbar-thumb {
+    background-color: var(--terracotta);
+    border-radius: 3px;
+}
+
 .clickable-card {
     cursor: pointer;
     text-decoration: none;
