@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LEGION - Interactive Map Carnuntum (Draft)</title>
+    <meta name="description" content="Interactive archaeological map of Roman Carnuntum featuring GIS background sectors and common ware pottery findspots in the Middle Danube region - LEGION Project (Draft).">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Zilla+Slab:wght@600;700&display=swap" rel="stylesheet">
+    
+    <!-- Leaflet CSS & Google Model-Viewer -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js" type="module"></script>
+
+    <!-- Project Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* Leaflet Scale Control Customization */
+        .leaflet-control-scale {
+            margin-left: 16px !important;
+            margin-bottom: 16px !important;
+        }
+
+        .leaflet-control-scale-line {
+            background: rgba(14, 20, 28, 0.9) !important;
+            border: 1px solid rgba(0, 181, 204, 0.6) !important;
+            border-top: none !important;
+            color: #ffffff !important;
+            font-family: 'Inter', sans-serif !important;
+            font-size: 11px !important;
+            font-weight: 600 !important;
+            padding: 3px 8px !important;
+            border-radius: 0 0 4px 4px !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6) !important;
+            backdrop-filter: blur(8px);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+        }
+        
+        /* Enforce single scale bar (hide any secondary or imperial scale line) */
+        .leaflet-control-scale-line:nth-child(n+2) {
+            display: none !important;
+        }
+
+        .map-attribution-box {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            line-height: 1.4;
+        }
+
+        .map-attribution-box a {
+            color: var(--cyan);
+            text-decoration: none;
+        }
+
+        .map-attribution-box a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body class="map-page">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="scrolled">
+        <a href="index.html" class="logo">
+            <img src="assets/logo.webp" alt="LEGION Logo">
+        </a>
+        <div class="nav-links">
+            <a href="index.html">← Back to Main Page</a>
+            <a href="index.html#research">Research</a>
+            <a href="index.html#models">3D Models</a>
+            <a href="index.html#news">News</a>
+            <a href="#" class="active">Map (Draft)</a>
+        </div>
+    </nav>
+
+    <!-- Page Wrapper -->
+    <div class="map-page-wrapper">
+        
+        <!-- Header Section -->
+        <header class="map-header-section">
+            <div class="map-draft-badge">
+                INTERNAL DRAFT • UNPUBLISHED
+            </div>
+            <h1 class="map-title">Interactive Map: Roman Carnuntum</h1>
+            <p class="map-subtitle">
+                Explore archaeological background sectors (GIS polygons), military fortifications, civil settlements, pottery kilns, and necropolises in the Middle Danube region.
+            </p>
+        </header>
+
+        <!-- Interactive Map Layout -->
+        <main class="map-layout">
+            
+            <!-- Map Target Container -->
+            <div id="carnuntum-map"></div>
+
+            <!-- Floating Control Panel (Left Overlay) -->
+            <div class="map-floating-panel">
+                
+                <!-- Quick Search & Jump -->
+                <div class="map-control-card">
+                    <div class="map-search-box">
+                        <span class="map-search-icon">🔍</span>
+                        <input type="text" id="map-search" class="map-search-input" placeholder="Search site or monument...">
+                    </div>
+                    <div class="map-jump-select-wrapper">
+                        <select id="jump-select" class="map-jump-select">
+                            <option value="">-- Quick Jump to Site --</option>
+                            <option value="heidentor">Heidentor (Triumphal Monument)</option>
+                            <option value="legionslager">Legionary Fortress &amp; Fortifications</option>
+                            <option value="canabae">Canabae Legionis (Military Settlement)</option>
+                            <option value="zivilstadt">Civil Town &amp; Forum</option>
+                            <option value="toepferei">Pottery District &amp; Kilns</option>
+                            <option value="amphi1">Amphitheatre I (Civil Town)</option>
+                            <option value="amphi2">Amphitheatre II (Military)</option>
+                            <option value="pfaffenberg">Pfaffenberg Sanctuary</option>
+                            <option value="auxiliar">Auxiliary Fort Carnuntum</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Category Filters & Layer Controls -->
+                <div class="map-control-card">
+                    <div style="font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; font-weight: 600;">
+                        Filter Categories
+                    </div>
+                    <div class="map-filter-group" id="filter-group">
+                        <button class="filter-pill active" data-category="all">
+                            <span>🌐</span> All (9)
+                        </button>
+                        <button class="filter-pill" data-category="military">
+                            <span>⚔️</span> Military (4)
+                        </button>
+                        <button class="filter-pill" data-category="ceramic">
+                            <span>🏺</span> Ceramics &amp; Economy (3)
+                        </button>
+                        <button class="filter-pill" data-category="civic">
+                            <span>🏛️</span> Civil Town (2)
+                        </button>
+                        <button class="filter-pill" data-category="sacred">
+                            <span>⛩️</span> Sanctuary (1)
+                        </button>
+                    </div>
+
+                    <div style="margin-top: 12px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.08);">
+                        <div style="font-size: 0.72rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; font-weight: 600;">
+                            GIS Background Layer
+                        </div>
+                        <label style="display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: white; cursor: pointer; user-select: none; margin-bottom: 8px;">
+                            <input type="checkbox" id="toggle-geojson" checked style="accent-color: var(--cyan); cursor: pointer; width: 16px; height: 16px;">
+                            <span>🗺️ Archaeological Sectors (23 Polygons)</span>
+                        </label>
+                        <button id="fit-geojson-btn" class="map-popup-btn" style="width: 100%; font-size: 0.72rem; padding: 4px 8px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);">
+                            🔍 Center on GIS Sectors
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Legend Card -->
+                <div class="map-control-card" style="font-size: 0.75rem;">
+                    <div style="color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; font-weight: 600;">
+                        GIS Sectors Legend (Color Ramp)
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; color: var(--text-main);">
+                        <div style="display: flex; align-items: center; gap: 6px;">
+                            <span style="display: inline-block; width: 14px; height: 14px; background: rgba(212, 106, 67, 0.5); border: 2px solid #D46A43; border-radius: 3px;"></span>
+                            Military
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 6px;">
+                            <span style="display: inline-block; width: 14px; height: 14px; background: rgba(229, 169, 60, 0.5); border: 2px dashed #E5A93C; border-radius: 3px;"></span>
+                            Necropolis
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 6px;">
+                            <span style="display: inline-block; width: 14px; height: 14px; background: rgba(106, 143, 135, 0.5); border: 2px solid #6A8F87; border-radius: 3px;"></span>
+                            Settlement
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 6px;">
+                            <span style="display: inline-block; width: 14px; height: 14px; background: rgba(0, 181, 204, 0.5); border: 2px solid #00B5CC; border-radius: 3px;"></span>
+                            Public / Civic
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data Sources & Attribution Card -->
+                <div class="map-control-card map-attribution-box">
+                    <div style="color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; font-weight: 600;">
+                        Data Sources &amp; Attribution
+                    </div>
+                    <div>• <strong>Base Maps:</strong> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>, <a href="https://carto.com/" target="_blank">CARTO</a>, <a href="https://www.esri.com/" target="_blank">Esri World Imagery</a></div>
+                    <div>• <strong>GIS Sectors:</strong> AV Hintergrund Carnuntum (UWK / OeAW / OeAI)</div>
+                    <div>• <strong>Ceramic Analytics:</strong> <a href="https://legion-hsa-2-0.github.io/" target="_blank">LEGION HSA 2.0</a></div>
+                </div>
+
+            </div>
+
+            <!-- Base Layer Switcher (Bottom Left) -->
+            <div class="map-layer-switcher" id="layer-switcher" style="bottom: 60px;">
+                <button class="layer-btn active" data-tile="dark">🌙 Dark Map</button>
+                <button class="layer-btn" data-tile="topo">🗺️ Topo / OSM</button>
+                <button class="layer-btn" data-tile="sat">🛰️ Satellite</button>
+            </div>
+
+            <!-- Map Stats Counter (Bottom Right) -->
+            <div class="map-stats-bar">
+                <span><strong id="visible-count">9</strong> Sites Loaded</span>
+                <span>•</span>
+                <span><strong id="geojson-count">23</strong> GIS Sectors</span>
+                <span>•</span>
+                <span><strong>4</strong> 3D Models</span>
+                <span>•</span>
+                <span>LEGION HSA 2.0</span>
+            </div>
+
+            <!-- Inspector Drawer (Slide-over Details Side Panel) -->
+            <aside class="map-drawer" id="map-drawer">
+                <div class="drawer-header">
+                    <div>
+                        <span class="map-popup-tag tag-military" id="drawer-tag">MILITARY</span>
+                        <h2 class="drawer-section-title" id="drawer-title" style="font-size: 1.4rem; color: white; margin-top: 4px;">Legionary Fortress Carnuntum</h2>
+                    </div>
+                    <button class="drawer-close-btn" id="drawer-close" title="Close">&times;</button>
+                </div>
+                <div class="drawer-body">
+                    <div class="drawer-img-wrapper">
+                        <img id="drawer-img" src="assets/hero-jug.webp" alt="Site preview">
+                    </div>
+
+                    <div class="drawer-meta-grid">
+                        <div class="drawer-meta-item">
+                            <span class="meta-label">Dating</span>
+                            <span class="meta-val" id="drawer-date">1st – 4th Cent. AD</span>
+                        </div>
+                        <div class="drawer-meta-item">
+                            <span class="meta-label">Coordinates</span>
+                            <span class="meta-val" id="drawer-coords">48.1172 N, 16.8574 E</span>
+                        </div>
+                        <div class="drawer-meta-item">
+                            <span class="meta-label">Feature Type</span>
+                            <span class="meta-val" id="drawer-type">Legionary Fortress</span>
+                        </div>
+                        <div class="drawer-meta-item">
+                            <span class="meta-label">LEGION Focus</span>
+                            <span class="meta-val" id="drawer-focus">Ceramic Analysis</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="drawer-section-title">Archaeological Context</h4>
+                        <p class="drawer-description" id="drawer-desc">
+                            The legionary fortress of Carnuntum served as the primary military stronghold on the Pannonian Limes. Stationed troops consumed vast quantities of local and imported coarse ceramic wares analyzed in the LEGION project.
+                        </p>
+                    </div>
+
+                    <!-- Interactive 3D Model Viewer Card (LEGION) -->
+                    <div class="drawer-artifact-card" id="drawer-artifact-container" style="flex-direction: column; align-items: stretch; gap: 8px;">
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <h5 id="drawer-artifact-title" style="color: var(--cyan); font-size: 0.95rem;">Interactive 3D Artifact</h5>
+                            <span style="font-size: 0.7rem; color: var(--text-dim); background: rgba(0, 181, 204, 0.15); padding: 2px 8px; border-radius: 10px;">Drag to Rotate</span>
+                        </div>
+                        <div id="drawer-3d-model-wrapper" style="width: 100%; height: 210px; border-radius: 8px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.08); overflow: hidden;">
+                            <!-- Dynamic <model-viewer> injected here -->
+                        </div>
+                    </div>
+
+                    <!-- Sketchfab 3D Model Collection Links (LSNÖ & Carnuntum 3D) -->
+                    <div class="drawer-artifact-card" id="drawer-sketchfab-container" style="background: rgba(229, 169, 60, 0.08); border-color: rgba(229, 169, 60, 0.3); flex-direction: column; align-items: stretch;">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span style="font-size: 1.5rem;">🧊</span>
+                            <div>
+                                <h5 id="drawer-sketchfab-title" style="color: white; font-size: 0.88rem;">Landessammlungen NÖ 3D Collections</h5>
+                                <p id="drawer-sketchfab-desc" style="font-size: 0.72rem; color: var(--text-dim);">Verified 3D models on Sketchfab (@landessammlungen-noe &amp; @www.noe-3d.at).</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 8px; margin-top: 10px;">
+                            <a id="drawer-sketchfab-link-1" href="https://sketchfab.com/landessammlungen-noe" target="_blank" rel="noopener" class="map-popup-btn" style="flex: 1; font-size: 0.72rem; padding: 6px 8px; background: linear-gradient(135deg, #E5A93C 0%, #D46A43 100%); border: none; text-decoration: none; text-align: center;">
+                                LSNÖ Sketchfab ↗
+                            </a>
+                            <a id="drawer-sketchfab-link-2" href="https://sketchfab.com/www.noe-3d.at" target="_blank" rel="noopener" class="map-popup-btn" style="flex: 1; font-size: 0.72rem; padding: 6px 8px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); text-decoration: none; text-align: center;">
+                                Carnuntum 3D ↗
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+        </main>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <!-- Map Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // 1. Archaeological Sites Data (Carnuntum Region - English)
+            const sites = [
+                {
+                    id: 'legionslager',
+                    title: 'Legionary Fortress Carnuntum',
+                    category: 'military',
+                    tagText: 'Military Fortress',
+                    lat: 48.1172,
+                    lng: 16.8574,
+                    date: '1st – 4th Century AD',
+                    type: 'Main Military Stronghold',
+                    focus: 'Legionary Common Ware',
+                    img: 'assets/hero-jug.webp',
+                    desc: 'The legionary fortress formed the military headquarters of the Pannonian Limes at Carnuntum. Stationed legions consumed massive quantities of local and imported common ware pottery analyzed in the LEGION project.',
+                    artifact: { title: 'Folded Beaker (Pannonian Common Ware)', file: 'folded_beaker1k.glb' },
+                    sketchfab: { title: '3D Model: Roman Legionary Armor & Helmet (Carnuntum Limes)', url: 'https://sketchfab.com/noe-3d/collections/carnuntum' }
+                },
+                {
+                    id: 'canabae',
+                    title: 'Canabae Legionis (Military Settlement)',
+                    category: 'ceramic',
+                    tagText: 'Ceramics & Trade',
+                    lat: 48.1147,
+                    lng: 16.8540,
+                    date: '1st – 3rd Century AD',
+                    type: 'Civil Settlement & Workshops',
+                    focus: 'Local Pottery Production & Trade',
+                    img: 'assets/impact_trade.webp',
+                    desc: 'Located immediately south and west of the fortress, the Canabae Legionis housed craftsmen, taverns, and pottery kilns supplying household ceramics to the Roman garrison.',
+                    artifact: { title: 'Roman One-Handled Jug', file: 'jug1k.glb' },
+                    sketchfab: { title: '3D Model: Roman Storage Jar & Oil Lamp (LSNÖ)', url: 'https://sketchfab.com/landessammlungen-noe' }
+                },
+                {
+                    id: 'heidentor',
+                    title: 'Heidentor (Heathen\'s Gate Triumphal Monument)',
+                    category: 'civic',
+                    tagText: 'Civil Town',
+                    lat: 48.1130,
+                    lng: 16.8565,
+                    date: 'Mid-4th Century AD (Constantius II)',
+                    type: 'Tetrapylon Triumphal Monument',
+                    focus: 'Late Antique Context',
+                    img: 'assets/impact_typochronology.webp',
+                    desc: 'The Heidentor is Carnuntum\'s most famous landmark. The late antique quadrifrons monument stood near the civilian town along major Amber Road trade routes.',
+                    artifact: null,
+                    sketchfab: { title: '3D Model: Heidentor Petronell-Carnuntum (LSNÖ / Twin It!)', url: 'https://sketchfab.com/landessammlungen-noe' }
+                },
+                {
+                    id: 'zivilstadt',
+                    title: 'Civil Town & Forum (Römerstadt)',
+                    category: 'civic',
+                    tagText: 'Civil Town',
+                    lat: 48.1169,
+                    lng: 16.8708,
+                    date: '2nd – 4th Century AD',
+                    type: 'Municipium / Provincial Capital',
+                    focus: 'Domestic Pottery & Public Baths',
+                    img: 'assets/method_data.webp',
+                    desc: 'The civilian town east of the fortress rose to become the capital of Pannonia Superior. Extensive ceramic finds from residential quarters and thermal baths document daily life.',
+                    artifact: { title: 'Incense Bowl / Cult Vessel', file: 'incense_bowl1k.glb' },
+                    sketchfab: { title: '3D Model: Roman Wall Painting & Civilian Household (LSNÖ)', url: 'https://sketchfab.com/noe-3d/collections/carnuntum' }
+                },
+                {
+                    id: 'toepferei',
+                    title: 'Pottery Kiln District (Common Ware)',
+                    category: 'ceramic',
+                    tagText: 'Ceramics & Trade',
+                    lat: 48.1120,
+                    lng: 16.8620,
+                    date: '2nd – 3rd Century AD',
+                    type: 'Pottery Workshop Area',
+                    focus: 'Primary LEGION AI Dataset Source',
+                    img: 'assets/method_accuracy.webp',
+                    desc: 'Archaeologically documented pottery production district with kilns dedicated to regional Pannonian coarse ware. Key area for semi-supervised AI classification models in LEGION.',
+                    artifact: { title: 'Pannonian Cooking Pot', file: 'pot1k.glb' },
+                    sketchfab: { title: '3D Model: Pannonian Coarseware Casserole & Kiln Artifacts (LSNÖ)', url: 'https://sketchfab.com/landessammlungen-noe' }
+                },
+                {
+                    id: 'amphi1',
+                    title: 'Amphitheatre I (Civilian Town)',
+                    category: 'civic',
+                    tagText: 'Civil Town',
+                    lat: 48.1174,
+                    lng: 16.8672,
+                    date: '2nd Century AD',
+                    type: 'Civil Entertainment Venue',
+                    focus: 'Stratigraphic Pottery Layers',
+                    img: 'assets/news_ai_factory.webp',
+                    desc: 'The civilian amphitheatre seated approximately 13,000 spectators. Stratigraphic ceramic deposits in fill layers provide key typochronological dating anchors.',
+                    artifact: null,
+                    sketchfab: { title: '3D Model: Civilian Spectacle & Amphitheatre Finds (LSNÖ)', url: 'https://sketchfab.com/noe-3d/collections/carnuntum' }
+                },
+                {
+                    id: 'amphi2',
+                    title: 'Amphitheatre II (Military Settlement)',
+                    category: 'military',
+                    tagText: 'Military Building',
+                    lat: 48.1147,
+                    lng: 16.8583,
+                    date: '1st – 2nd Century AD',
+                    type: 'Military Amphitheatre',
+                    focus: 'Timber Structures & Military Finds',
+                    img: 'assets/hero-jug.webp',
+                    desc: 'Situated near the legionary fortress, this amphitheatre was primarily utilized for military drills, parades, and spectacles for legionaries.',
+                    artifact: null,
+                    sketchfab: { title: '3D Model: School of Gladiators & Helmet Carnuntum (LSNÖ)', url: 'https://sketchfab.com/noe-3d/collections/carnuntum' }
+                },
+                {
+                    id: 'pfaffenberg',
+                    title: 'Pfaffenberg Sanctuary of Jupiter',
+                    category: 'sacred',
+                    tagText: 'Sanctuary',
+                    lat: 48.1228,
+                    lng: 16.9011,
+                    date: '1st – 4th Century AD',
+                    type: 'Hilltop Temple District',
+                    focus: 'Ritual & Cult Pottery',
+                    img: 'assets/impact_opensource.webp',
+                    desc: 'Located on the Pfaffenberg hill, this sanctuary was dedicated to Jupiter Optimus Maximus and the Imperial Cult. Specialized ritual vessels and incense burners dominate the ceramic assemblage.',
+                    artifact: { title: 'Cult Bowl / Incense Burner', file: 'incense_bowl1k.glb' },
+                    sketchfab: { title: '3D Model: Jupiter Votive Altar & Incense Vessel (LSNÖ)', url: 'https://sketchfab.com/noe-3d/collections/carnuntum' }
+                },
+                {
+                    id: 'auxiliar',
+                    title: 'Auxiliary Fort Carnuntum',
+                    category: 'military',
+                    tagText: 'Military Fort',
+                    lat: 48.1186,
+                    lng: 16.8789,
+                    date: '2nd – 4th Century AD',
+                    type: 'Cavalry Fort (Ala)',
+                    focus: 'Cavalry Equipment & Pottery',
+                    img: 'assets/method_hitl.webp',
+                    desc: 'Fortress for auxiliary cavalry units (Ala) located east of the civilian town. Safeguarded the strategic Danube river crossing.',
+                    artifact: null,
+                    sketchfab: { title: '3D Model: Auxiliary Cavalry Harness & Diploma (LSNÖ)', url: 'https://sketchfab.com/noe-3d/collections/carnuntum' }
+                }
+            ];
+
+            // 2. Initialize Leaflet Map
+            const map = L.map('carnuntum-map', {
+                center: [48.1175, 16.8700],
+                zoom: 13,
+                zoomControl: false
+            });
+
+            // Add Zoom Control at Top Right
+            L.control.zoom({ position: 'topright' }).addTo(map);
+
+            // Add Metric Scale Bar at Bottom Left (Strictly single metric line)
+            L.control.scale({
+                metric: true,
+                imperial: false,
+                position: 'bottomleft'
+            }).addTo(map);
+
+            // 3. Tile Layers
+            const tileDark = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
+                subdomains: 'abcd',
+                maxZoom: 19
+            });
+
+            const tileTopo = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap contributors',
+                maxZoom: 19
+            });
+
+            const tileSat = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+                attribution: 'Tiles &copy; Esri &mdash; GIS Data Carnuntum',
+                maxZoom: 18
+            });
+
+            tileDark.addTo(map);
+
+            // Layer Switcher Buttons Logic
+            const layerBtns = document.querySelectorAll('.layer-btn');
+            layerBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    layerBtns.forEach(b => b.classList.remove('active'));
+                    e.target.classList.add('active');
+                    const tileType = e.target.getAttribute('data-tile');
+
+                    map.removeLayer(tileDark);
+                    map.removeLayer(tileTopo);
+                    map.removeLayer(tileSat);
+
+                    if (tileType === 'dark') tileDark.addTo(map);
+                    else if (tileType === 'topo') tileTopo.addTo(map);
+                    else if (tileType === 'sat') tileSat.addTo(map);
+                });
+            });
+
+            // 4. Load GIS Background GeoJSON Layer (Hintergrund_Carnuntum)
+            let geojsonLayer = null;
+            
+            function styleGeoJsonFeature(feature) {
+                const type = feature.properties ? feature.properties.type : '';
+                if (type === 'militaerisch') {
+                    return { color: '#D46A43', weight: 2.5, fillColor: '#D46A43', fillOpacity: 0.45 };
+                } else if (type === 'oeffentlich') {
+                    return { color: '#00B5CC', weight: 2.5, fillColor: '#00B5CC', fillOpacity: 0.45 };
+                } else if (type === 'Siedlung') {
+                    return { color: '#6A8F87', weight: 2.5, fillColor: '#6A8F87', fillOpacity: 0.40 };
+                } else if (type === 'Graeberfeld') {
+                    return { color: '#E5A93C', weight: 2.5, dashArray: '5,5', fillColor: '#E5A93C', fillOpacity: 0.45 };
+                }
+                return { color: '#00B5CC', weight: 2, fillColor: '#00B5CC', fillOpacity: 0.3 };
+            }
+
+            fetch('assets/hintergrund_carnuntum.geojson')
+                .then(res => res.json())
+                .then(geoData => {
+                    geojsonLayer = L.geoJSON(geoData, {
+                        style: styleGeoJsonFeature,
+                        onEachFeature: (feature, layer) => {
+                            const props = feature.properties || {};
+                            const typeName = props.type_en || props.type || 'Unknown';
+                            const idVal = props.OBJECTID ? ` (ID: ${props.OBJECTID})` : '';
+
+                            layer.bindTooltip(`<b>Archaeological Sector: ${typeName}</b>${idVal}`, {
+                                sticky: true,
+                                direction: 'top'
+                            });
+
+                            layer.on('mouseover', function () {
+                                this.setStyle({ fillOpacity: 0.75, weight: 3.5 });
+                            });
+
+                            layer.on('mouseout', function () {
+                                geojsonLayer.resetStyle(this);
+                            });
+                        }
+                    }).addTo(map);
+
+                    if (geojsonLayer) {
+                        geojsonLayer.bringToBack();
+                    }
+
+                    // Toggle GeoJSON layer checkbox
+                    const toggleBox = document.getElementById('toggle-geojson');
+                    toggleBox.addEventListener('change', (e) => {
+                        if (e.target.checked) {
+                            map.addLayer(geojsonLayer);
+                            geojsonLayer.bringToBack();
+                        } else {
+                            map.removeLayer(geojsonLayer);
+                        }
+                    });
+
+                    // Fit bounds button
+                    document.getElementById('fit-geojson-btn').addEventListener('click', () => {
+                        if (geojsonLayer && map.hasLayer(geojsonLayer)) {
+                            map.fitBounds(geojsonLayer.getBounds(), { padding: [40, 40] });
+                        }
+                    });
+                })
+                .catch(err => {
+                    console.error('GeoJSON loading error:', err);
+                });
+
+            // 5. Custom Icon Generator
+            function createCustomPin(category) {
+                let iconSymbol = '📍';
+                let pinClass = 'pin-military';
+
+                if (category === 'military') { iconSymbol = '⚔️'; pinClass = 'pin-military'; }
+                else if (category === 'ceramic') { iconSymbol = '🏺'; pinClass = 'pin-ceramic'; }
+                else if (category === 'civic') { iconSymbol = '🏛️'; pinClass = 'pin-civic'; }
+                else if (category === 'sacred') { iconSymbol = '⛩️'; pinClass = 'pin-sacred'; }
+
+                return L.divIcon({
+                    className: 'custom-pin-wrapper',
+                    html: `<div class="custom-map-pin ${pinClass}">${iconSymbol}</div>`,
+                    iconSize: [34, 34],
+                    iconAnchor: [17, 17],
+                    popupAnchor: [0, -18]
+                });
+            }
+
+            // 6. Drawer & Popup Interactivity
+            const drawer = document.getElementById('map-drawer');
+            const drawerClose = document.getElementById('drawer-close');
+
+            drawerClose.addEventListener('click', () => {
+                drawer.classList.remove('open');
+            });
+
+            function openDrawer(site) {
+                document.getElementById('drawer-title').innerText = site.title;
+                document.getElementById('drawer-tag').innerText = site.tagText.toUpperCase();
+                document.getElementById('drawer-tag').className = `map-popup-tag tag-${site.category}`;
+                document.getElementById('drawer-img').src = site.img;
+                document.getElementById('drawer-date').innerText = site.date;
+                document.getElementById('drawer-coords').innerText = `${site.lat.toFixed(4)} N, ${site.lng.toFixed(4)} E`;
+                document.getElementById('drawer-type').innerText = site.type;
+                document.getElementById('drawer-focus').innerText = site.focus;
+                document.getElementById('drawer-desc').innerText = site.desc;
+
+                const artifactContainer = document.getElementById('drawer-artifact-container');
+                const viewerWrapper = document.getElementById('drawer-3d-model-wrapper');
+
+                if (site.artifact && site.artifact.file) {
+                    artifactContainer.style.display = 'flex';
+                    document.getElementById('drawer-artifact-title').innerText = site.artifact.title;
+                    viewerWrapper.innerHTML = `
+                        <model-viewer 
+                            src="assets/${site.artifact.file}" 
+                            alt="${site.artifact.title}" 
+                            auto-rotate 
+                            camera-controls 
+                            exposure="1.2" 
+                            shadow-intensity="1" 
+                            style="width: 100%; height: 100%; background: transparent;">
+                        </model-viewer>
+                    `;
+                } else {
+                    artifactContainer.style.display = 'none';
+                    viewerWrapper.innerHTML = '';
+                }
+
+                const sketchfabContainer = document.getElementById('drawer-sketchfab-container');
+                if (site.sketchfab) {
+                    sketchfabContainer.style.display = 'flex';
+                    document.getElementById('drawer-sketchfab-title').innerText = site.sketchfab.title;
+                } else {
+                    sketchfabContainer.style.display = 'flex';
+                    document.getElementById('drawer-sketchfab-title').innerText = 'Landessammlungen NÖ 3D Collections';
+                }
+
+                drawer.classList.add('open');
+            }
+
+            // 7. Add Markers to Map
+            const markerMap = {};
+            const markersGroup = L.featureGroup().addTo(map);
+
+            sites.forEach(site => {
+                const marker = L.marker([site.lat, site.lng], {
+                    icon: createCustomPin(site.category)
+                });
+
+                const popupContent = `
+                    <div class="map-popup-card">
+                        <span class="map-popup-tag tag-${site.category}">${site.tagText}</span>
+                        <h4 class="map-popup-title">${site.title}</h4>
+                        <p class="map-popup-desc">${site.type} • ${site.date}</p>
+                        <button class="map-popup-btn" onclick="window.triggerSiteDrawer('${site.id}')">
+                            View Details &amp; Context →
+                        </button>
+                    </div>
+                `;
+
+                marker.bindPopup(popupContent);
+                marker.siteData = site;
+
+                marker.on('click', () => {
+                    openDrawer(site);
+                });
+
+                markersGroup.addLayer(marker);
+                markerMap[site.id] = marker;
+            });
+
+            window.triggerSiteDrawer = (siteId) => {
+                const targetSite = sites.find(s => s.id === siteId);
+                if (targetSite) openDrawer(targetSite);
+            };
+
+            // 8. Category Filtering
+            const filterPills = document.querySelectorAll('.filter-pill');
+            const visibleCountEl = document.getElementById('visible-count');
+
+            filterPills.forEach(pill => {
+                pill.addEventListener('click', (e) => {
+                    filterPills.forEach(p => p.classList.remove('active'));
+                    const targetPill = e.target.closest('.filter-pill');
+                    targetPill.classList.add('active');
+
+                    const category = targetPill.getAttribute('data-category');
+                    let count = 0;
+
+                    markersGroup.clearLayers();
+
+                    sites.forEach(site => {
+                        if (category === 'all' || site.category === category) {
+                            markersGroup.addLayer(markerMap[site.id]);
+                            count++;
+                        }
+                    });
+
+                    visibleCountEl.innerText = count;
+                });
+            });
+
+            // 9. Search & Jump Dropdown
+            const jumpSelect = document.getElementById('jump-select');
+            jumpSelect.addEventListener('change', (e) => {
+                const siteId = e.target.value;
+                if (!siteId) return;
+
+                const targetSite = sites.find(s => s.id === siteId);
+                if (targetSite) {
+                    map.flyTo([targetSite.lat, targetSite.lng], 16, { duration: 1.2 });
+                    const marker = markerMap[siteId];
+                    if (marker) {
+                        setTimeout(() => {
+                            marker.openPopup();
+                            openDrawer(targetSite);
+                        }, 1200);
+                    }
+                }
+            });
+
+            const searchInput = document.getElementById('map-search');
+            searchInput.addEventListener('input', (e) => {
+                const term = e.target.value.toLowerCase().trim();
+                let count = 0;
+                markersGroup.clearLayers();
+
+                sites.forEach(site => {
+                    const match = site.title.toLowerCase().includes(term) || 
+                                  site.desc.toLowerCase().includes(term) ||
+                                  site.type.toLowerCase().includes(term);
+                    if (match) {
+                        markersGroup.addLayer(markerMap[site.id]);
+                        count++;
+                    }
+                });
+
+                visibleCountEl.innerText = count;
+            });
+
+        });
+    </script>
+</body>
+</html>
