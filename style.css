@@ -538,11 +538,14 @@ section {
 }
 
 .news-text-scrollable {
-    max-height: 108px;
+    max-height: 96px;
     overflow-y: auto;
     padding-right: 0.5rem;
+    position: relative;
     scrollbar-width: thin;
     scrollbar-color: var(--terracotta) rgba(255, 255, 255, 0.05);
+    mask-image: linear-gradient(to bottom, black calc(100% - 20px), transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black calc(100% - 20px), transparent 100%);
 }
 
 .news-text-scrollable::-webkit-scrollbar {
