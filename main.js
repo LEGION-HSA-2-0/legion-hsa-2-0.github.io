@@ -216,3 +216,41 @@ if (mobileMenuBtn && mobileNav) {
         });
     });
 }
+
+// Dynamic Scroll Fade and Overflow Handler for News Cards
+function updateNewsScrollFades() {
+    document.querySelectorAll('.news-text-scrollable').forEach(el => {
+        const hasOverflow = el.scrollHeight > el.clientHeight + 2;
+        if (!hasOverflow) {
+            el.style.maskImage = 'none';
+            el.style.webkitMaskImage = 'none';
+            return;
+        }
+
+        const isAtTop = el.scrollTop <= 2;
+        const isAtBottom = Math.abs(el.scrollTop + el.clientHeight - el.scrollHeight) <= 4;
+
+        if (isAtTop && !isAtBottom) {
+            el.style.maskImage = 'linear-gradient(to bottom, black calc(100% - 24px), transparent 100%)';
+            el.style.webkitMaskImage = 'linear-gradient(to bottom, black calc(100% - 24px), transparent 100%)';
+        } else if (isAtBottom && !isAtTop) {
+            el.style.maskImage = 'linear-gradient(to bottom, transparent 0%, black 24px)';
+            el.style.webkitMaskImage = 'linear-gradient(to bottom, transparent 0%, black 24px)';
+        } else if (!isAtTop && !isAtBottom) {
+            el.style.maskImage = 'linear-gradient(to bottom, transparent 0%, black 24px, black calc(100% - 24px), transparent 100%)';
+            el.style.webkitMaskImage = 'linear-gradient(to bottom, transparent 0%, black 24px, black calc(100% - 24px), transparent 100%)';
+        } else {
+            el.style.maskImage = 'none';
+            el.style.webkitMaskImage = 'none';
+        }
+    });
+}
+
+document.querySelectorAll('.news-text-scrollable').forEach(el => {
+    el.addEventListener('scroll', updateNewsScrollFades);
+});
+
+window.addEventListener('resize', updateNewsScrollFades);
+window.addEventListener('load', updateNewsScrollFades);
+document.addEventListener('DOMContentLoaded', updateNewsScrollFades);
+setTimeout(updateNewsScrollFades, 200);

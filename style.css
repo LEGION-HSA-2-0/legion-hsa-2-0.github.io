@@ -489,17 +489,17 @@ section {
 }
 
 #news .grid::-webkit-scrollbar {
-    height: 8px;
+    height: 6px;
 }
 
 #news .grid::-webkit-scrollbar-track {
     background: rgba(255, 255, 255, 0.05);
-    border-radius: 4px;
+    border-radius: 3px;
 }
 
 #news .grid::-webkit-scrollbar-thumb {
     background-color: var(--terracotta);
-    border-radius: 4px;
+    border-radius: 3px;
 }
 
 #news .grid > * {
@@ -546,12 +546,10 @@ section {
     position: relative;
     scrollbar-width: thin;
     scrollbar-color: var(--terracotta) rgba(255, 255, 255, 0.05);
-    mask-image: linear-gradient(to bottom, black calc(100% - 24px), transparent 100%);
-    -webkit-mask-image: linear-gradient(to bottom, black calc(100% - 24px), transparent 100%);
 }
 
 .news-text-scrollable::-webkit-scrollbar {
-    width: 5px;
+    width: 6px;
 }
 
 .news-text-scrollable::-webkit-scrollbar-track {
