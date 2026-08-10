@@ -484,6 +484,8 @@ section {
     -webkit-overflow-scrolling: touch;
     scrollbar-width: thin;
     scrollbar-color: var(--terracotta) rgba(255, 255, 255, 0.05);
+    mask-image: linear-gradient(to right, black calc(100% - 65px), transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, black calc(100% - 65px), transparent 100%);
 }
 
 #news .grid::-webkit-scrollbar {
