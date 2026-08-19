@@ -741,6 +741,29 @@ footer {
     transform: translateY(-5px);
 }
 
+.funding-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.funding-logo {
+    height: 38px;
+    width: auto;
+    max-width: 120px;
+    object-fit: contain;
+    opacity: 0.9;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    display: block;
+}
+
+.funding-logo:hover {
+    opacity: 1;
+    transform: scale(1.04);
+}
+
 .footer-bottom-top {
     width: 100%;
     display: flex;
