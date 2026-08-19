@@ -122,16 +122,19 @@ Die Hauptseite (`index.html`) gliedert sich in folgende logische Abschnitte:
 ### E. Methodology & Impact Sections (`#methodology`, `#impact`)
 * Visualisierung der Semi-supervised Computer Vision Pipeline, Human-in-the-Loop (HITL), Open Source Tools & typochronologischen Auswertungen.
 
-### F. Team Section (`#contact`)
+### F. Open Science & Code Section (`#opensource`)
+* Prominenter **GitHub Organization Banner** mit Direktlinks zur Organisation [`LEGION-HSA-2-0`](https://github.com/LEGION-HSA-2-0), Badges und Einladung zur wissenschaftlichen Open-Source-Zusammenarbeit.
+
+### G. Team Section (`#contact`)
 * Zwei institutionelle Spalten:
   1. **OeAI Team** (Austrian Archaeological Institute / OeAW)
   2. **CVL Team** (Computer Vision Lab / TU Wien)
 * Enthält Einzelprofile mit SVG-Icons für **ORCID** und **LinkedIn**.
 
-### G. Partners Section (`#partners`)
+### H. Partners Section (`#partners`)
 * Auto-fit Grid mit 7 Partner-Logos (OeAI, CVL, ACDH-CH, LSNÖ, Carnuntum, Wien Museum, UWK).
 
-### H. Footer (`<footer>`)
+### I. Footer (`<footer>`)
 * **Funding Card**: Angaben zum Förderprogramm *Heritage Science Austria 2.0* (OeAW, Grant `Heritage_2024-12_LEGION`, 2026–2028).
 * **Sketchfab 3D Asset Credit**: Attribution für bereitgestellte 3D-Scans (LSNÖ, CC BY-NC).
 * **Lizenz-Shields**: CC BY 4.0 (Inhalte) & MIT License (Code).
