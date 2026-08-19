@@ -143,7 +143,7 @@ Die Hauptseite (`index.html`) gliedert sich in folgende logische Abschnitte:
 * **Funding Card**: Angaben zum Förderprogramm *Heritage Science Austria 2.0* (OeAW, Grant `Heritage_2024-12_LEGION`, 2026–2028).
 * **Sketchfab 3D Asset Credit**: Attribution für bereitgestellte 3D-Scans (LSNÖ, CC BY-NC).
 * **Lizenz-Shields**: CC BY 4.0 (Inhalte) & MIT License (Code).
-* **Antigravity Badge**: "Vibecoded using Google Antigravity (Gemini 3.5 Flash)".
+* **Antigravity Badge**: "Vibecoded using Google Antigravity (Gemini 3.7 Flash)".
 
 ---
 
