@@ -122,24 +122,16 @@ Die Hauptseite (`index.html`) gliedert sich in folgende logische Abschnitte:
 ### E. Methodology & Impact Sections (`#methodology`, `#impact`)
 * Visualisierung der Semi-supervised Computer Vision Pipeline, Human-in-the-Loop (HITL), Open Source Tools & typochronologischen Auswertungen.
 
-### F. Open Source & Repositories Section (`#opensource`)
-* Modulares 4-Karten-Raster zur Darstellung des Open-Source- und Open-Data-Ökosystems:
-  1. `legion-hsa-2-0.github.io` (Web- & 3D-Plattform, MIT)
-  2. `legion-cv-pipeline` (Semi-supervised CV Pipeline, XAI, MIT)
-  3. `centuria-dataset` (Digitalisierte 2D-Zeichnungen & archäologische Metadaten, CC BY 4.0)
-  4. `legion-tools` (HITL Annotation & Vectorization Utilities, MIT)
-* Prominenter **GitHub Organization Banner** mit Direktlinks zur Organisation [`LEGION-HSA-2-0`](https://github.com/LEGION-HSA-2-0), Badges und Mitwirkungs-Hinweisen.
-
-### G. Team Section (`#contact`)
+### F. Team Section (`#contact`)
 * Zwei institutionelle Spalten:
   1. **OeAI Team** (Austrian Archaeological Institute / OeAW)
   2. **CVL Team** (Computer Vision Lab / TU Wien)
 * Enthält Einzelprofile mit SVG-Icons für **ORCID** und **LinkedIn**.
 
-### H. Partners Section (`#partners`)
+### G. Partners Section (`#partners`)
 * Auto-fit Grid mit 7 Partner-Logos (OeAI, CVL, ACDH-CH, LSNÖ, Carnuntum, Wien Museum, UWK).
 
-### I. Footer (`<footer>`)
+### H. Footer (`<footer>`)
 * **Funding Card**: Angaben zum Förderprogramm *Heritage Science Austria 2.0* (OeAW, Grant `Heritage_2024-12_LEGION`, 2026–2028).
 * **Sketchfab 3D Asset Credit**: Attribution für bereitgestellte 3D-Scans (LSNÖ, CC BY-NC).
 * **Lizenz-Shields**: CC BY 4.0 (Inhalte) & MIT License (Code).
