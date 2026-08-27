@@ -477,8 +477,12 @@ section {
 }
 
 #news {
-    padding-top: 5rem;
-    padding-bottom: 4rem;
+    padding: 7rem 10%;
+    min-height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 #news .grid {
