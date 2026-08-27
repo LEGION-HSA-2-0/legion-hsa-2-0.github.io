@@ -734,7 +734,7 @@ section {
 }
 
 .news-text-scrollable {
-    max-height: 105px;
+    max-height: 140px;
     overflow-y: auto;
     overscroll-behavior: contain;
     -webkit-overflow-scrolling: touch;
