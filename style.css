@@ -492,11 +492,15 @@ section {
     padding-bottom: 1.5rem;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: thin;
-    scrollbar-color: var(--terracotta) rgba(255, 255, 255, 0.08);
+    scrollbar-color: transparent transparent;
     mask-image: linear-gradient(to right, black calc(100% - 60px), transparent 100%);
     -webkit-mask-image: linear-gradient(to right, black calc(100% - 60px), transparent 100%);
-    transition: mask-image 0.25s ease, -webkit-mask-image 0.25s ease;
+    transition: scrollbar-color 0.5s ease, mask-image 0.25s ease, -webkit-mask-image 0.25s ease;
     cursor: grab;
+}
+
+#news .grid.scrollbar-visible {
+    scrollbar-color: var(--terracotta) rgba(255, 255, 255, 0.08);
 }
 
 #news .grid:active {
@@ -561,17 +565,27 @@ section {
 }
 
 #news .grid::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.08);
+    background: transparent;
     border-radius: 5px;
+    transition: background 0.5s ease;
+}
+
+#news .grid.scrollbar-visible::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.08);
 }
 
 #news .grid::-webkit-scrollbar-thumb {
-    background: var(--terracotta);
+    background: transparent;
     border-radius: 5px;
     cursor: grab;
+    transition: background 0.5s ease;
 }
 
-#news .grid::-webkit-scrollbar-thumb:hover {
+#news .grid.scrollbar-visible::-webkit-scrollbar-thumb {
+    background: var(--terracotta);
+}
+
+#news .grid.scrollbar-visible::-webkit-scrollbar-thumb:hover {
     background: var(--terracotta-bright, #e87a53);
 }
 

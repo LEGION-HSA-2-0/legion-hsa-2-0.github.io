@@ -297,6 +297,11 @@ function setActiveNewsCard(index, shouldScroll = true) {
 
     currentNewsIndex = ((index % cards.length) + cards.length) % cards.length;
 
+    // Show scrollbar automatically when 2nd card is active or upon interaction, and keep it visible
+    if (newsGrid && (currentNewsIndex >= 1 || userHasInteractedWithNews)) {
+        newsGrid.classList.add('scrollbar-visible');
+    }
+
     cards.forEach((card, i) => {
         if (i === currentNewsIndex) {
             card.classList.add('is-active-news');
@@ -333,6 +338,10 @@ function updateActiveNewsCardOnScroll() {
             closestIndex = idx;
         }
     });
+
+    if (closestIndex >= 1 || newsGrid.scrollLeft > 20) {
+        newsGrid.classList.add('scrollbar-visible');
+    }
 
     currentNewsIndex = closestIndex;
     cards.forEach((c, idx) => {
@@ -372,6 +381,7 @@ function stopNewsAutoplay() {
 
 function disableNewsAutoplay() {
     userHasInteractedWithNews = true;
+    if (newsGrid) newsGrid.classList.add('scrollbar-visible');
     stopNewsAutoplay();
 }
 
