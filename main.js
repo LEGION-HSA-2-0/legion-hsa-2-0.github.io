@@ -283,8 +283,8 @@ const newsPrevBtn = document.getElementById('newsPrevBtn');
 const newsNextBtn = document.getElementById('newsNextBtn');
 
 let newsAutoplayTimer = null;
-let isNewsInteracting = false;
-let newsResumeTimeout = null;
+let userHasInteractedWithNews = false;
+let isMouseInsideNews = false;
 let currentNewsIndex = 0;
 
 function getNewsCards() {
@@ -345,7 +345,7 @@ function updateActiveNewsCardOnScroll() {
 }
 
 function advanceNewsSlide() {
-    if (!newsGrid || isNewsInteracting) return;
+    if (!newsGrid || isMouseInsideNews || userHasInteractedWithNews) return;
     const cards = getNewsCards();
     if (!cards.length) return;
 
@@ -358,6 +358,7 @@ function advanceNewsSlide() {
 
 function startNewsAutoplay() {
     stopNewsAutoplay();
+    if (userHasInteractedWithNews || isMouseInsideNews) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     newsAutoplayTimer = setInterval(advanceNewsSlide, 4500);
 }
@@ -369,14 +370,9 @@ function stopNewsAutoplay() {
     }
 }
 
-function pauseNewsAutoplay() {
-    isNewsInteracting = true;
+function disableNewsAutoplay() {
+    userHasInteractedWithNews = true;
     stopNewsAutoplay();
-    clearTimeout(newsResumeTimeout);
-    newsResumeTimeout = setTimeout(() => {
-        isNewsInteracting = false;
-        startNewsAutoplay();
-    }, 6000);
 }
 
 if (newsGrid) {
@@ -395,13 +391,13 @@ if (newsGrid) {
     let hasDraggedGrid = false;
 
     newsGrid.addEventListener('mousedown', (e) => {
+        disableNewsAutoplay();
         if (e.target.closest('a, button, .news-text-scrollable')) return;
         isDraggingGrid = true;
         hasDraggedGrid = false;
         gridStartX = e.pageX - newsGrid.offsetLeft;
         gridStartScrollLeft = newsGrid.scrollLeft;
         newsGrid.style.scrollSnapType = 'none';
-        pauseNewsAutoplay();
     });
 
     window.addEventListener('mousemove', (e) => {
@@ -428,28 +424,29 @@ if (newsGrid) {
         });
 
         card.addEventListener('click', (e) => {
+            disableNewsAutoplay();
             if (hasDraggedGrid) return;
             if (e.target.closest('a, button')) return;
-            pauseNewsAutoplay();
             setActiveNewsCard(idx, true);
         });
     });
 
     if (newsPrevBtn) {
         newsPrevBtn.addEventListener('click', () => {
-            pauseNewsAutoplay();
+            disableNewsAutoplay();
             setActiveNewsCard(currentNewsIndex - 1, true);
         });
     }
     if (newsNextBtn) {
         newsNextBtn.addEventListener('click', () => {
-            pauseNewsAutoplay();
+            disableNewsAutoplay();
             setActiveNewsCard(currentNewsIndex + 1, true);
         });
     }
 
     // Convert mouse wheel to horizontal scrolling when hovering news grid, unless cursor is over scrollable card text
     newsGrid.addEventListener('wheel', (e) => {
+        disableNewsAutoplay();
         const scrollableText = e.target.closest('.news-text-scrollable');
         if (scrollableText) {
             const hasVerticalOverflow = scrollableText.scrollHeight > scrollableText.clientHeight + 2;
@@ -457,7 +454,6 @@ if (newsGrid) {
                 const canScrollDown = e.deltaY > 0 && (scrollableText.scrollTop + scrollableText.clientHeight < scrollableText.scrollHeight - 1);
                 const canScrollUp = e.deltaY < 0 && scrollableText.scrollTop > 0;
                 if (canScrollDown || canScrollUp) {
-                    pauseNewsAutoplay();
                     return; // Allow native vertical scrolling of the card text
                 }
             }
@@ -469,33 +465,37 @@ if (newsGrid) {
             if (canScrollRight || canScrollLeft) {
                 e.preventDefault();
                 newsGrid.scrollLeft += e.deltaY;
-                pauseNewsAutoplay();
             }
         }
     }, { passive: false });
 
-    // Pause autoplay on user hover or touch interaction
-    newsGrid.addEventListener('mouseenter', () => {
-        isNewsInteracting = true;
-        stopNewsAutoplay();
-        clearTimeout(newsResumeTimeout);
-    });
+    // Stop autoplay completely when mouse enters news area
+    if (newsSection) {
+        newsSection.addEventListener('mouseenter', () => {
+            isMouseInsideNews = true;
+            stopNewsAutoplay();
+        });
 
-    newsGrid.addEventListener('mouseleave', () => {
-        isNewsInteracting = false;
-        updateActiveNewsCardOnScroll();
-        startNewsAutoplay();
-    });
+        newsSection.addEventListener('mouseleave', () => {
+            isMouseInsideNews = false;
+            updateActiveNewsCardOnScroll();
+            if (!userHasInteractedWithNews) {
+                startNewsAutoplay();
+            }
+        });
+    }
 
-    newsGrid.addEventListener('touchstart', pauseNewsAutoplay, { passive: true });
-    newsGrid.addEventListener('pointerdown', pauseNewsAutoplay, { passive: true });
+    newsGrid.addEventListener('touchstart', disableNewsAutoplay, { passive: true });
+    newsGrid.addEventListener('pointerdown', disableNewsAutoplay, { passive: true });
 
     // Only run autoplay when news section is in viewport
     if (newsSection && 'IntersectionObserver' in window) {
         const newsObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    startNewsAutoplay();
+                    if (!userHasInteractedWithNews && !isMouseInsideNews) {
+                        startNewsAutoplay();
+                    }
                 } else {
                     stopNewsAutoplay();
                 }
