@@ -291,6 +291,108 @@ function getNewsCards() {
     return newsGrid ? Array.from(newsGrid.querySelectorAll('.card')) : [];
 }
 
+// Custom News Scrollbar Synchronization & Dragging
+const newsScrollbarContainer = document.getElementById('newsScrollbar');
+const newsScrollbarTrack = newsScrollbarContainer ? newsScrollbarContainer.querySelector('.news-scrollbar-track') : null;
+const newsScrollbarThumb = newsScrollbarContainer ? newsScrollbarContainer.querySelector('.news-scrollbar-thumb') : null;
+
+function showNewsScrollbar() {
+    if (newsScrollbarContainer) {
+        newsScrollbarContainer.classList.add('scrollbar-visible');
+    }
+}
+
+function updateNewsScrollbarPosition() {
+    if (!newsGrid || !newsScrollbarTrack || !newsScrollbarThumb) return;
+
+    const maxScroll = newsGrid.scrollWidth - newsGrid.clientWidth;
+    if (maxScroll <= 0) return;
+
+    const scrollRatio = Math.max(0, Math.min(1, newsGrid.scrollLeft / maxScroll));
+    const trackWidth = newsScrollbarTrack.clientWidth;
+
+    const visibleRatio = Math.min(1, newsGrid.clientWidth / newsGrid.scrollWidth);
+    const thumbWidth = Math.max(60, Math.min(140, trackWidth * visibleRatio));
+    newsScrollbarThumb.style.width = thumbWidth + 'px';
+
+    const maxThumbTravel = trackWidth - thumbWidth;
+    const thumbPosition = scrollRatio * maxThumbTravel;
+    newsScrollbarThumb.style.transform = `translateX(${thumbPosition}px)`;
+}
+
+// Drag & Click on Custom Scrollbar
+if (newsScrollbarTrack && newsScrollbarThumb) {
+    let isDraggingThumb = false;
+    let thumbStartX = 0;
+    let startScrollLeft = 0;
+
+    function onThumbDrag(e) {
+        if (!isDraggingThumb) return;
+        e.preventDefault();
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const deltaX = clientX - thumbStartX;
+        const trackWidth = newsScrollbarTrack.clientWidth;
+        const thumbWidth = newsScrollbarThumb.offsetWidth;
+        const maxThumbTravel = trackWidth - thumbWidth;
+        const maxScroll = newsGrid.scrollWidth - newsGrid.clientWidth;
+
+        if (maxThumbTravel > 0) {
+            const scrollDelta = (deltaX / maxThumbTravel) * maxScroll;
+            newsGrid.scrollLeft = Math.max(0, Math.min(maxScroll, startScrollLeft + scrollDelta));
+        }
+    }
+
+    function stopThumbDrag() {
+        if (!isDraggingThumb) return;
+        isDraggingThumb = false;
+        newsScrollbarThumb.classList.remove('is-dragging');
+        document.body.style.userSelect = '';
+        window.removeEventListener('mousemove', onThumbDrag);
+        window.removeEventListener('mouseup', stopThumbDrag);
+        window.removeEventListener('touchmove', onThumbDrag);
+        window.removeEventListener('touchend', stopThumbDrag);
+        updateActiveNewsCardOnScroll();
+    }
+
+    newsScrollbarThumb.addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        disableNewsAutoplay();
+        showNewsScrollbar();
+        isDraggingThumb = true;
+        thumbStartX = e.clientX;
+        startScrollLeft = newsGrid.scrollLeft;
+        newsScrollbarThumb.classList.add('is-dragging');
+        document.body.style.userSelect = 'none';
+        window.addEventListener('mousemove', onThumbDrag);
+        window.addEventListener('mouseup', stopThumbDrag);
+    });
+
+    newsScrollbarThumb.addEventListener('touchstart', (e) => {
+        e.stopPropagation();
+        disableNewsAutoplay();
+        showNewsScrollbar();
+        isDraggingThumb = true;
+        thumbStartX = e.touches[0].clientX;
+        startScrollLeft = newsGrid.scrollLeft;
+        window.addEventListener('touchmove', onThumbDrag, { passive: false });
+        window.addEventListener('touchend', stopThumbDrag);
+    }, { passive: true });
+
+    newsScrollbarTrack.addEventListener('click', (e) => {
+        if (e.target === newsScrollbarThumb) return;
+        disableNewsAutoplay();
+        showNewsScrollbar();
+        const trackRect = newsScrollbarTrack.getBoundingClientRect();
+        const clickX = e.clientX - trackRect.left;
+        const trackWidth = newsScrollbarTrack.clientWidth;
+        const thumbWidth = newsScrollbarThumb.offsetWidth;
+        const clickRatio = Math.max(0, Math.min(1, (clickX - thumbWidth / 2) / (trackWidth - thumbWidth)));
+        const maxScroll = newsGrid.scrollWidth - newsGrid.clientWidth;
+        newsGrid.scrollTo({ left: clickRatio * maxScroll, behavior: 'smooth' });
+    });
+}
+
 function setActiveNewsCard(index, shouldScroll = true) {
     const cards = getNewsCards();
     if (!cards.length) return;
@@ -298,8 +400,8 @@ function setActiveNewsCard(index, shouldScroll = true) {
     currentNewsIndex = ((index % cards.length) + cards.length) % cards.length;
 
     // Show scrollbar automatically when 2nd card is active or upon interaction, and keep it visible
-    if (newsGrid && (currentNewsIndex >= 1 || userHasInteractedWithNews)) {
-        newsGrid.classList.add('scrollbar-visible');
+    if (currentNewsIndex >= 1 || userHasInteractedWithNews) {
+        showNewsScrollbar();
     }
 
     cards.forEach((card, i) => {
@@ -340,7 +442,7 @@ function updateActiveNewsCardOnScroll() {
     });
 
     if (closestIndex >= 1 || newsGrid.scrollLeft > 20) {
-        newsGrid.classList.add('scrollbar-visible');
+        showNewsScrollbar();
     }
 
     currentNewsIndex = closestIndex;
@@ -381,17 +483,19 @@ function stopNewsAutoplay() {
 
 function disableNewsAutoplay() {
     userHasInteractedWithNews = true;
-    if (newsGrid) newsGrid.classList.add('scrollbar-visible');
+    showNewsScrollbar();
     stopNewsAutoplay();
 }
 
 if (newsGrid) {
     // Initial highlight on first card
     setActiveNewsCard(0, false);
+    updateNewsScrollbarPosition();
 
     newsGrid.addEventListener('scroll', () => {
         updateNewsGridScrollFade();
         updateActiveNewsCardOnScroll();
+        updateNewsScrollbarPosition();
     });
 
     // Mouse Drag-to-Scroll (Grab & Drag) on News Grid
@@ -522,7 +626,19 @@ document.querySelectorAll('.news-text-scrollable').forEach(el => {
     el.addEventListener('scroll', updateNewsScrollFades);
 });
 
-window.addEventListener('resize', updateNewsScrollFades);
-window.addEventListener('load', updateNewsScrollFades);
-document.addEventListener('DOMContentLoaded', updateNewsScrollFades);
-setTimeout(updateNewsScrollFades, 200);
+window.addEventListener('resize', () => {
+    updateNewsScrollFades();
+    updateNewsScrollbarPosition();
+});
+window.addEventListener('load', () => {
+    updateNewsScrollFades();
+    updateNewsScrollbarPosition();
+});
+document.addEventListener('DOMContentLoaded', () => {
+    updateNewsScrollFades();
+    updateNewsScrollbarPosition();
+});
+setTimeout(() => {
+    updateNewsScrollFades();
+    updateNewsScrollbarPosition();
+}, 200);
