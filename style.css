@@ -598,7 +598,8 @@ section {
     top: 0;
     left: 0;
     cursor: grab;
-    transition: background 0.2s ease, transform 0.08s linear;
+    transition: background 0.2s ease, box-shadow 0.2s ease;
+    will-change: transform;
 }
 
 .news-scrollbar-thumb:hover,
@@ -609,7 +610,6 @@ section {
 
 .news-scrollbar-thumb.is-dragging {
     cursor: grabbing;
-    transition: none;
 }
 
 #news .grid > * {

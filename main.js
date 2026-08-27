@@ -325,6 +325,7 @@ if (newsScrollbarTrack && newsScrollbarThumb) {
     let isDraggingThumb = false;
     let thumbStartX = 0;
     let startScrollLeft = 0;
+    let dragRAF = null;
 
     function onThumbDrag(e) {
         if (!isDraggingThumb) return;
@@ -338,20 +339,26 @@ if (newsScrollbarTrack && newsScrollbarThumb) {
 
         if (maxThumbTravel > 0) {
             const scrollDelta = (deltaX / maxThumbTravel) * maxScroll;
-            newsGrid.scrollLeft = Math.max(0, Math.min(maxScroll, startScrollLeft + scrollDelta));
+            const targetScroll = Math.max(0, Math.min(maxScroll, startScrollLeft + scrollDelta));
+            if (dragRAF) cancelAnimationFrame(dragRAF);
+            dragRAF = requestAnimationFrame(() => {
+                newsGrid.scrollLeft = targetScroll;
+            });
         }
     }
 
     function stopThumbDrag() {
         if (!isDraggingThumb) return;
         isDraggingThumb = false;
+        if (dragRAF) cancelAnimationFrame(dragRAF);
         newsScrollbarThumb.classList.remove('is-dragging');
         document.body.style.userSelect = '';
+        if (newsGrid) newsGrid.style.scrollSnapType = 'x proximity';
         window.removeEventListener('mousemove', onThumbDrag);
         window.removeEventListener('mouseup', stopThumbDrag);
         window.removeEventListener('touchmove', onThumbDrag);
         window.removeEventListener('touchend', stopThumbDrag);
-        updateActiveNewsCardOnScroll();
+        setTimeout(updateActiveNewsCardOnScroll, 50);
     }
 
     newsScrollbarThumb.addEventListener('mousedown', (e) => {
@@ -364,6 +371,7 @@ if (newsScrollbarTrack && newsScrollbarThumb) {
         startScrollLeft = newsGrid.scrollLeft;
         newsScrollbarThumb.classList.add('is-dragging');
         document.body.style.userSelect = 'none';
+        if (newsGrid) newsGrid.style.scrollSnapType = 'none';
         window.addEventListener('mousemove', onThumbDrag);
         window.addEventListener('mouseup', stopThumbDrag);
     });
@@ -375,6 +383,7 @@ if (newsScrollbarTrack && newsScrollbarThumb) {
         isDraggingThumb = true;
         thumbStartX = e.touches[0].clientX;
         startScrollLeft = newsGrid.scrollLeft;
+        if (newsGrid) newsGrid.style.scrollSnapType = 'none';
         window.addEventListener('touchmove', onThumbDrag, { passive: false });
         window.addEventListener('touchend', stopThumbDrag);
     }, { passive: true });
@@ -445,14 +454,16 @@ function updateActiveNewsCardOnScroll() {
         showNewsScrollbar();
     }
 
-    currentNewsIndex = closestIndex;
-    cards.forEach((c, idx) => {
-        if (idx === currentNewsIndex) {
-            c.classList.add('is-active-news');
-        } else {
-            c.classList.remove('is-active-news');
-        }
-    });
+    if (closestIndex !== currentNewsIndex) {
+        currentNewsIndex = closestIndex;
+        cards.forEach((c, idx) => {
+            if (idx === currentNewsIndex) {
+                c.classList.add('is-active-news');
+            } else {
+                c.classList.remove('is-active-news');
+            }
+        });
+    }
 }
 
 function advanceNewsSlide() {
