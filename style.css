@@ -488,14 +488,19 @@ section {
 #news .grid {
     display: flex;
     overflow-x: auto;
-    scroll-snap-type: x mandatory;
+    scroll-snap-type: x proximity;
     padding-bottom: 1.5rem;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: thin;
-    scrollbar-color: var(--terracotta) rgba(255, 255, 255, 0.05);
+    scrollbar-color: var(--terracotta) rgba(255, 255, 255, 0.08);
     mask-image: linear-gradient(to right, black calc(100% - 60px), transparent 100%);
     -webkit-mask-image: linear-gradient(to right, black calc(100% - 60px), transparent 100%);
     transition: mask-image 0.25s ease, -webkit-mask-image 0.25s ease;
+    cursor: grab;
+}
+
+#news .grid:active {
+    cursor: grabbing;
 }
 
 #news .grid::after {
@@ -551,22 +556,29 @@ section {
 }
 
 #news .grid::-webkit-scrollbar {
-    height: 6px;
+    height: 10px;
+    cursor: pointer;
 }
 
 #news .grid::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 5px;
 }
 
 #news .grid::-webkit-scrollbar-thumb {
-    background-color: var(--terracotta);
-    border-radius: 3px;
+    background: var(--terracotta);
+    border-radius: 5px;
+    cursor: grab;
+}
+
+#news .grid::-webkit-scrollbar-thumb:hover {
+    background: var(--terracotta-bright, #e87a53);
 }
 
 #news .grid > * {
     flex: 0 0 320px;
     scroll-snap-align: center;
+    cursor: default;
 }
 
 @media (max-width: 768px) {

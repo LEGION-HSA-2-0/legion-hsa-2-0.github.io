@@ -388,6 +388,39 @@ if (newsGrid) {
         updateActiveNewsCardOnScroll();
     });
 
+    // Mouse Drag-to-Scroll (Grab & Drag) on News Grid
+    let isDraggingGrid = false;
+    let gridStartX = 0;
+    let gridStartScrollLeft = 0;
+    let hasDraggedGrid = false;
+
+    newsGrid.addEventListener('mousedown', (e) => {
+        if (e.target.closest('a, button, .news-text-scrollable')) return;
+        isDraggingGrid = true;
+        hasDraggedGrid = false;
+        gridStartX = e.pageX - newsGrid.offsetLeft;
+        gridStartScrollLeft = newsGrid.scrollLeft;
+        newsGrid.style.scrollSnapType = 'none';
+        pauseNewsAutoplay();
+    });
+
+    window.addEventListener('mousemove', (e) => {
+        if (!isDraggingGrid) return;
+        const x = e.pageX - newsGrid.offsetLeft;
+        const walk = (x - gridStartX) * 1.3;
+        if (Math.abs(walk) > 4) {
+            hasDraggedGrid = true;
+        }
+        newsGrid.scrollLeft = gridStartScrollLeft - walk;
+    });
+
+    window.addEventListener('mouseup', () => {
+        if (!isDraggingGrid) return;
+        isDraggingGrid = false;
+        newsGrid.style.scrollSnapType = 'x proximity';
+        setTimeout(updateActiveNewsCardOnScroll, 100);
+    });
+
     // Make clicking or hovering any card track selection
     getNewsCards().forEach((card, idx) => {
         card.addEventListener('mouseenter', () => {
@@ -395,6 +428,7 @@ if (newsGrid) {
         });
 
         card.addEventListener('click', (e) => {
+            if (hasDraggedGrid) return;
             if (e.target.closest('a, button')) return;
             pauseNewsAutoplay();
             setActiveNewsCard(idx, true);
