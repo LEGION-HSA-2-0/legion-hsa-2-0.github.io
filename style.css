@@ -557,7 +557,7 @@ section {
 
 #news .grid > * {
     flex: 0 0 350px;
-    scroll-snap-align: start;
+    scroll-snap-align: center;
 }
 
 @media (max-width: 768px) {
@@ -576,10 +576,30 @@ section {
     overflow: hidden;
 }
 
-.card:hover {
-    background: rgba(255, 255, 255, 0.06);
+.card:hover,
+.card.is-active-news {
+    background: rgba(255, 255, 255, 0.08);
     border-color: var(--terracotta-glow);
-    transform: translateY(-5px);
+    transform: translateY(-6px);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.4);
+}
+
+.card[style*="var(--terracotta)"]:hover,
+.card[style*="var(--terracotta)"].is-active-news {
+    border-color: var(--terracotta-glow);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.4), 0 0 20px var(--terracotta-glow);
+}
+
+.card[style*="var(--brand-bridge)"]:hover,
+.card[style*="var(--brand-bridge)"].is-active-news {
+    border-color: var(--brand-bridge-glow);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.4), 0 0 20px var(--brand-bridge-glow);
+}
+
+.card[style*="var(--cyan)"]:hover,
+.card[style*="var(--cyan)"].is-active-news {
+    border-color: var(--cyan-glow);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.4), 0 0 20px var(--cyan-glow);
 }
 
 .card h3 {

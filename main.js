@@ -276,7 +276,7 @@ function updateNewsScrollFades() {
     });
 }
 
-// News Grid Navigation Buttons, Horizontal Wheel & Smart Autoplay
+// News Grid Navigation Buttons, Active Highlight & Centering Slideshow
 const newsGrid = document.querySelector('#news .grid');
 const newsSection = document.getElementById('news');
 const newsPrevBtn = document.getElementById('newsPrevBtn');
@@ -285,23 +285,75 @@ const newsNextBtn = document.getElementById('newsNextBtn');
 let newsAutoplayTimer = null;
 let isNewsInteracting = false;
 let newsResumeTimeout = null;
+let currentNewsIndex = 0;
 
-function getCardScrollStep() {
-    if (!newsGrid) return 380;
-    const firstCard = newsGrid.querySelector('.card');
-    return firstCard ? (firstCard.offsetWidth + 32) : 380;
+function getNewsCards() {
+    return newsGrid ? Array.from(newsGrid.querySelectorAll('.card')) : [];
+}
+
+function setActiveNewsCard(index, shouldScroll = true) {
+    const cards = getNewsCards();
+    if (!cards.length) return;
+
+    currentNewsIndex = ((index % cards.length) + cards.length) % cards.length;
+
+    cards.forEach((card, i) => {
+        if (i === currentNewsIndex) {
+            card.classList.add('is-active-news');
+        } else {
+            card.classList.remove('is-active-news');
+        }
+    });
+
+    if (shouldScroll && newsGrid) {
+        const activeCard = cards[currentNewsIndex];
+        const cardCenter = activeCard.offsetLeft + (activeCard.offsetWidth / 2);
+        const targetScrollLeft = cardCenter - (newsGrid.clientWidth / 2);
+        newsGrid.scrollTo({
+            left: Math.max(0, targetScrollLeft),
+            behavior: 'smooth'
+        });
+    }
+}
+
+function updateActiveNewsCardOnScroll() {
+    if (!newsGrid) return;
+    const cards = getNewsCards();
+    if (!cards.length) return;
+
+    const gridCenter = newsGrid.scrollLeft + (newsGrid.clientWidth / 2);
+    let closestIndex = 0;
+    let minDistance = Infinity;
+
+    cards.forEach((card, idx) => {
+        const cardCenter = card.offsetLeft + (card.offsetWidth / 2);
+        const distance = Math.abs(cardCenter - gridCenter);
+        if (distance < minDistance) {
+            minDistance = distance;
+            closestIndex = idx;
+        }
+    });
+
+    currentNewsIndex = closestIndex;
+    cards.forEach((c, idx) => {
+        if (idx === currentNewsIndex) {
+            c.classList.add('is-active-news');
+        } else {
+            c.classList.remove('is-active-news');
+        }
+    });
 }
 
 function advanceNewsSlide() {
     if (!newsGrid || isNewsInteracting) return;
-    const step = getCardScrollStep();
-    const maxScroll = newsGrid.scrollWidth - newsGrid.clientWidth;
+    const cards = getNewsCards();
+    if (!cards.length) return;
 
-    if (newsGrid.scrollLeft >= maxScroll - 30) {
-        newsGrid.scrollTo({ left: 0, behavior: 'smooth' });
-    } else {
-        newsGrid.scrollBy({ left: step, behavior: 'smooth' });
+    let nextIndex = currentNewsIndex + 1;
+    if (nextIndex >= cards.length) {
+        nextIndex = 0;
     }
+    setActiveNewsCard(nextIndex, true);
 }
 
 function startNewsAutoplay() {
@@ -328,18 +380,33 @@ function pauseNewsAutoplay() {
 }
 
 if (newsGrid) {
-    newsGrid.addEventListener('scroll', updateNewsGridScrollFade);
+    // Initial highlight on first card
+    setActiveNewsCard(0, false);
+
+    newsGrid.addEventListener('scroll', () => {
+        updateNewsGridScrollFade();
+        updateActiveNewsCardOnScroll();
+    });
+
+    // Make clicking any card select & center it
+    getNewsCards().forEach((card, idx) => {
+        card.addEventListener('click', (e) => {
+            if (e.target.closest('a, button')) return;
+            pauseNewsAutoplay();
+            setActiveNewsCard(idx, true);
+        });
+    });
 
     if (newsPrevBtn) {
         newsPrevBtn.addEventListener('click', () => {
             pauseNewsAutoplay();
-            newsGrid.scrollBy({ left: -getCardScrollStep(), behavior: 'smooth' });
+            setActiveNewsCard(currentNewsIndex - 1, true);
         });
     }
     if (newsNextBtn) {
         newsNextBtn.addEventListener('click', () => {
             pauseNewsAutoplay();
-            newsGrid.scrollBy({ left: getCardScrollStep(), behavior: 'smooth' });
+            setActiveNewsCard(currentNewsIndex + 1, true);
         });
     }
 
