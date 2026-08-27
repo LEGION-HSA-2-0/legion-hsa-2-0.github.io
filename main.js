@@ -414,8 +414,21 @@ if (newsGrid) {
         });
     }
 
-    // Convert mouse wheel to horizontal scrolling when hovering news grid
+    // Convert mouse wheel to horizontal scrolling when hovering news grid, unless cursor is over scrollable card text
     newsGrid.addEventListener('wheel', (e) => {
+        const scrollableText = e.target.closest('.news-text-scrollable');
+        if (scrollableText) {
+            const hasVerticalOverflow = scrollableText.scrollHeight > scrollableText.clientHeight + 2;
+            if (hasVerticalOverflow) {
+                const canScrollDown = e.deltaY > 0 && (scrollableText.scrollTop + scrollableText.clientHeight < scrollableText.scrollHeight - 1);
+                const canScrollUp = e.deltaY < 0 && scrollableText.scrollTop > 0;
+                if (canScrollDown || canScrollUp) {
+                    pauseNewsAutoplay();
+                    return; // Allow native vertical scrolling of the card text
+                }
+            }
+        }
+
         if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
             const canScrollRight = e.deltaY > 0 && newsGrid.scrollLeft + newsGrid.clientWidth < newsGrid.scrollWidth - 10;
             const canScrollLeft = e.deltaY < 0 && newsGrid.scrollLeft > 10;

@@ -685,6 +685,8 @@ section {
 .news-text-scrollable {
     max-height: 85px;
     overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
     padding-right: 0.4rem;
     position: relative;
     scrollbar-width: thin;
