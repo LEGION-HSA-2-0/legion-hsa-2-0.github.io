@@ -217,8 +217,38 @@ if (mobileMenuBtn && mobileNav) {
     });
 }
 
-// Dynamic Scroll Fade and Overflow Handler for Individual News Card Text
+// Dynamic Scroll Fade and Overflow Handler for Individual News Card Text & News Grid
+function updateNewsGridScrollFade() {
+    const grid = document.querySelector('#news .grid');
+    if (!grid) return;
+
+    const hasOverflow = grid.scrollWidth > grid.clientWidth + 2;
+    if (!hasOverflow) {
+        grid.style.maskImage = 'none';
+        grid.style.webkitMaskImage = 'none';
+        return;
+    }
+
+    const isAtStart = grid.scrollLeft <= 5;
+    const isAtEnd = grid.scrollLeft + grid.clientWidth >= grid.scrollWidth - 15;
+
+    if (isAtStart && !isAtEnd) {
+        grid.style.maskImage = 'linear-gradient(to right, black calc(100% - 60px), transparent 100%)';
+        grid.style.webkitMaskImage = 'linear-gradient(to right, black calc(100% - 60px), transparent 100%)';
+    } else if (isAtEnd && !isAtStart) {
+        grid.style.maskImage = 'linear-gradient(to right, transparent 0%, black 50px, black 100%)';
+        grid.style.webkitMaskImage = 'linear-gradient(to right, transparent 0%, black 50px, black 100%)';
+    } else if (!isAtStart && !isAtEnd) {
+        grid.style.maskImage = 'linear-gradient(to right, transparent 0%, black 50px, black calc(100% - 60px), transparent 100%)';
+        grid.style.webkitMaskImage = 'linear-gradient(to right, transparent 0%, black 50px, black calc(100% - 60px), transparent 100%)';
+    } else {
+        grid.style.maskImage = 'none';
+        grid.style.webkitMaskImage = 'none';
+    }
+}
+
 function updateNewsScrollFades() {
+    updateNewsGridScrollFade();
     document.querySelectorAll('.news-text-scrollable').forEach(el => {
         const hasOverflow = el.scrollHeight > el.clientHeight + 2;
         if (!hasOverflow) {
@@ -252,6 +282,8 @@ const newsPrevBtn = document.getElementById('newsPrevBtn');
 const newsNextBtn = document.getElementById('newsNextBtn');
 
 if (newsGrid) {
+    newsGrid.addEventListener('scroll', updateNewsGridScrollFade);
+
     if (newsPrevBtn) {
         newsPrevBtn.addEventListener('click', () => {
             newsGrid.scrollBy({ left: -380, behavior: 'smooth' });

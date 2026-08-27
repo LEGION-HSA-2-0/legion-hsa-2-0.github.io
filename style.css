@@ -484,11 +484,14 @@ section {
     -webkit-overflow-scrolling: touch;
     scrollbar-width: thin;
     scrollbar-color: var(--terracotta) rgba(255, 255, 255, 0.05);
+    mask-image: linear-gradient(to right, black calc(100% - 60px), transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, black calc(100% - 60px), transparent 100%);
+    transition: mask-image 0.25s ease, -webkit-mask-image 0.25s ease;
 }
 
 #news .grid::after {
     content: '';
-    flex: 0 0 100px;
+    flex: 0 0 120px;
     scroll-snap-align: none;
     pointer-events: none;
 }
