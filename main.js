@@ -558,9 +558,8 @@ if (newsGrid) {
         });
     }
 
-    // Convert mouse wheel to horizontal scrolling when hovering news grid, unless cursor is over scrollable card text
+    // Convert mouse wheel to horizontal scrolling (supporting both horizontal mouse wheel and vertical wheel)
     newsGrid.addEventListener('wheel', (e) => {
-        disableNewsAutoplay();
         const scrollableText = e.target.closest('.news-text-scrollable');
         if (scrollableText) {
             const hasVerticalOverflow = scrollableText.scrollHeight > scrollableText.clientHeight + 2;
@@ -573,34 +572,49 @@ if (newsGrid) {
             }
         }
 
-        if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-            const canScrollRight = e.deltaY > 0 && newsGrid.scrollLeft + newsGrid.clientWidth < newsGrid.scrollWidth - 10;
-            const canScrollLeft = e.deltaY < 0 && newsGrid.scrollLeft > 10;
+        // Horizontal mouse wheel or trackpad swipe
+        if (Math.abs(e.deltaX) > 0) {
+            newsGrid.scrollLeft += e.deltaX;
+            updateActiveNewsCardOnScroll();
+            updateNewsScrollbarPosition();
+        } else if (Math.abs(e.deltaY) > 0) {
+            // Convert vertical mouse wheel to horizontal scroll
+            const canScrollRight = e.deltaY > 0 && newsGrid.scrollLeft + newsGrid.clientWidth < newsGrid.scrollWidth - 5;
+            const canScrollLeft = e.deltaY < 0 && newsGrid.scrollLeft > 5;
             if (canScrollRight || canScrollLeft) {
                 e.preventDefault();
                 newsGrid.scrollLeft += e.deltaY;
+                updateActiveNewsCardOnScroll();
+                updateNewsScrollbarPosition();
             }
         }
     }, { passive: false });
 
-    // Stop autoplay completely when mouse enters news area
-    if (newsSection) {
-        newsSection.addEventListener('mouseenter', () => {
+    // Pause autoplay strictly when mouse is directly over the cards, scrollbar, or nav buttons
+    const interactiveNewsElements = [newsGrid, newsScrollbarContainer, newsPrevBtn, newsNextBtn].filter(Boolean);
+    interactiveNewsElements.forEach(el => {
+        el.addEventListener('mouseenter', () => {
             isMouseInsideNews = true;
             stopNewsAutoplay();
         });
 
-        newsSection.addEventListener('mouseleave', () => {
+        el.addEventListener('mouseleave', () => {
             isMouseInsideNews = false;
             updateActiveNewsCardOnScroll();
             if (!userHasInteractedWithNews) {
                 startNewsAutoplay();
             }
         });
-    }
+    });
 
-    newsGrid.addEventListener('touchstart', disableNewsAutoplay, { passive: true });
-    newsGrid.addEventListener('pointerdown', disableNewsAutoplay, { passive: true });
+    newsGrid.addEventListener('touchstart', () => {
+        isMouseInsideNews = true;
+        stopNewsAutoplay();
+    }, { passive: true });
+    newsGrid.addEventListener('pointerdown', () => {
+        isMouseInsideNews = true;
+        stopNewsAutoplay();
+    }, { passive: true });
 
     // Only run autoplay when news section is in viewport
     if (newsSection && 'IntersectionObserver' in window) {
