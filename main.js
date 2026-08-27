@@ -217,38 +217,8 @@ if (mobileMenuBtn && mobileNav) {
     });
 }
 
-// Dynamic Scroll Fade and Overflow Handler for News Cards and News Grid
-function updateNewsGridScrollFade() {
-    const grid = document.querySelector('#news .grid');
-    if (!grid) return;
-
-    const hasOverflow = grid.scrollWidth > grid.clientWidth + 2;
-    if (!hasOverflow) {
-        grid.style.maskImage = 'none';
-        grid.style.webkitMaskImage = 'none';
-        return;
-    }
-
-    const isAtStart = grid.scrollLeft <= 5;
-    const isAtEnd = grid.scrollLeft + grid.clientWidth >= grid.scrollWidth - 12;
-
-    if (isAtStart && !isAtEnd) {
-        grid.style.maskImage = 'linear-gradient(to right, black calc(100% - 60px), transparent 100%)';
-        grid.style.webkitMaskImage = 'linear-gradient(to right, black calc(100% - 60px), transparent 100%)';
-    } else if (isAtEnd && !isAtStart) {
-        grid.style.maskImage = 'linear-gradient(to right, transparent 0%, black 50px, black 100%)';
-        grid.style.webkitMaskImage = 'linear-gradient(to right, transparent 0%, black 50px, black 100%)';
-    } else if (!isAtStart && !isAtEnd) {
-        grid.style.maskImage = 'linear-gradient(to right, transparent 0%, black 50px, black calc(100% - 60px), transparent 100%)';
-        grid.style.webkitMaskImage = 'linear-gradient(to right, transparent 0%, black 50px, black calc(100% - 60px), transparent 100%)';
-    } else {
-        grid.style.maskImage = 'none';
-        grid.style.webkitMaskImage = 'none';
-    }
-}
-
+// Dynamic Scroll Fade and Overflow Handler for Individual News Card Text
 function updateNewsScrollFades() {
-    updateNewsGridScrollFade();
     document.querySelectorAll('.news-text-scrollable').forEach(el => {
         const hasOverflow = el.scrollHeight > el.clientHeight + 2;
         if (!hasOverflow) {
@@ -276,9 +246,34 @@ function updateNewsScrollFades() {
     });
 }
 
+// News Grid Navigation Buttons & Horizontal Wheel Support
 const newsGrid = document.querySelector('#news .grid');
+const newsPrevBtn = document.getElementById('newsPrevBtn');
+const newsNextBtn = document.getElementById('newsNextBtn');
+
 if (newsGrid) {
-    newsGrid.addEventListener('scroll', updateNewsGridScrollFade);
+    if (newsPrevBtn) {
+        newsPrevBtn.addEventListener('click', () => {
+            newsGrid.scrollBy({ left: -380, behavior: 'smooth' });
+        });
+    }
+    if (newsNextBtn) {
+        newsNextBtn.addEventListener('click', () => {
+            newsGrid.scrollBy({ left: 380, behavior: 'smooth' });
+        });
+    }
+
+    // Convert mouse wheel to horizontal scrolling when hovering news grid
+    newsGrid.addEventListener('wheel', (e) => {
+        if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+            const canScrollRight = e.deltaY > 0 && newsGrid.scrollLeft + newsGrid.clientWidth < newsGrid.scrollWidth - 10;
+            const canScrollLeft = e.deltaY < 0 && newsGrid.scrollLeft > 10;
+            if (canScrollRight || canScrollLeft) {
+                e.preventDefault();
+                newsGrid.scrollLeft += e.deltaY;
+            }
+        }
+    }, { passive: false });
 }
 
 document.querySelectorAll('.news-text-scrollable').forEach(el => {
