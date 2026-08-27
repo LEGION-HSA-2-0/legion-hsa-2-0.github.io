@@ -488,6 +488,13 @@ section {
     -webkit-mask-image: linear-gradient(to right, black calc(100% - 65px), transparent 100%);
 }
 
+#news .grid::after {
+    content: '';
+    flex: 0 0 40px;
+    scroll-snap-align: none;
+    pointer-events: none;
+}
+
 #news .grid::-webkit-scrollbar {
     height: 6px;
 }

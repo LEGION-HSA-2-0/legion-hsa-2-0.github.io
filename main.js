@@ -217,8 +217,38 @@ if (mobileMenuBtn && mobileNav) {
     });
 }
 
-// Dynamic Scroll Fade and Overflow Handler for News Cards
+// Dynamic Scroll Fade and Overflow Handler for News Cards and News Grid
+function updateNewsGridScrollFade() {
+    const grid = document.querySelector('#news .grid');
+    if (!grid) return;
+
+    const hasOverflow = grid.scrollWidth > grid.clientWidth + 2;
+    if (!hasOverflow) {
+        grid.style.maskImage = 'none';
+        grid.style.webkitMaskImage = 'none';
+        return;
+    }
+
+    const isAtStart = grid.scrollLeft <= 5;
+    const isAtEnd = grid.scrollLeft + grid.clientWidth >= grid.scrollWidth - 12;
+
+    if (isAtStart && !isAtEnd) {
+        grid.style.maskImage = 'linear-gradient(to right, black calc(100% - 60px), transparent 100%)';
+        grid.style.webkitMaskImage = 'linear-gradient(to right, black calc(100% - 60px), transparent 100%)';
+    } else if (isAtEnd && !isAtStart) {
+        grid.style.maskImage = 'linear-gradient(to right, transparent 0%, black 50px, black 100%)';
+        grid.style.webkitMaskImage = 'linear-gradient(to right, transparent 0%, black 50px, black 100%)';
+    } else if (!isAtStart && !isAtEnd) {
+        grid.style.maskImage = 'linear-gradient(to right, transparent 0%, black 50px, black calc(100% - 60px), transparent 100%)';
+        grid.style.webkitMaskImage = 'linear-gradient(to right, transparent 0%, black 50px, black calc(100% - 60px), transparent 100%)';
+    } else {
+        grid.style.maskImage = 'none';
+        grid.style.webkitMaskImage = 'none';
+    }
+}
+
 function updateNewsScrollFades() {
+    updateNewsGridScrollFade();
     document.querySelectorAll('.news-text-scrollable').forEach(el => {
         const hasOverflow = el.scrollHeight > el.clientHeight + 2;
         if (!hasOverflow) {
@@ -244,6 +274,11 @@ function updateNewsScrollFades() {
             el.style.webkitMaskImage = 'none';
         }
     });
+}
+
+const newsGrid = document.querySelector('#news .grid');
+if (newsGrid) {
+    newsGrid.addEventListener('scroll', updateNewsGridScrollFade);
 }
 
 document.querySelectorAll('.news-text-scrollable').forEach(el => {
