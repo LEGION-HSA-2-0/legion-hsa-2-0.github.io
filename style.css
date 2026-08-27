@@ -602,6 +602,14 @@ section {
     box-shadow: 0 14px 30px rgba(0, 0, 0, 0.4), 0 0 20px var(--cyan-glow);
 }
 
+/* When hovering over the news carousel, suppress active highlight on non-hovered cards so only the card under the cursor lights up */
+#news .grid:hover .card.is-active-news:not(:hover) {
+    background: var(--card-bg);
+    border-color: rgba(255, 255, 255, 0.05);
+    transform: none;
+    box-shadow: none;
+}
+
 .card h3 {
     margin-bottom: 1rem;
     color: var(--text-main);

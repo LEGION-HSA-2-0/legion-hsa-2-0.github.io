@@ -388,8 +388,12 @@ if (newsGrid) {
         updateActiveNewsCardOnScroll();
     });
 
-    // Make clicking any card select & center it
+    // Make clicking or hovering any card track selection
     getNewsCards().forEach((card, idx) => {
+        card.addEventListener('mouseenter', () => {
+            currentNewsIndex = idx;
+        });
+
         card.addEventListener('click', (e) => {
             if (e.target.closest('a, button')) return;
             pauseNewsAutoplay();
@@ -432,6 +436,7 @@ if (newsGrid) {
 
     newsGrid.addEventListener('mouseleave', () => {
         isNewsInteracting = false;
+        updateActiveNewsCardOnScroll();
         startNewsAutoplay();
     });
 
