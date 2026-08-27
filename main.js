@@ -471,7 +471,7 @@ function startNewsAutoplay() {
     stopNewsAutoplay();
     if (userHasInteractedWithNews || isMouseInsideNews) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    newsAutoplayTimer = setInterval(advanceNewsSlide, 4500);
+    newsAutoplayTimer = setInterval(advanceNewsSlide, 3500);
 }
 
 function stopNewsAutoplay() {
