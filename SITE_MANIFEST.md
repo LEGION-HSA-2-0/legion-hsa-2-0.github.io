@@ -109,7 +109,7 @@ Die Hauptseite (`index.html`) gliedert sich in folgende logische Abschnitte:
 * **Unten**: Animierter Scroll-Indikator (Maus-Symbol).
 
 ### C. News Section (`#news`)
-* Raster-Grid (`.grid`) aus 13 News-Karten mit zyklischer Farbpalette (`terracotta` → `brand-bridge` → `cyan`).
+* Raster-Grid (`.grid`) aus 14 News-Karten mit zyklischer Farbpalette (`terracotta` → `brand-bridge` → `cyan`).
 * Jede Karte enthält:
   * 16:9 Vorschaubild mit Hover-Tooltip für Bildrechte (`.photocredit-tooltip`).
   * Datum / Tag, Überschrift mit einheitlicher Mindesthöhe, verlinkten Text und Buttons.
