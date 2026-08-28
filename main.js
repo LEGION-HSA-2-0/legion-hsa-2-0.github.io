@@ -675,17 +675,17 @@ if (newsGrid) {
             }
         }
 
-        // 2. Trackpad horizontal swipe or horizontal tilt wheel:
-        // When horizontal movement is dominant, let browser natively handle momentum/inertia
-        if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+        // 2. Trackpad bidirectional horizontal swipe (deltaX is present):
+        // If there is ANY horizontal delta from the touchpad, let the browser handle it completely natively in BOTH directions!
+        if (Math.abs(e.deltaX) > 0) {
             disableNewsAutoplay();
-            return; // Native smooth overflow-x scrolling
+            return; // Pure native smooth bidirectional trackpad scrolling
         }
 
-        // 3. Vertical mouse wheel: convert deltaY to horizontal scroll
+        // 3. Pure vertical mouse wheel (deltaX === 0): convert deltaY to horizontal scroll
         if (Math.abs(e.deltaY) > 0) {
-            const canScrollRight = e.deltaY > 0 && newsGrid.scrollLeft + newsGrid.clientWidth < newsGrid.scrollWidth - 5;
-            const canScrollLeft = e.deltaY < 0 && newsGrid.scrollLeft > 5;
+            const canScrollRight = e.deltaY > 0 && newsGrid.scrollLeft + newsGrid.clientWidth < newsGrid.scrollWidth - 2;
+            const canScrollLeft = e.deltaY < 0 && newsGrid.scrollLeft > 2;
             if (canScrollRight || canScrollLeft) {
                 e.preventDefault();
                 newsGrid.scrollLeft += e.deltaY;
