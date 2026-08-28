@@ -5,9 +5,9 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>LEGION | AI-Enabled Archaeology</title>
-<meta content="LEGION: machine LEarninG-enabled Identification of archaeological Objects in the middle daNube river basin. Innovative AI-based method for automated classification of Roman pottery." name="description"/>
+<meta content="LEGION: machine LEarninG-enabled Identification of archaeological Objects in the middle daNube river basin. Innovative AI-based methods and the CENTURIA benchmark for automated classification of Roman pottery." name="description"/>
 <meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots"/>
-<meta content="LEGION, AI Archaeology, Roman Pottery, Carnuntum, Machine Learning, Heritage Science Austria, TU Wien, OeAW, Common Ware, Computer Vision, Typochronology" name="keywords"/>
+<meta content="LEGION, AI Archaeology, Roman Pottery, Carnuntum, Machine Learning, Heritage Science Austria, TU Wien, OeAI / OeAW, CENTURIA Dataset, Common Ware, Computer Vision, Typochronology, VISART, WiCV, ECCV 2026, Data Science" name="keywords"/>
 <meta content="LEGION Project Team" name="author"/>
 <link href="https://legion-hsa-2-0.github.io/" rel="canonical"/>
 <link as="image" href="assets/hero-jug.webp" rel="preload"/>
@@ -15,89 +15,139 @@
 <meta content="website" property="og:type"/>
 <meta content="https://legion-hsa-2-0.github.io/" property="og:url"/>
 <meta content="LEGION | AI-Enabled Archaeology" property="og:title"/>
-<meta content="Decoding the history of Roman Carnuntum through automated classification of Roman pottery using cutting-edge Machine Learning." property="og:description"/>
+<meta content="Decoding the history of Roman Carnuntum through automated classification of Roman pottery using cutting-edge Machine Learning and the CENTURIA dataset." property="og:description"/>
 <meta content="https://legion-hsa-2-0.github.io/assets/hero-jug.webp" property="og:image"/>
+<meta content="image/webp" property="og:image:type"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="LEGION 3D Roman pottery model rendering" property="og:image:alt"/>
+<meta content="LEGION Project" property="og:site_name"/>
+<meta content="en_US" property="og:locale"/>
 <!-- Twitter -->
 <meta content="summary_large_image" property="twitter:card"/>
 <meta content="https://legion-hsa-2-0.github.io/" property="twitter:url"/>
 <meta content="LEGION | AI-Enabled Archaeology" property="twitter:title"/>
-<meta content="Decoding the history of Roman Carnuntum through automated classification of Roman pottery using cutting-edge Machine Learning." property="twitter:description"/>
+<meta content="Decoding the history of Roman Carnuntum through automated classification of Roman pottery using cutting-edge Machine Learning and the CENTURIA dataset." property="twitter:description"/>
 <meta content="https://legion-hsa-2-0.github.io/assets/hero-jug.webp" property="twitter:image"/>
+<meta content="LEGION 3D Roman pottery model rendering" property="twitter:image:alt"/>
 <!-- Structured Data (Schema.org JSON-LD) -->
 <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "ResearchProject",
-      "name": "LEGION",
-      "alternateName": "machine LEarninG-enabled Identification of archaeological Objects in the middle daNube river basin",
-      "description": "Innovative machine learning-enabled identification and automated classification of Roman pottery (Common Ware) in the middle Danube river basin, decoding the history of Carnuntum.",
-      "url": "https://legion-hsa-2-0.github.io/",
-      "logo": "https://legion-hsa-2-0.github.io/assets/logo.webp",
-      "image": "https://legion-hsa-2-0.github.io/assets/hero-jug.webp",
-      "parentOrganization": [
+      "@graph": [
         {
-          "@type": "CollegeOrUniversity",
-          "name": "TU Wien",
-          "url": "https://www.tuwien.at/"
+          "@type": "ResearchProject",
+          "@id": "https://legion-hsa-2-0.github.io/#project",
+          "name": "LEGION",
+          "alternateName": "machine LEarninG-enabled Identification of archaeological Objects in the middle daNube river basin",
+          "description": "Innovative machine learning-enabled identification and automated classification of Roman pottery (Common Ware) in the middle Danube river basin, decoding the history of Carnuntum.",
+          "url": "https://legion-hsa-2-0.github.io/",
+          "logo": "https://legion-hsa-2-0.github.io/assets/logo.webp",
+          "image": "https://legion-hsa-2-0.github.io/assets/hero-jug.webp",
+          "parentOrganization": [
+            {
+              "@type": "CollegeOrUniversity",
+              "name": "TU Wien",
+              "url": "https://www.tuwien.at/"
+            },
+            {
+              "@type": "GovernmentOrganization",
+              "name": "Austrian Academy of Sciences (OeAW)",
+              "url": "https://www.oeaw.ac.at/"
+            }
+          ],
+          "sponsor": {
+            "@type": "FundingScheme",
+            "name": "Heritage Science Austria 2.0",
+            "url": "https://www.oeaw.ac.at/en/funding/heritage-science-austria"
+          },
+          "funder": {
+            "@type": "GovernmentOrganization",
+            "name": "Austrian Academy of Sciences (OeAW)",
+            "url": "https://www.oeaw.ac.at/"
+          },
+          "subOrganization": [
+            {
+              "@type": "ResearchOrganization",
+              "name": "Austrian Archaeological Institute (OeAI / OeAW)",
+              "url": "https://www.oeaw.ac.at/oeai/"
+            },
+            {
+              "@type": "ResearchOrganization",
+              "name": "Computer Vision Lab, TU Wien",
+              "url": "https://cvl.tuwien.ac.at/"
+            }
+          ],
+          "member": [
+            {
+              "@type": "Person",
+              "name": "Dominik Hagmann",
+              "jobTitle": "Principal Investigator",
+              "sameAs": "https://homepage.univie.ac.at/dominik.hagmann"
+            },
+            {
+              "@type": "Person",
+              "name": "Silvia Radbauer",
+              "jobTitle": "Co-Principal Investigator",
+              "sameAs": "https://www.oeaw.ac.at/oeai/institut/team/person/silvia-radbauer"
+            },
+            {
+              "@type": "Person",
+              "name": "Irene Ballester-Campos",
+              "jobTitle": "Co-Principal Investigator",
+              "sameAs": "https://cvl.tuwien.ac.at/staff/irene-ballester-campos/"
+            },
+            {
+              "@type": "Person",
+              "name": "Martin Kampel",
+              "jobTitle": "Co-Principal Investigator",
+              "sameAs": "https://cvl.tuwien.ac.at/staff/martin-kampel/"
+            },
+            {
+              "@type": "Person",
+              "name": "Sebastian Zambanini",
+              "jobTitle": "Co-Principal Investigator",
+              "sameAs": "https://cvl.tuwien.ac.at/staff/sebastian-zambanini/"
+            },
+            {
+              "@type": "Person",
+              "name": "Christian Gugl",
+              "jobTitle": "Senior Researcher & Collaborator",
+              "sameAs": "https://www.oeaw.ac.at/oeai/institut/team/person/christian-gugl"
+            },
+            {
+              "@type": "Person",
+              "name": "Valentina Naghavi",
+              "jobTitle": "Master's Student & Researcher"
+            },
+            {
+              "@type": "Person",
+              "name": "Julia Tanzer",
+              "jobTitle": "Student Assistant"
+            },
+            {
+              "@type": "Person",
+              "name": "Anna Laczkó",
+              "jobTitle": "Master's Student & Researcher"
+            }
+          ]
         },
         {
-          "@type": "GovernmentOrganization",
-          "name": "Austrian Academy of Sciences (OeAW)",
-          "url": "https://www.oeaw.ac.at/"
-        }
-      ],
-      "sponsor": {
-        "@type": "FundingScheme",
-        "name": "Heritage Science Austria 2.0",
-        "url": "https://www.oeaw.ac.at/en/funding/heritage-science-austria"
-      },
-      "funder": {
-        "@type": "GovernmentOrganization",
-        "name": "Austrian Academy of Sciences (OeAW)",
-        "url": "https://www.oeaw.ac.at/"
-      },
-      "subOrganization": [
-        {
-          "@type": "ResearchOrganization",
-          "name": "Austrian Archaeological Institute (OeAI)",
-          "url": "https://www.oeaw.ac.at/oeai/"
+          "@type": "Dataset",
+          "@id": "https://legion-hsa-2-0.github.io/#dataset-centuria",
+          "name": "CENTURIA Dataset",
+          "description": "Benchmark dataset of digitized Roman pottery profiles and find drawings from Carnuntum for machine learning and automated archaeological typochronology.",
+          "creator": {
+            "@id": "https://legion-hsa-2-0.github.io/#project"
+          },
+          "license": "https://creativecommons.org/licenses/by/4.0/"
         },
         {
-          "@type": "ResearchOrganization",
-          "name": "Computer Vision Lab, TU Wien",
-          "url": "https://cvl.tuwien.ac.at/"
-        }
-      ],
-      "employee": [
-        {
-          "@type": "Person",
-          "name": "Dominik Hagmann",
-          "jobTitle": "Principal Investigator",
-          "sameAs": "https://homepage.univie.ac.at/dominik.hagmann"
-        },
-        {
-          "@type": "Person",
-          "name": "Silvia Radbauer",
-          "jobTitle": "Co-Principal Investigator",
-          "sameAs": "https://www.oeaw.ac.at/oeai/institut/team/person/silvia-radbauer"
-        },
-        {
-          "@type": "Person",
-          "name": "Irene Ballester Campos",
-          "jobTitle": "Co-Principal Investigator",
-          "sameAs": "https://cvl.tuwien.ac.at/staff/irene-ballester-campos/"
-        },
-        {
-          "@type": "Person",
-          "name": "Martin Kampel",
-          "jobTitle": "Co-Principal Investigator",
-          "sameAs": "https://cvl.tuwien.ac.at/staff/martin-kampel/"
-        },
-        {
-          "@type": "Person",
-          "name": "Sebastian Zambanini",
-          "jobTitle": "Co-Principal Investigator",
-          "sameAs": "https://cvl.tuwien.ac.at/staff/sebastian-zambanini/"
+          "@type": "WebSite",
+          "@id": "https://legion-hsa-2-0.github.io/#website",
+          "url": "https://legion-hsa-2-0.github.io/",
+          "name": "LEGION | AI-Enabled Archaeology",
+          "inLanguage": "en"
         }
       ]
     }
