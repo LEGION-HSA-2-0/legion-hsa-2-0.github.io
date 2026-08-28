@@ -109,11 +109,11 @@ Die Hauptseite (`index.html`) gliedert sich in folgende logische Abschnitte:
 * **Unten**: Animierter Scroll-Indikator (Maus-Symbol).
 
 ### C. News Section (`#news`)
-* Raster-Grid (`.grid`) aus News-Karten.
+* Raster-Grid (`.grid`) aus 12 News-Karten mit zyklischer Farbpalette (`terracotta` → `brand-bridge` → `cyan`).
 * Jede Karte enthält:
   * 16:9 Vorschaubild mit Hover-Tooltip für Bildrechte (`.photocredit-tooltip`).
-  * Datum / Tag, Überschrift, verlinkten Text und Buttons.
-  * **Scrollbarer Textbereich (`.news-text-scrollable`)**: Besitzt eine dynamische CSS-Maske (`mask-image`), die den Text oben/unten weich ausblendet, wenn Inhalt übersteht.
+  * Datum / Tag, Überschrift mit einheitlicher Mindesthöhe, verlinkten Text und Buttons.
+  * **Custom JavaScript Mini-Scrollbars (`.card-scrollbar-track` & `.card-scrollbar-thumb`)**: Einheitliche 36px-Schieber in Kachel-Akzentfarbe mit dynamischer CSS-Maske (`mask-image`), die bei Überlauf sanft einblenden und interaktives Drag-to-Scroll sowie Klick-Sprünge unterstützen.
 
 ### D. Challenge / About Section (`#about`)
 * Vorstellen des archäologischen Problems (Data Overload & Manual Bottleneck).
@@ -151,6 +151,7 @@ Die Hauptseite (`index.html`) gliedert sich in folgende logische Abschnitte:
 | **Scroll Reveal** | `revealOnScroll()` | Überprüft `getBoundingClientRect().top` und fügt `.active` zu `.reveal`-Elementen hinzu, wenn sie ins Sichtfeld rollen. |
 | **Scroll Spy** | `scrollSpy()` | Berechnet die aktiven Sektionen und setzt die Klasse `.active` auf die Header-Links und Side-Dots. |
 | **News Scroll Fade Masking** | `updateNewsScrollFades()` | Prüft `scrollTop` und `clientHeight` von `.news-text-scrollable`. Erzeugt dynamische `linear-gradient` Transparenzen oben/unten. |
+| **Custom Card Mini-Scrollbars** | `initCardMiniScrollbars()` | Berechnet exakt einheitliche 36px Scroll-Thumbs in Kachel-Akzentfarben mit 1:1 Drag-Synchronisation und Track-Klick. |
 | **Mobile Drawer Toggle** | Event-Listener auf `.mobile-menu-btn` | Schaltet die Klasse `.active` der mobilen Navigation um und wechselt das Icon zwischen ☰ und ✕. |
 
 ---

@@ -533,6 +533,7 @@ section {
 #news .grid {
     display: flex;
     overflow-x: auto;
+    overscroll-behavior-x: contain;
     scroll-snap-type: x proximity;
     padding-bottom: 0.5rem;
     -webkit-overflow-scrolling: touch;
@@ -662,10 +663,103 @@ section {
     font-size: 1.15rem;
     line-height: 1.3;
     margin-bottom: 0.5rem;
+    min-height: 2.9rem;
+    display: flex;
+    align-items: flex-start;
+}
+
+.news-text-wrapper {
+    position: relative;
+    height: 130px;
+    margin-bottom: 0.25rem;
+}
+
+.news-text-scrollable {
+    height: 100%;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    padding-right: 0.75rem;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    font-size: 0.88rem;
+    line-height: 1.45;
+}
+
+.news-text-scrollable::-webkit-scrollbar {
+    display: none;
+}
+
+/* Custom Mini Scrollbar for Card Text */
+.card-scrollbar-track {
+    position: absolute;
+    top: 4px;
+    right: 0;
+    bottom: 4px;
+    width: 4px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    user-select: none;
+    z-index: 2;
+    cursor: pointer;
+}
+
+.card:hover .card-scrollbar-track.has-overflow {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.card-scrollbar-thumb {
+    width: 100%;
+    height: 36px;
+    border-radius: 4px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: grab;
+    will-change: transform;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-scrollbar-thumb:active,
+.card-scrollbar-thumb.is-dragging {
+    cursor: grabbing;
+}
+
+/* Card color theming for custom mini scrollbar thumbs */
+.card[style*="var(--terracotta)"] .card-scrollbar-thumb {
+    background-color: var(--terracotta);
+}
+.card[style*="var(--terracotta)"] .card-scrollbar-thumb:hover,
+.card[style*="var(--terracotta)"] .card-scrollbar-thumb.is-dragging {
+    background-color: var(--terracotta-bright, #e87a53);
+    box-shadow: 0 0 8px var(--terracotta-glow);
+}
+
+.card[style*="var(--brand-bridge)"] .card-scrollbar-thumb {
+    background-color: var(--brand-bridge);
+}
+.card[style*="var(--brand-bridge)"] .card-scrollbar-thumb:hover,
+.card[style*="var(--brand-bridge)"] .card-scrollbar-thumb.is-dragging {
+    background-color: var(--brand-bridge-bright, #d4a373);
+    box-shadow: 0 0 8px var(--brand-bridge-glow);
+}
+
+.card[style*="var(--cyan)"] .card-scrollbar-thumb {
+    background-color: var(--cyan);
+}
+.card[style*="var(--cyan)"] .card-scrollbar-thumb:hover,
+.card[style*="var(--cyan)"] .card-scrollbar-thumb.is-dragging {
+    background-color: var(--cyan-bright, #48cae4);
+    box-shadow: 0 0 8px var(--cyan-glow);
 }
 
 .news-links-row {
-    margin-top: 0.65rem;
+    margin-top: auto;
+    padding-top: 0.65rem;
     display: flex;
     gap: 0.4rem 0.75rem;
     flex-wrap: wrap;
@@ -678,12 +772,14 @@ section {
     font-size: 0.8rem;
     font-weight: 600;
     text-decoration: none;
-    margin-top: 0.65rem;
+    margin-top: auto;
+    padding-top: 0.65rem;
     transition: var(--transition-smooth);
 }
 
 .news-links-row .news-link {
     margin-top: 0;
+    padding-top: 0;
 }
 
 .news-link:hover {
@@ -723,76 +819,6 @@ section {
     border-color: rgba(255, 255, 255, 0.05);
     transform: none;
     box-shadow: none;
-}
-
-.card h3 {
-    margin-bottom: 1rem;
-    color: var(--text-main);
-}
-
-.card p {
-    color: var(--text-dim);
-    font-size: 0.95rem;
-}
-
-.news-text-scrollable {
-    height: 130px;
-    overflow-y: auto;
-    overscroll-behavior: contain;
-    -webkit-overflow-scrolling: touch;
-    padding-right: 0.5rem;
-    position: relative;
-    scrollbar-width: thin;
-    scrollbar-color: transparent transparent;
-    transition: scrollbar-color 0.4s ease;
-    font-size: 0.88rem;
-    line-height: 1.45;
-}
-
-.news-text-scrollable::-webkit-scrollbar {
-    width: 5px;
-}
-
-.news-text-scrollable::-webkit-scrollbar-track {
-    background: transparent;
-    border-radius: 3px;
-    transition: background 0.4s ease;
-}
-
-.news-text-scrollable::-webkit-scrollbar-thumb {
-    background-color: transparent;
-    border-radius: 3px;
-    min-height: 38px;
-    transition: background-color 0.4s ease;
-}
-
-.card:hover .news-text-scrollable::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.06);
-}
-
-.card:hover .news-text-scrollable::-webkit-scrollbar-thumb {
-    background-color: var(--terracotta);
-}
-
-.card[style*="var(--terracotta)"]:hover .news-text-scrollable {
-    scrollbar-color: var(--terracotta) rgba(255, 255, 255, 0.06);
-}
-.card[style*="var(--terracotta)"]:hover .news-text-scrollable::-webkit-scrollbar-thumb {
-    background-color: var(--terracotta);
-}
-
-.card[style*="var(--brand-bridge)"]:hover .news-text-scrollable {
-    scrollbar-color: var(--brand-bridge) rgba(255, 255, 255, 0.06);
-}
-.card[style*="var(--brand-bridge)"]:hover .news-text-scrollable::-webkit-scrollbar-thumb {
-    background-color: var(--brand-bridge);
-}
-
-.card[style*="var(--cyan)"]:hover .news-text-scrollable {
-    scrollbar-color: var(--cyan) rgba(255, 255, 255, 0.06);
-}
-.card[style*="var(--cyan)"]:hover .news-text-scrollable::-webkit-scrollbar-thumb {
-    background-color: var(--cyan);
 }
 
 .clickable-card {

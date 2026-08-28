@@ -247,8 +247,99 @@ function updateNewsGridScrollFade() {
     }
 }
 
+function updateCardMiniScrollbars() {
+    document.querySelectorAll('.news-text-wrapper').forEach(wrapper => {
+        const scrollable = wrapper.querySelector('.news-text-scrollable');
+        const track = wrapper.querySelector('.card-scrollbar-track');
+        const thumb = wrapper.querySelector('.card-scrollbar-thumb');
+        if (!scrollable || !track || !thumb) return;
+
+        const maxScroll = scrollable.scrollHeight - scrollable.clientHeight;
+        const hasOverflow = maxScroll > 2;
+
+        if (!hasOverflow) {
+            track.classList.remove('has-overflow');
+            return;
+        }
+
+        track.classList.add('has-overflow');
+        const maxThumbTravel = track.clientHeight - thumb.offsetHeight;
+        if (maxThumbTravel > 0) {
+            const scrollRatio = Math.min(Math.max(scrollable.scrollTop / maxScroll, 0), 1);
+            const thumbY = scrollRatio * maxThumbTravel;
+            thumb.style.transform = `translateY(${thumbY}px)`;
+        }
+    });
+}
+
+function initCardMiniScrollbars() {
+    document.querySelectorAll('.news-text-wrapper').forEach(wrapper => {
+        const scrollable = wrapper.querySelector('.news-text-scrollable');
+        const track = wrapper.querySelector('.card-scrollbar-track');
+        const thumb = wrapper.querySelector('.card-scrollbar-thumb');
+        if (!scrollable || !track || !thumb || wrapper._scrollbarInitialized) return;
+        wrapper._scrollbarInitialized = true;
+
+        scrollable.addEventListener('scroll', () => {
+            updateNewsScrollFades();
+            updateCardMiniScrollbars();
+        });
+
+        // Track click-to-jump
+        track.addEventListener('mousedown', (e) => {
+            if (e.target === thumb) return;
+            const trackRect = track.getBoundingClientRect();
+            const clickY = e.clientY - trackRect.top;
+            const maxThumbTravel = track.clientHeight - thumb.offsetHeight;
+            const maxScroll = scrollable.scrollHeight - scrollable.clientHeight;
+            if (maxThumbTravel > 0 && maxScroll > 0) {
+                const targetThumbTop = Math.min(Math.max(clickY - thumb.offsetHeight / 2, 0), maxThumbTravel);
+                const targetScroll = (targetThumbTop / maxThumbTravel) * maxScroll;
+                scrollable.scrollTo({ top: targetScroll, behavior: 'smooth' });
+            }
+        });
+
+        // Thumb drag
+        let isDraggingThumb = false;
+        let startY = 0;
+        let startScrollTop = 0;
+
+        thumb.addEventListener('pointerdown', (e) => {
+            isDraggingThumb = true;
+            thumb.classList.add('is-dragging');
+            thumb.setPointerCapture(e.pointerId);
+            startY = e.clientY;
+            startScrollTop = scrollable.scrollTop;
+            e.stopPropagation();
+        });
+
+        thumb.addEventListener('pointermove', (e) => {
+            if (!isDraggingThumb) return;
+            const diffY = e.clientY - startY;
+            const maxThumbTravel = track.clientHeight - thumb.offsetHeight;
+            const maxScroll = scrollable.scrollHeight - scrollable.clientHeight;
+            if (maxThumbTravel > 0 && maxScroll > 0) {
+                const scrollDiff = (diffY / maxThumbTravel) * maxScroll;
+                scrollable.scrollTop = startScrollTop + scrollDiff;
+            }
+        });
+
+        const stopDrag = () => {
+            if (!isDraggingThumb) return;
+            isDraggingThumb = false;
+            thumb.classList.remove('is-dragging');
+        };
+
+        thumb.addEventListener('pointerup', stopDrag);
+        thumb.addEventListener('pointercancel', stopDrag);
+    });
+
+    updateCardMiniScrollbars();
+}
+
 function updateNewsScrollFades() {
     updateNewsGridScrollFade();
+    updateCardMiniScrollbars();
     document.querySelectorAll('.news-text-scrollable').forEach(el => {
         const hasOverflow = el.scrollHeight > el.clientHeight + 2;
         if (!hasOverflow) {
@@ -569,8 +660,9 @@ if (newsGrid) {
         });
     }
 
-    // Convert mouse wheel to horizontal scrolling (supporting both horizontal mouse wheel and vertical wheel)
+    // Convert mouse wheel to horizontal scrolling while preserving native trackpad gestures and card text scrolling
     newsGrid.addEventListener('wheel', (e) => {
+        // 1. If hovering over a scrollable text container that can scroll vertically
         const scrollableText = e.target.closest('.news-text-scrollable');
         if (scrollableText) {
             const hasVerticalOverflow = scrollableText.scrollHeight > scrollableText.clientHeight + 2;
@@ -583,20 +675,21 @@ if (newsGrid) {
             }
         }
 
-        // Horizontal mouse wheel or trackpad swipe
-        if (Math.abs(e.deltaX) > 0) {
-            newsGrid.scrollLeft += e.deltaX;
-            updateActiveNewsCardOnScroll();
-            updateNewsScrollbarPosition();
-        } else if (Math.abs(e.deltaY) > 0) {
-            // Convert vertical mouse wheel to horizontal scroll
+        // 2. Trackpad horizontal swipe or horizontal tilt wheel:
+        // When horizontal movement is dominant, let browser natively handle momentum/inertia
+        if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+            disableNewsAutoplay();
+            return; // Native smooth overflow-x scrolling
+        }
+
+        // 3. Vertical mouse wheel: convert deltaY to horizontal scroll
+        if (Math.abs(e.deltaY) > 0) {
             const canScrollRight = e.deltaY > 0 && newsGrid.scrollLeft + newsGrid.clientWidth < newsGrid.scrollWidth - 5;
             const canScrollLeft = e.deltaY < 0 && newsGrid.scrollLeft > 5;
             if (canScrollRight || canScrollLeft) {
                 e.preventDefault();
                 newsGrid.scrollLeft += e.deltaY;
-                updateActiveNewsCardOnScroll();
-                updateNewsScrollbarPosition();
+                disableNewsAutoplay();
             }
         }
     }, { passive: false });
@@ -647,23 +740,23 @@ if (newsGrid) {
     }
 }
 
-document.querySelectorAll('.news-text-scrollable').forEach(el => {
-    el.addEventListener('scroll', updateNewsScrollFades);
-});
-
 window.addEventListener('resize', () => {
+    initCardMiniScrollbars();
     updateNewsScrollFades();
     updateNewsScrollbarPosition();
 });
 window.addEventListener('load', () => {
+    initCardMiniScrollbars();
     updateNewsScrollFades();
     updateNewsScrollbarPosition();
 });
 document.addEventListener('DOMContentLoaded', () => {
+    initCardMiniScrollbars();
     updateNewsScrollFades();
     updateNewsScrollbarPosition();
 });
 setTimeout(() => {
+    initCardMiniScrollbars();
     updateNewsScrollFades();
     updateNewsScrollbarPosition();
 }, 200);
