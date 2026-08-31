@@ -152,6 +152,7 @@ Die Hauptseite (`index.html`) gliedert sich in folgende logische Abschnitte:
 | **Scroll Spy** | `scrollSpy()` | Berechnet die aktiven Sektionen und setzt die Klasse `.active` auf die Header-Links und Side-Dots. |
 | **News Scroll Fade Masking** | `updateNewsScrollFades()` | Prüft `scrollTop` und `clientHeight` von `.news-text-scrollable`. Erzeugt dynamische `linear-gradient` Transparenzen oben/unten. |
 | **Custom Card Mini-Scrollbars** | `initCardMiniScrollbars()` | Berechnet exakt einheitliche 36px Scroll-Thumbs in Kachel-Akzentfarben mit 1:1 Drag-Synchronisation und Track-Klick. |
+| **News Detail Modal / Lightbox** | `openNewsModal()` / `closeNewsModal()` | Öffnet ein zentriertes `<dialog>`-Modal mit vollständigem Text, großem Bild, Fotocredit, Links und Farbakzent beim Klick auf den Vergrößerungs-Button oder das Kartenbild. Pausiert den Autoplay-Slider und sperrt Body-Scroll. |
 | **Mobile Drawer Toggle** | Event-Listener auf `.mobile-menu-btn` | Schaltet die Klasse `.active` der mobilen Navigation um und wechselt das Icon zwischen ☰ und ✕. |
 
 ---
