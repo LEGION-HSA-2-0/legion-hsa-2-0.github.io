@@ -136,12 +136,52 @@
         {
           "@type": "Dataset",
           "@id": "https://legion-hsa-2-0.github.io/#dataset-centuria",
-          "name": "CENTURIA Dataset",
-          "description": "Benchmark dataset of digitized Roman pottery profiles and find drawings from Carnuntum for machine learning and automated archaeological typochronology.",
+          "name": "CENTURIA: Carnuntum Pottery HTR & Metadata Benchmark Dataset",
+          "description": "Benchmark dataset of 507 retro-digitised Roman pottery documentation records from Carnuntum providing handwritten transcriptions, bounding boxes, and field-level metadata for machine learning and automated archaeological typochronology.",
+          "url": "https://github.com/gissuvalentina/CENTURIA",
+          "sameAs": "https://doi.org/10.48550/arXiv.2608.30616",
           "creator": {
             "@id": "https://legion-hsa-2-0.github.io/#project"
           },
           "license": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        {
+          "@type": "ScholarlyArticle",
+          "@id": "https://doi.org/10.48550/arXiv.2608.30616",
+          "name": "OCR-Based Field Extraction for Archaeological Pottery Metadata: The CENTURIA Dataset",
+          "headline": "OCR-Based Field Extraction for Archaeological Pottery Metadata: The CENTURIA Dataset",
+          "author": [
+            {
+              "@type": "Person",
+              "name": "Gissu Valentina Naghavi",
+              "sameAs": "https://www.linkedin.com/in/gissu-valentina-naghavi/"
+            },
+            {
+              "@type": "Person",
+              "name": "Dominik Hagmann",
+              "sameAs": "https://orcid.org/0000-0002-4481-6234"
+            },
+            {
+              "@type": "Person",
+              "name": "Martin Kampel",
+              "sameAs": "https://orcid.org/0000-0002-5217-2854"
+            },
+            {
+              "@type": "Person",
+              "name": "Irene Ballester",
+              "sameAs": "https://orcid.org/0000-0002-0219-9063"
+            }
+          ],
+          "datePublished": "2026-08-28",
+          "url": "https://arxiv.org/abs/2608.30616",
+          "sameAs": "https://doi.org/10.48550/arXiv.2608.30616",
+          "publisher": {
+            "@type": "Organization",
+            "name": "arXiv / ECCV 2026"
+          },
+          "about": {
+            "@id": "https://legion-hsa-2-0.github.io/#dataset-centuria"
+          }
         },
         {
           "@type": "WebSite",
@@ -157,7 +197,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link href="assets/logo.webp" rel="icon" type="image/webp"/>
-<link href="style.css?v=1.6.0" rel="stylesheet"/>
+<link href="style.css?v=1.7.0" rel="stylesheet"/>
 <script src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js" type="module"></script>
 </head>
 <body>
@@ -223,16 +263,21 @@
 <div class="grid">
 <div class="card is-active-news reveal" style="border-bottom: 4px solid var(--terracotta); display: flex; flex-direction: column;">
 <div class="card-image-wrapper" style="position: relative; overflow: hidden; display: block; line-height: 0;">
-<img alt="CENTURIA Logo (OeAI / OeAW &amp; CVL / TU Wien)" height="165" loading="lazy" src="assets/news_centuria.webp" style="width: 100%; object-fit: contain; background: #ffffff; padding: 1.25rem; border-bottom: 1px solid rgba(255, 255, 255, 0.05); display: block;" width="400"/>
+<img alt="CENTURIA Pipeline: From analogue documentation to structured metadata (Naghavi et al. / LEGION)" height="165" loading="lazy" src="assets/news_centuria_workflow.webp" style="width: 100%; object-fit: contain; background: #ffffff; padding: 0.75rem 0.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.05); display: block;" width="400"/>
 <button aria-label="Expand news details" class="card-expand-btn" title="Read full news"><svg fill="none" height="15" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" viewBox="0 0 24 24" width="15"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg></button>
-<div class="photocredit-tooltip">OeAI / OeAW &amp; CVL / TU Wien</div>
+<div class="photocredit-tooltip">Naghavi et al. / LEGION</div>
 </div>
 <div class="card-body">
-<p class="card-date" style="color: var(--terracotta);">Soon</p>
-<h3>First Data Release</h3>
+<p class="card-date" style="color: var(--terracotta);">September 2026</p>
+<h3>CENTURIA Dataset &amp; Paper Released</h3>
 <div class="news-text-wrapper">
-<p class="news-text-scrollable">We are currently preparing the first batch of digitised archaeological drawings for public release.</p>
+<p class="news-text-scrollable">We are proud to announce the official open-access release of the <strong>CENTURIA</strong> benchmark dataset on GitHub, accompanied by our first research paper, <em>"OCR-Based Field Extraction for Archaeological Pottery Metadata: The CENTURIA Dataset"</em> (arXiv:2608.30616). CENTURIA provides 507 retro-digitised Roman pottery drawings from Carnuntum with comprehensive handwritten text transcriptions, bounding boxes, and field-level metadata across seven categories. Evaluated across five document OCR models, we demonstrate that expert-validated LoRA fine-tuning reduces transcription error to &lt;1.5% and achieves over 87% field extraction accuracy.</p>
 <div class="card-scrollbar-track"><div class="card-scrollbar-thumb"></div></div>
+</div>
+<div class="news-links-row">
+<a class="news-link" href="#opensource" style="color: var(--terracotta);">Open Data &amp; Publications ↓</a>
+<a class="news-link" href="https://github.com/gissuvalentina/CENTURIA" rel="noopener" style="color: var(--terracotta);" target="_blank">CENTURIA on GitHub →</a>
+<a class="news-link" href="https://doi.org/10.48550/arXiv.2608.30616" rel="noopener" style="color: var(--terracotta);" target="_blank">arXiv Preprint (DOI) →</a>
 </div>
 </div>
 </div>
@@ -473,20 +518,37 @@
 </div>
 </div>
 </div>
+</div>
 <div class="card reveal" style="border-bottom: 4px solid var(--terracotta); display: flex; flex-direction: column;">
+<div class="card-image-wrapper" style="position: relative; overflow: hidden; display: block; line-height: 0;">
+<img alt="CENTURIA Logo (OeAI / OeAW &amp; CVL / TU Wien)" height="165" loading="lazy" src="assets/news_centuria.webp" style="width: 100%; object-fit: contain; background: #ffffff; padding: 1.25rem; border-bottom: 1px solid rgba(255, 255, 255, 0.05); display: block;" width="400"/>
+<button aria-label="Expand news details" class="card-expand-btn" title="Read full news"><svg fill="none" height="15" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" viewBox="0 0 24 24" width="15"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg></button>
+<div class="photocredit-tooltip">OeAI / OeAW &amp; CVL / TU Wien</div>
+</div>
+<div class="card-body">
+<p class="card-date" style="color: var(--terracotta);">Spring 2026</p>
+<h3>Announcement: First Data Release</h3>
+<div class="news-text-wrapper">
+<p class="news-text-scrollable">Early project announcement regarding the upcoming release of digitised archaeological drawings from Carnuntum. The full benchmark dataset and evaluation pipeline have now been officially published as the CENTURIA dataset.</p>
+<div class="card-scrollbar-track"><div class="card-scrollbar-thumb"></div></div>
+</div>
+<a class="news-link" href="#opensource" style="color: var(--terracotta);">Explore CENTURIA Release ↓</a>
+</div>
+</div>
+<div class="card reveal" style="border-bottom: 4px solid var(--brand-bridge); display: flex; flex-direction: column;">
 <div class="card-image-wrapper" style="position: relative; overflow: hidden; display: block; line-height: 0;">
 <img alt="Feature Learning and Clustering for Archaeological Pottery Typology (OeAI / OeAW)" height="165" loading="lazy" src="assets/news_master_thesis.webp" style="width: 100%; object-fit: cover; object-position: center; border-bottom: 1px solid rgba(255, 255, 255, 0.05); display: block;" width="400"/>
 <button aria-label="Expand news details" class="card-expand-btn" title="Read full news"><svg fill="none" height="15" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" viewBox="0 0 24 24" width="15"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg></button>
 <div class="photocredit-tooltip">OeAI / OeAW</div>
 </div>
 <div class="card-body">
-<p class="card-date" style="color: var(--terracotta);">21 January 2026</p>
+<p class="card-date" style="color: var(--brand-bridge);">21 January 2026</p>
 <h3>Master's Thesis Topic @ CVL</h3>
 <div class="news-text-wrapper">
 <p class="news-text-scrollable">TU Wien's Computer Vision Lab advertised a Master's thesis topic on <em>Feature Learning and Clustering for Archaeological Pottery Typology</em> within the LEGION project, supervised by Martin Kampel and Irene Ballester. The thesis develops Machine Learning pipelines for 70,000+ Roman pottery drawings from Carnuntum, successfully bringing Master's students Anna Laczkó and Valentina Naghavi onto the team to advance our automated typochronology.</p>
 <div class="card-scrollbar-track"><div class="card-scrollbar-thumb"></div></div>
 </div>
-<a class="news-link" href="https://cvl.tuwien.ac.at/teaching/student-topics/feature-learning-and-clustering-for-archaeological-pottery-typology/" rel="noopener" style="color: var(--terracotta);" target="_blank">Topic Description @ CVL →</a>
+<a class="news-link" href="https://cvl.tuwien.ac.at/teaching/student-topics/feature-learning-and-clustering-for-archaeological-pottery-typology/" rel="noopener" style="color: var(--brand-bridge);" target="_blank">Topic Description @ CVL →</a>
 </div>
 </div>
 </div>
@@ -600,9 +662,107 @@
 </div>
 </section>
 <section id="opensource">
-<span class="section-label">Open Science &amp; Code</span>
-<h2 class="section-title">Open-Source Ecosystem</h2>
-<p style="margin-bottom: 3.5rem; font-size: 1.1rem; max-width: 800px;">LEGION is committed to <strong>Open Science, FAIR and CARE principles, and Reproducible AI</strong>. All developed machine learning pipelines, benchmark datasets, web platforms, and utilities will be released under permissive open-source licenses for the global research community.</p>
+<span class="section-label">Open Science, Data &amp; Publications</span>
+<h2 class="section-title">Open-Source Ecosystem &amp; Research</h2>
+<p style="margin-bottom: 3rem; font-size: 1.1rem; max-width: 800px;">LEGION is committed to <strong>Open Science, FAIR and CARE principles, and Reproducible AI</strong>. All developed machine learning pipelines, benchmark datasets, web platforms, and research findings are released openly for the global archaeological and computer vision communities.</p>
+
+<div class="open-science-showcase">
+    <!-- 1. Featured Dataset: CENTURIA -->
+    <div class="data-pub-card card-terracotta reveal">
+        <div class="data-pub-header">
+            <div class="data-pub-badges">
+                <span class="data-pub-badge badge-terracotta">Benchmark Dataset</span>
+                <span class="data-pub-badge">507 Records</span>
+                <span class="data-pub-badge">CC BY 4.0</span>
+                <span class="data-pub-badge">Carnuntum</span>
+            </div>
+            <h3>CENTURIA Dataset &amp; Pipeline</h3>
+            <p class="data-pub-authors">By <strong>Gissu Valentina Naghavi</strong>, <strong>Dominik Hagmann</strong>, <strong>Martin Kampel</strong>, and <strong>Irene Ballester</strong></p>
+        </div>
+        <div class="data-pub-image-preview">
+            <img alt="CENTURIA Pipeline: From analogue documentation to structured metadata" height="150" loading="lazy" src="assets/centuria_workflow.webp" width="550"/>
+        </div>
+        <p class="data-pub-description">The <strong>CENTURIA</strong> benchmark provides 507 retro-digitised Roman pottery documentation records from Carnuntum, complete with handwritten text ground truth, bounding boxes, and structured field labels across 7 metadata categories (provenance, project, FN, SE, pottery form, fabric, publication type, and rim diameter). Evaluates 5 state-of-the-art OCR models and provides LoRA fine-tuning workflows achieving &gt;87% extraction accuracy.</p>
+        
+        <div class="data-pub-stats">
+            <div class="data-stat-item">
+                <span class="data-stat-value" style="color: var(--terracotta);">507</span>
+                <span class="data-stat-label">Find Records</span>
+            </div>
+            <div class="data-stat-item">
+                <span class="data-stat-value" style="color: var(--brand-bridge);">&gt;87%</span>
+                <span class="data-stat-label">Field Accuracy</span>
+            </div>
+            <div class="data-stat-item">
+                <span class="data-stat-value" style="color: var(--cyan);">&lt;1.5%</span>
+                <span class="data-stat-label">LoRA Error</span>
+            </div>
+        </div>
+
+        <div class="data-pub-actions">
+            <a class="data-pub-btn btn-primary" href="https://github.com/gissuvalentina/CENTURIA" rel="noopener" target="_blank">
+                <svg fill="currentColor" height="16" viewBox="0 0 24 24" width="16"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.43.372.823 1.102.823 2.222 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path></svg>
+                <span>CENTURIA on GitHub</span>
+            </a>
+            <a class="data-pub-btn btn-secondary" href="https://doi.org/10.48550/arXiv.2608.30616" rel="noopener" target="_blank">
+                <span>View Paper (DOI) →</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- 2. Featured Publication: First Paper -->
+    <div class="data-pub-card card-cyan reveal">
+        <div class="data-pub-header">
+            <div class="data-pub-badges">
+                <span class="data-pub-badge badge-cyan">First Project Publication</span>
+                <span class="data-pub-badge">Preprint / arXiv</span>
+                <span class="data-pub-badge">ECCV 2026</span>
+                <span class="data-pub-badge badge-bridge">Open Access</span>
+            </div>
+            <h3>OCR-Based Field Extraction for Archaeological Pottery Metadata: The CENTURIA Dataset</h3>
+            <p class="data-pub-authors">
+                <strong>Gissu Valentina Naghavi</strong>, <strong>Dominik Hagmann</strong>, <strong>Martin Kampel</strong>, <strong>Irene Ballester</strong>
+            </p>
+        </div>
+
+        <p class="data-pub-description">
+            Published on arXiv and presented at the <em>Women in Computer Vision</em> (WiCV) and <em>Vision for Art and Culture</em> (VISART VIII) workshops at the <strong>European Conference on Computer Vision (ECCV 2026)</strong> in Malmö, Sweden. This paper introduces the first domain-specific benchmark and lightweight LoRA fine-tuning strategy to bridge the substantial domain gap in document analysis models for retro-digitised archaeological pottery records.
+        </p>
+
+        <div class="data-pub-actions">
+            <a class="data-pub-btn btn-primary" href="https://doi.org/10.48550/arXiv.2608.30616" rel="noopener" target="_blank">
+                <span>DOI: 10.48550/arXiv.2608.30616</span>
+            </a>
+            <a class="data-pub-btn btn-secondary" href="https://arxiv.org/abs/2608.30616" rel="noopener" target="_blank">
+                <span>arXiv:2608.30616</span>
+            </a>
+            <a class="data-pub-btn btn-secondary" href="https://arxiv.org/pdf/2608.30616" rel="noopener" target="_blank">
+                <span>Download PDF</span>
+            </a>
+        </div>
+
+        <details class="bibtex-toggle-details">
+            <summary>
+                <span>BibTeX Citation</span>
+                <span>▼</span>
+            </summary>
+            <div class="bibtex-content-box">
+                <button class="copy-bibtex-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000);" type="button">Copy</button>
+                <pre class="bibtex-code">@misc{naghavi2026centuria,
+  title={OCR-Based Field Extraction for Archaeological Pottery Metadata: The CENTURIA Dataset},
+  author={Naghavi, Gissu Valentina and Hagmann, Dominik and Kampel, Martin and Ballester, Irene},
+  year={2026},
+  eprint={2608.30616},
+  archivePrefix={arXiv},
+  primaryClass={cs.CV},
+  doi={10.48550/arXiv.2608.30616},
+  url={https://arxiv.org/abs/2608.30616}
+}</pre>
+            </div>
+        </details>
+    </div>
+</div>
+
 <div class="github-org-banner reveal">
 <div class="github-org-icon-col">
 <div class="github-org-icon-glow">
@@ -948,6 +1108,6 @@
         </div>
     </div>
 </dialog>
-<script src="main.js?v=1.6.0"></script>
+<script src="main.js?v=1.7.0"></script>
 </body>
 </html>

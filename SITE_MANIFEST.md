@@ -109,7 +109,7 @@ Die Hauptseite (`index.html`) gliedert sich in folgende logische Abschnitte:
 * **Unten**: Animierter Scroll-Indikator (Maus-Symbol).
 
 ### C. News Section (`#news`)
-* Raster-Grid (`.grid`) aus 16 News-Karten mit zyklischer Farbpalette (`terracotta` → `brand-bridge` → `cyan`).
+* Raster-Grid (`.grid`) aus 17 News-Karten mit zyklischer Farbpalette (`terracotta` → `brand-bridge` → `cyan`).
 * Jede Karte enthält:
   * 16:9 Vorschaubild mit Hover-Tooltip für Bildrechte (`.photocredit-tooltip`).
   * Datum / Tag, Überschrift mit einheitlicher Mindesthöhe, verlinkten Text und Buttons.
@@ -122,8 +122,10 @@ Die Hauptseite (`index.html`) gliedert sich in folgende logische Abschnitte:
 ### E. Methodology & Impact Sections (`#methodology`, `#impact`)
 * Visualisierung der Semi-supervised Computer Vision Pipeline, Human-in-the-Loop (HITL), Open Source Tools & typochronologischen Auswertungen.
 
-### F. Open Science & Code Section (`#opensource`)
-* Prominenter **GitHub Organization Banner** mit Direktlinks zur Organisation [`LEGION-HSA-2-0`](https://github.com/LEGION-HSA-2-0), Badges und Einladung zur wissenschaftlichen Open-Source-Zusammenarbeit.
+### F. Open Science, Data & Publications Section (`#opensource`)
+* **Featured Dataset Showcase**: CENTURIA Benchmark Dataset (507 Datensätze, LoRA Fine-Tuning, Workflow-Diagramm und GitHub-Link).
+* **Featured Publication Showcase**: Erste Projektpublikation (*"OCR-Based Field Extraction for Archaeological Pottery Metadata: The CENTURIA Dataset"*, arXiv:2608.30616 / WiCV & VISART VIII @ ECCV 2026) mit DOI, arXiv, PDF-Download und interaktivem BibTeX-Zitierblock.
+* **GitHub Organization Banner**: Prominenter Banner mit Direktlinks zur Organisation [`LEGION-HSA-2-0`](https://github.com/LEGION-HSA-2-0), Badges und Einladung zur wissenschaftlichen Open-Source-Zusammenarbeit.
 
 ### G. Team Section (`#contact`)
 * Zwei institutionelle Spalten:
