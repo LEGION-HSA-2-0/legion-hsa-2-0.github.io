@@ -538,6 +538,7 @@ section {
     overflow-x: auto;
     overscroll-behavior-x: contain;
     scroll-snap-type: x proximity;
+    scroll-padding-left: 108px;
     padding-bottom: 0.5rem;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
@@ -961,6 +962,178 @@ section {
     gap: 4px;
     text-transform: uppercase;
     white-space: nowrap;
+}
+
+/* --- Sticky Pinned News Cards & Peeking Stack --- */
+.card.is-sticky-card {
+    position: sticky;
+    top: 0;
+    will-change: transform, left, clip-path;
+}
+
+.card.card-featured-award.is-sticky-card {
+    left: 0;
+    z-index: 25;
+}
+
+.card.card-pinned-terracotta.is-sticky-card {
+    left: 48px;
+    z-index: 26;
+}
+
+/* When docked / peeking as horizontal stack on scroll */
+.card.is-sticky-card.is-peeking {
+    scroll-snap-align: none !important;
+    cursor: pointer !important;
+}
+
+.card.card-featured-award.is-peeking {
+    clip-path: inset(0 calc(100% - 48px) 0 0 round 12px 0 0 12px);
+    border-right: 1.5px solid var(--award-gold) !important;
+    box-shadow: 6px 0 24px rgba(0, 0, 0, 0.85), 0 0 20px var(--award-gold-glow, rgba(245, 158, 11, 0.45)) !important;
+}
+
+.card.card-pinned-terracotta.is-peeking {
+    clip-path: inset(0 calc(100% - 48px) 0 0 round 12px 0 0 12px);
+    border-right: 1.5px solid var(--terracotta) !important;
+    box-shadow: 8px 0 28px rgba(0, 0, 0, 0.9), 0 0 20px var(--terracotta-glow, rgba(212, 106, 67, 0.45)) !important;
+}
+
+.card.is-sticky-card.is-peeking .card-image-wrapper,
+.card.is-sticky-card.is-peeking .card-body {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Vertical Peek Strip */
+.card-peek-strip {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease, background 0.25s ease;
+    z-index: 30;
+    background: #0d1117;
+    user-select: none;
+}
+
+.card.is-sticky-card.is-peeking .card-peek-strip {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.peek-strip-pin {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-featured-award .peek-strip-pin {
+    background: rgba(245, 158, 11, 0.18);
+    color: var(--award-gold-bright, #fbbf24);
+    border: 1px solid rgba(245, 158, 11, 0.55);
+    box-shadow: 0 0 10px rgba(245, 158, 11, 0.35);
+}
+
+.card-pinned-terracotta .peek-strip-pin {
+    background: rgba(212, 106, 67, 0.2);
+    color: #ff9d7a;
+    border: 1px solid rgba(212, 106, 67, 0.55);
+    box-shadow: 0 0 10px rgba(212, 106, 67, 0.35);
+}
+
+.peek-strip-title {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    margin: auto 0;
+}
+
+.card-featured-award .peek-strip-title {
+    color: var(--award-gold-bright, #fbbf24);
+    text-shadow: 0 0 8px rgba(245, 158, 11, 0.4);
+}
+
+.card-pinned-terracotta .peek-strip-title {
+    color: #ff9d7a;
+    text-shadow: 0 0 8px rgba(212, 106, 67, 0.4);
+}
+
+.peek-strip-arrow {
+    font-size: 14px;
+    line-height: 1;
+    opacity: 0.65;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+}
+
+.card-featured-award .peek-strip-arrow {
+    color: var(--award-gold-bright, #fbbf24);
+}
+
+.card-pinned-terracotta .peek-strip-arrow {
+    color: #ff9d7a;
+}
+
+.card.is-sticky-card.is-peeking:hover {
+    filter: brightness(1.15);
+}
+
+.card.is-sticky-card.is-peeking:hover .peek-strip-arrow {
+    opacity: 1;
+    transform: translateX(-3px);
+}
+
+.card.is-sticky-card.is-peeking:hover .peek-strip-pin {
+    transform: scale(1.08);
+}
+
+@media (max-width: 768px) {
+    #news .grid {
+        scroll-padding-left: 82px;
+    }
+    .card.card-pinned-terracotta.is-sticky-card {
+        left: 36px;
+    }
+    .card.card-featured-award.is-peeking,
+    .card.card-pinned-terracotta.is-peeking {
+        clip-path: inset(0 calc(100% - 36px) 0 0 round 10px 0 0 10px);
+    }
+    .card-peek-strip {
+        width: 36px;
+        padding: 12px 0;
+    }
+    .peek-strip-pin {
+        width: 24px;
+        height: 24px;
+    }
+    .peek-strip-pin svg {
+        width: 10px;
+        height: 10px;
+    }
+    .peek-strip-title {
+        font-size: 0.62rem;
+        letter-spacing: 0.05em;
+    }
+    .peek-strip-arrow {
+        font-size: 12px;
+    }
 }
 
 /* News Card Expand Button */

@@ -229,18 +229,12 @@ function updateNewsGridScrollFade() {
         return;
     }
 
-    const isAtStart = grid.scrollLeft <= 5;
     const isAtEnd = grid.scrollLeft + grid.clientWidth >= grid.scrollWidth - 15;
 
-    if (isAtStart && !isAtEnd) {
+    // Fade only the right edge so the sticky left pinned cards remain crisp and unmasked
+    if (!isAtEnd) {
         grid.style.maskImage = 'linear-gradient(to right, black calc(100% - 60px), transparent 100%)';
         grid.style.webkitMaskImage = 'linear-gradient(to right, black calc(100% - 60px), transparent 100%)';
-    } else if (isAtEnd && !isAtStart) {
-        grid.style.maskImage = 'linear-gradient(to right, transparent 0%, black 50px, black 100%)';
-        grid.style.webkitMaskImage = 'linear-gradient(to right, transparent 0%, black 50px, black 100%)';
-    } else if (!isAtStart && !isAtEnd) {
-        grid.style.maskImage = 'linear-gradient(to right, transparent 0%, black 50px, black calc(100% - 60px), transparent 100%)';
-        grid.style.webkitMaskImage = 'linear-gradient(to right, transparent 0%, black 50px, black calc(100% - 60px), transparent 100%)';
     } else {
         grid.style.maskImage = 'none';
         grid.style.webkitMaskImage = 'none';
@@ -652,9 +646,21 @@ function setActiveNewsCard(index, shouldScroll = true) {
     });
 
     if (shouldScroll && newsGrid) {
-        const activeCard = cards[currentNewsIndex];
-        const cardCenter = activeCard.offsetLeft + (activeCard.offsetWidth / 2);
-        const targetScrollLeft = cardCenter - (newsGrid.clientWidth / 2);
+        const isMobile = window.innerWidth <= 768;
+        const cardWidth = cards[0].offsetWidth;
+        const gap = isMobile ? 16 : 32;
+        const dockOffset = isMobile ? 36 : 48;
+
+        let targetScrollLeft = 0;
+        if (currentNewsIndex === 0) {
+            targetScrollLeft = 0;
+        } else if (currentNewsIndex === 1) {
+            targetScrollLeft = Math.max(0, cardWidth + gap - dockOffset);
+        } else {
+            const naturalCenter = (currentNewsIndex * (cardWidth + gap)) + (cardWidth / 2);
+            targetScrollLeft = naturalCenter - (newsGrid.clientWidth / 2);
+        }
+
         newsGrid.scrollTo({
             left: Math.max(0, targetScrollLeft),
             behavior: 'smooth'
@@ -667,13 +673,16 @@ function updateActiveNewsCardOnScroll() {
     const cards = getNewsCards();
     if (!cards.length) return;
 
+    const isMobile = window.innerWidth <= 768;
+    const cardWidth = cards[0].offsetWidth;
+    const gap = isMobile ? 16 : 32;
     const gridCenter = newsGrid.scrollLeft + (newsGrid.clientWidth / 2);
     let closestIndex = 0;
     let minDistance = Infinity;
 
     cards.forEach((card, idx) => {
-        const cardCenter = card.offsetLeft + (card.offsetWidth / 2);
-        const distance = Math.abs(cardCenter - gridCenter);
+        const naturalCenter = (idx * (cardWidth + gap)) + (cardWidth / 2);
+        const distance = Math.abs(naturalCenter - gridCenter);
         if (distance < minDistance) {
             minDistance = distance;
             closestIndex = idx;
@@ -693,6 +702,36 @@ function updateActiveNewsCardOnScroll() {
                 c.classList.remove('is-active-news');
             }
         });
+    }
+}
+
+// Update sticky horizontal peeking state for the two pinned news cards
+function updateNewsPinnedPeeking() {
+    if (!newsGrid) return;
+    const cards = getNewsCards();
+    if (cards.length < 2) return;
+    const card0 = cards[0];
+    const card1 = cards[1];
+
+    const isMobile = window.innerWidth <= 768;
+    const dockOffset = isMobile ? 36 : 48;
+    const scrollLeft = newsGrid.scrollLeft;
+
+    // Card 0 peeks when scrolled past 25px
+    if (scrollLeft > 25) {
+        card0.classList.add('is-peeking');
+    } else {
+        card0.classList.remove('is-peeking');
+    }
+
+    // Card 1 peeks when scrolled past its full reading position
+    const cardWidth = card0.offsetWidth;
+    const gap = isMobile ? 16 : 32;
+    const card1NaturalLeft = cardWidth + gap;
+    if (scrollLeft >= (card1NaturalLeft - dockOffset - 15)) {
+        card1.classList.add('is-peeking');
+    } else {
+        card1.classList.remove('is-peeking');
     }
 }
 
@@ -729,13 +768,21 @@ function disableNewsAutoplay() {
 }
 
 if (newsGrid) {
-    // Initial highlight on first card
+    // Initial highlight on first card & peeking check
     setActiveNewsCard(0, false);
+    updateNewsPinnedPeeking();
     updateNewsScrollbarPosition();
 
     newsGrid.addEventListener('scroll', () => {
         updateNewsGridScrollFade();
+        updateNewsPinnedPeeking();
         updateActiveNewsCardOnScroll();
+        updateNewsScrollbarPosition();
+    });
+
+    window.addEventListener('resize', () => {
+        updateNewsPinnedPeeking();
+        updateNewsGridScrollFade();
         updateNewsScrollbarPosition();
     });
 
@@ -769,7 +816,10 @@ if (newsGrid) {
         if (!isDraggingGrid) return;
         isDraggingGrid = false;
         newsGrid.style.scrollSnapType = 'x proximity';
-        setTimeout(updateActiveNewsCardOnScroll, 100);
+        setTimeout(() => {
+            updateActiveNewsCardOnScroll();
+            updateNewsPinnedPeeking();
+        }, 100);
     });
 
     // Make clicking or hovering any card track selection, and enable detail modal
@@ -804,6 +854,25 @@ if (newsGrid) {
         card.addEventListener('click', (e) => {
             disableNewsAutoplay();
             if (hasDraggedGrid) return;
+
+            // If clicking a peeking / docked pinned card, smooth scroll directly back to it
+            if (card.classList.contains('is-peeking')) {
+                e.stopPropagation();
+                e.preventDefault();
+                if (idx === 0) {
+                    newsGrid.scrollTo({ left: 0, behavior: 'smooth' });
+                } else if (idx === 1) {
+                    const isMobile = window.innerWidth <= 768;
+                    const dockOffset = isMobile ? 36 : 48;
+                    const card0Width = getNewsCards()[0] ? getNewsCards()[0].offsetWidth : 320;
+                    const gap = isMobile ? 16 : 32;
+                    const targetLeft = Math.max(0, card0Width + gap - dockOffset);
+                    newsGrid.scrollTo({ left: targetLeft, behavior: 'smooth' });
+                }
+                setActiveNewsCard(idx, false);
+                return;
+            }
+
             if (e.target.closest('a, button, .card-image-wrapper')) return;
             setActiveNewsCard(idx, true);
         });
@@ -820,6 +889,18 @@ if (newsGrid) {
             disableNewsAutoplay();
             setActiveNewsCard(currentNewsIndex + 1, true);
         });
+    }
+
+    const newsUrlParams = new URLSearchParams(window.location.search);
+    if (newsUrlParams.has('scrollNews')) {
+        const s = parseInt(newsUrlParams.get('scrollNews'), 10);
+        const newsEl = document.getElementById('news');
+        if (newsEl) {
+            window.scrollTo(0, newsEl.offsetTop);
+        }
+        newsGrid.scrollLeft = s;
+        updateNewsPinnedPeeking();
+        updateActiveNewsCardOnScroll();
     }
 
     // Convert mouse wheel to horizontal scrolling while preserving native trackpad gestures and card text scrolling
