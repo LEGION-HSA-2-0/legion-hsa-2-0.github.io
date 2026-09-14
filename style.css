@@ -17,6 +17,9 @@ html {
     --terracotta-glow: rgba(212, 106, 67, 0.5);
     --brand-bridge-glow: rgba(106, 143, 135, 0.5);
     --cyan-glow: rgba(0, 181, 204, 0.5);
+    --award-gold: #f59e0b;
+    --award-gold-bright: #fbbf24;
+    --award-gold-glow: rgba(245, 158, 11, 0.45);
     
     --text-main: #f0f0f0;
     --text-dim: #a0a0a0;
@@ -813,12 +816,53 @@ section {
     box-shadow: 0 14px 30px rgba(0, 0, 0, 0.4), 0 0 20px var(--cyan-glow);
 }
 
+/* Featured / Dominant Award Card (Pinned Far-Left) */
+.card.card-featured-award {
+    background: linear-gradient(165deg, rgba(245, 158, 11, 0.18) 0%, rgba(212, 106, 67, 0.12) 35%, rgba(18, 22, 28, 0.96) 100%) !important;
+    border: 1.5px solid rgba(245, 158, 11, 0.55) !important;
+    border-bottom: 4px solid var(--award-gold, #f59e0b) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 22px rgba(245, 158, 11, 0.25);
+}
+
+.card.card-featured-award:hover,
+.card.card-featured-award.is-active-news {
+    background: linear-gradient(165deg, rgba(245, 158, 11, 0.26) 0%, rgba(212, 106, 67, 0.18) 40%, rgba(24, 28, 38, 0.98) 100%) !important;
+    border-color: var(--award-gold-bright, #fbbf24) !important;
+    transform: translateY(-6px);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6), 0 0 32px var(--award-gold-glow, rgba(245, 158, 11, 0.5)) !important;
+}
+
 /* When hovering over the news carousel, suppress active highlight on non-hovered cards so only the card under the cursor lights up */
 #news .grid:hover .card.is-active-news:not(:hover) {
     background: var(--card-bg);
     border-color: rgba(255, 255, 255, 0.05);
     transform: none;
     box-shadow: none;
+}
+
+/* Ensure the featured award card remains visually dominant and warm even when another card is hovered */
+#news .grid:hover .card.card-featured-award:not(:hover) {
+    background: linear-gradient(165deg, rgba(245, 158, 11, 0.14) 0%, rgba(212, 106, 67, 0.08) 35%, rgba(18, 22, 28, 0.96) 100%) !important;
+    border-color: rgba(245, 158, 11, 0.42) !important;
+    transform: none;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), 0 0 14px rgba(245, 158, 11, 0.16);
+}
+
+/* Award Badge Pill */
+.card-award-badge {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    color: #0d1117;
+    font-weight: 700;
+    font-size: 0.72rem;
+    padding: 0.22rem 0.65rem;
+    border-radius: 999px;
+    letter-spacing: 0.03em;
+    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.45);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    text-transform: uppercase;
+    white-space: nowrap;
 }
 
 /* News Card Expand Button */
@@ -877,6 +921,12 @@ section {
     border-color: var(--cyan);
     box-shadow: 0 0 12px var(--cyan-glow);
     color: var(--cyan-bright, #48cae4);
+}
+
+.card-featured-award .card-expand-btn:hover {
+    border-color: var(--award-gold-bright, #fbbf24);
+    box-shadow: 0 0 14px var(--award-gold-glow, rgba(245, 158, 11, 0.6));
+    color: var(--award-gold-bright, #fbbf24);
 }
 
 /* ==========================================
@@ -2539,6 +2589,13 @@ footer {
     background: rgba(106, 143, 135, 0.2);
     color: #a8d5cb;
     border-color: rgba(106, 143, 135, 0.4);
+}
+
+.data-pub-badge.badge-award {
+    background: rgba(245, 158, 11, 0.22);
+    color: #fbbf24;
+    border-color: rgba(245, 158, 11, 0.55);
+    font-weight: 700;
 }
 
 .data-pub-card h3 {

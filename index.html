@@ -151,6 +151,7 @@
           "@id": "https://doi.org/10.48550/arXiv.2608.30616",
           "name": "OCR-Based Field Extraction for Archaeological Pottery Metadata: The CENTURIA Dataset",
           "headline": "OCR-Based Field Extraction for Archaeological Pottery Metadata: The CENTURIA Dataset",
+          "award": "Best Paper Award at VISART Workshop (ECCV 2026)",
           "author": [
             {
               "@type": "Person",
@@ -198,7 +199,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link href="assets/logo.webp" rel="icon" type="image/webp"/>
-<link href="style.css?v=1.7.0" rel="stylesheet"/>
+<link href="style.css?v=1.8.0" rel="stylesheet"/>
 <script src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js" type="module"></script>
 </head>
 <body>
@@ -262,7 +263,34 @@
 </div>
 </div>
 <div class="grid">
-<div class="card is-active-news reveal" style="border-bottom: 4px solid var(--terracotta); display: flex; flex-direction: column;">
+<div class="card card-featured-award is-active-news reveal" style="display: flex; flex-direction: column;">
+<div class="card-image-wrapper" style="position: relative; overflow: hidden; display: block; line-height: 0;">
+<img alt="Gissu Valentina Naghavi with the CENTURIA poster at ECCV 2026 / VISART Workshop" height="165" loading="lazy" src="assets/news_best_paper_award.webp" style="width: 100%; object-fit: cover; object-position: center 35%; border-bottom: 1px solid rgba(245, 158, 11, 0.35); display: block;" width="400"/>
+<button aria-label="Expand news details" class="card-expand-btn" title="Read full news"><svg fill="none" height="15" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" viewBox="0 0 24 24" width="15"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg></button>
+<div class="photocredit-tooltip">ECCV 2026 / VISART Workshop</div>
+</div>
+<div class="card-body">
+<div class="card-award-header-row" style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.35rem;">
+<span class="card-award-badge">🏆 Best Paper Award</span>
+<p class="card-date" style="color: var(--award-gold-bright, #fbbf24); margin: 0; font-weight: 600;">8 September 2026</p>
+</div>
+<h3>Best Paper Award for AI-assisted Processing of Archaeological Pottery Records</h3>
+<div class="news-text-wrapper">
+<div class="news-text-scrollable">
+<p style="margin-bottom: 0.6rem;">The study by lead author <strong>Gissu Valentina Naghavi</strong>, <strong>Dominik Hagmann</strong>, <strong>Martin Kampel</strong>, and <strong>Irene Ballester</strong> received the prestigious <strong>Best Paper Award</strong> at the <em>VISART Workshop</em> of the renowned <strong>European Conference on Computer Vision (ECCV) 2026</strong>. It demonstrates how artificial intelligence can turn handwritten archaeological annotations into structured, searchable data.</p>
+<p style="margin-bottom: 0.6rem;">The <strong>CENTURIA</strong> benchmark dataset comprises 507 selected, digitised pottery drawings from Carnuntum with expert-validated reference data (ground truth). The team compared five models for optical character recognition (OCR) and handwritten text recognition (HTR), including multimodal vision-language models (VLMs). Adapting the models using just 57 training examples manually transcribed by experts reduced the transcription error rate to below 1.5%, while structured field extraction reached over 87% accuracy. Comparable records can therefore be processed automatically with high accuracy, potentially reducing manual transcription work substantially.</p>
+<p>The work forms part of <strong>LEGION</strong>, a collaboration between the Austrian Archaeological Institute of the Austrian Academy of Sciences (OeAI / OeAW) and TU Wien’s Computer Vision Lab (CVL), funded through the Academy’s Heritage Science Austria 2.0 programme (Grant: Heritage_2024-12_LEGION). Future work will focus on extending these methods to larger archival collections and integrating them with AI-assisted classification of Roman pottery.</p>
+</div>
+<div class="card-scrollbar-track"><div class="card-scrollbar-thumb"></div></div>
+</div>
+<div class="news-links-row">
+<a class="news-link" href="https://doi.org/10.48550/arXiv.2608.30616" rel="noopener" style="color: var(--award-gold-bright, #fbbf24);" target="_blank">arXiv Preprint (DOI) →</a>
+<a class="news-link" href="https://github.com/gissuvalentina/CENTURIA" rel="noopener" style="color: var(--award-gold-bright, #fbbf24);" target="_blank">CENTURIA on GitHub →</a>
+<a class="news-link" href="https://visarts.eu" rel="noopener" style="color: var(--award-gold-bright, #fbbf24);" target="_blank">VISART @ ECCV 2026 →</a>
+</div>
+</div>
+</div>
+<div class="card reveal" style="border-bottom: 4px solid var(--terracotta); display: flex; flex-direction: column;">
 <div class="card-image-wrapper" style="position: relative; overflow: hidden; display: block; line-height: 0;">
 <img alt="CENTURIA Logo (OeAI / OeAW &amp; CVL / TU Wien)" height="165" loading="lazy" src="assets/news_centuria.webp" style="width: 100%; object-fit: contain; background: #ffffff; padding: 1.25rem; border-bottom: 1px solid rgba(255, 255, 255, 0.05); display: block;" width="400"/>
 <button aria-label="Expand news details" class="card-expand-btn" title="Read full news"><svg fill="none" height="15" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" viewBox="0 0 24 24" width="15"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg></button>
@@ -733,6 +761,7 @@
     <div class="data-pub-card card-cyan reveal">
         <div class="data-pub-header">
             <div class="data-pub-badges">
+                <span class="data-pub-badge badge-award">🏆 Best Paper Award</span>
                 <span class="data-pub-badge badge-cyan">First Project Publication</span>
                 <span class="data-pub-badge">Preprint / arXiv</span>
                 <span class="data-pub-badge">ECCV 2026</span>
@@ -1154,6 +1183,6 @@
         </div>
     </div>
 </dialog>
-<script src="main.js?v=1.7.0"></script>
+<script src="main.js?v=1.8.0"></script>
 </body>
 </html>

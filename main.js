@@ -404,6 +404,11 @@ function openNewsModal(card) {
     if (cardImg && modalNewsImg) {
         modalNewsImg.src = cardImg.src;
         modalNewsImg.alt = cardImg.alt || '';
+        if (cardImg.style.objectPosition) {
+            modalNewsImg.style.objectPosition = cardImg.style.objectPosition;
+        } else {
+            modalNewsImg.style.objectPosition = 'center';
+        }
         if (cardImg.style.objectFit === 'contain') {
             modalNewsImg.classList.add('is-contain');
         } else {
@@ -421,8 +426,13 @@ function openNewsModal(card) {
 
     // 2. Date & Accent Color
     const cardDate = card.querySelector('.card-date');
+    const awardBadge = card.querySelector('.card-award-badge');
     if (cardDate && modalNewsDate) {
-        modalNewsDate.textContent = cardDate.textContent;
+        if (awardBadge) {
+            modalNewsDate.innerHTML = `<span class="card-award-badge" style="margin-right: 0.5rem; vertical-align: middle;">${awardBadge.innerHTML}</span> ` + cardDate.textContent;
+        } else {
+            modalNewsDate.textContent = cardDate.textContent;
+        }
         modalNewsDate.style.color = cardDate.style.color || 'var(--terracotta)';
     }
 
