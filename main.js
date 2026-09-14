@@ -427,12 +427,19 @@ function openNewsModal(card) {
     // 2. Date & Accent Color
     const cardDate = card.querySelector('.card-date');
     const awardBadge = card.querySelector('.card-award-badge');
+    const terracottaBadge = card.querySelector('.card-terracotta-badge');
+    const pinnedBadge = card.querySelector('.card-pinned-badge');
     if (cardDate && modalNewsDate) {
-        if (awardBadge) {
-            modalNewsDate.innerHTML = `<span class="card-award-badge" style="margin-right: 0.5rem; vertical-align: middle;">${awardBadge.innerHTML}</span> ` + cardDate.textContent;
-        } else {
-            modalNewsDate.textContent = cardDate.textContent;
+        let prefixHtml = '';
+        if (pinnedBadge) {
+            prefixHtml += `<span class="card-pinned-badge" style="position: static; display: inline-flex; vertical-align: middle; margin-right: 0.5rem; padding: 2px 8px; font-size: 0.65rem;">${pinnedBadge.innerHTML}</span> `;
         }
+        if (awardBadge) {
+            prefixHtml += `<span class="card-award-badge" style="margin-right: 0.5rem; vertical-align: middle;">${awardBadge.innerHTML}</span> `;
+        } else if (terracottaBadge) {
+            prefixHtml += `<span class="card-terracotta-badge" style="margin-right: 0.5rem; vertical-align: middle;">${terracottaBadge.innerHTML}</span> `;
+        }
+        modalNewsDate.innerHTML = prefixHtml + cardDate.textContent;
         modalNewsDate.style.color = cardDate.style.color || 'var(--terracotta)';
     }
 

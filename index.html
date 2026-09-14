@@ -199,7 +199,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link href="assets/logo.webp" rel="icon" type="image/webp"/>
-<link href="style.css?v=1.8.0" rel="stylesheet"/>
+<link href="style.css?v=1.8.1" rel="stylesheet"/>
 <script src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js" type="module"></script>
 </head>
 <body>
@@ -265,6 +265,7 @@
 <div class="grid">
 <div class="card card-featured-award is-active-news reveal" style="display: flex; flex-direction: column;">
 <div class="card-image-wrapper" style="position: relative; overflow: hidden; display: block; line-height: 0;">
+<div class="card-pinned-badge" title="Pinned Announcement"><svg class="card-pin-icon" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 12V4h1V2H7v2h1v8l-2 2v2h5.2v6h1.6v-6H18v-2l-2-2z"/></svg><span>Pinned</span></div>
 <img alt="Gissu Valentina Naghavi with the CENTURIA poster at ECCV 2026 / VISART Workshop" height="165" loading="lazy" src="assets/news_best_paper_award.webp" style="width: 100%; object-fit: cover; object-position: center 35%; border-bottom: 1px solid rgba(245, 158, 11, 0.35); display: block;" width="400"/>
 <button aria-label="Expand news details" class="card-expand-btn" title="Read full news"><svg fill="none" height="15" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" viewBox="0 0 24 24" width="15"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg></button>
 <div class="photocredit-tooltip">ECCV 2026 / VISART Workshop</div>
@@ -290,14 +291,18 @@
 </div>
 </div>
 </div>
-<div class="card reveal" style="border-bottom: 4px solid var(--terracotta); display: flex; flex-direction: column;">
+<div class="card card-pinned card-pinned-terracotta reveal" style="border-bottom: 4px solid var(--terracotta); display: flex; flex-direction: column;">
 <div class="card-image-wrapper" style="position: relative; overflow: hidden; display: block; line-height: 0;">
+<div class="card-pinned-badge" title="Pinned Announcement"><svg class="card-pin-icon" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 12V4h1V2H7v2h1v8l-2 2v2h5.2v6h1.6v-6H18v-2l-2-2z"/></svg><span>Pinned</span></div>
 <img alt="CENTURIA Logo (OeAI / OeAW &amp; CVL / TU Wien)" height="165" loading="lazy" src="assets/news_centuria.webp" style="width: 100%; object-fit: contain; background: #ffffff; padding: 1.25rem; border-bottom: 1px solid rgba(255, 255, 255, 0.05); display: block;" width="400"/>
 <button aria-label="Expand news details" class="card-expand-btn" title="Read full news"><svg fill="none" height="15" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" viewBox="0 0 24 24" width="15"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg></button>
 <div class="photocredit-tooltip">OeAI / OeAW &amp; CVL / TU Wien</div>
 </div>
 <div class="card-body">
-<p class="card-date" style="color: var(--terracotta);">September 2026</p>
+<div class="card-award-header-row" style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.35rem;">
+<span class="card-terracotta-badge"><svg class="card-pin-icon" width="10" height="10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 12V4h1V2H7v2h1v8l-2 2v2h5.2v6h1.6v-6H18v-2l-2-2z"/></svg> Benchmark Dataset</span>
+<p class="card-date" style="color: var(--terracotta); margin: 0; font-weight: 600;">September 2026</p>
+</div>
 <h3>CENTURIA Dataset &amp; Paper Released</h3>
 <div class="news-text-wrapper">
 <p class="news-text-scrollable">We are proud to announce the official open-access release of the <strong>CENTURIA</strong> benchmark dataset on GitHub, accompanied by our first research paper, <em>"OCR-Based Field Extraction for Archaeological Pottery Metadata: The CENTURIA Dataset"</em> (arXiv:2608.30616). CENTURIA provides 507 retro-digitised Roman pottery drawings from Carnuntum with comprehensive handwritten text transcriptions, bounding boxes, and field-level metadata across seven categories. Evaluated across five document OCR models, we demonstrate that expert-validated LoRA fine-tuning reduces transcription error to &lt;1.5% and achieves over 87% field extraction accuracy.</p>
@@ -1183,6 +1188,6 @@
         </div>
     </div>
 </dialog>
-<script src="main.js?v=1.8.0"></script>
+<script src="main.js?v=1.8.1"></script>
 </body>
 </html>

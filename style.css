@@ -865,6 +865,104 @@ section {
     white-space: nowrap;
 }
 
+/* Floating Pinned Badge on Card Image (Top-Left) */
+.card-pinned-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px 4px 8px;
+    background: rgba(13, 17, 23, 0.84);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 20px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #f0f6fc;
+    z-index: 5;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+}
+
+.card-pin-icon {
+    transform: rotate(45deg);
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+.card-featured-award .card-pinned-badge {
+    background: rgba(26, 20, 8, 0.88);
+    border-color: rgba(245, 158, 11, 0.65);
+    color: var(--award-gold-bright, #fbbf24);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5), 0 0 12px rgba(245, 158, 11, 0.3);
+}
+
+.card-pinned-terracotta .card-pinned-badge {
+    background: rgba(30, 16, 12, 0.88);
+    border-color: rgba(212, 106, 67, 0.65);
+    color: #ff9d7a;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5), 0 0 12px rgba(212, 106, 67, 0.3);
+}
+
+.card:hover .card-pinned-badge {
+    transform: translateY(-2px);
+}
+
+.card-featured-award:hover .card-pinned-badge {
+    border-color: var(--award-gold-bright, #fbbf24);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6), 0 0 16px var(--award-gold-glow, rgba(245, 158, 11, 0.5));
+}
+
+.card-pinned-terracotta:hover .card-pinned-badge {
+    border-color: var(--terracotta);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6), 0 0 16px var(--terracotta-glow, rgba(212, 106, 67, 0.5));
+}
+
+/* Secondary Pinned Card: Terracotta Highlight (CENTURIA Dataset & Paper) */
+.card.card-pinned-terracotta {
+    background: linear-gradient(165deg, rgba(212, 106, 67, 0.12) 0%, rgba(255, 255, 255, 0.03) 45%, rgba(18, 22, 28, 0.96) 100%) !important;
+    border: 1.5px solid rgba(212, 106, 67, 0.45) !important;
+    border-bottom: 4px solid var(--terracotta) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45), 0 0 16px rgba(212, 106, 67, 0.2);
+}
+
+.card.card-pinned-terracotta:hover,
+.card.card-pinned-terracotta.is-active-news {
+    background: linear-gradient(165deg, rgba(212, 106, 67, 0.18) 0%, rgba(255, 255, 255, 0.05) 45%, rgba(24, 28, 38, 0.98) 100%) !important;
+    border-color: var(--terracotta-bright, #e87a53) !important;
+    transform: translateY(-6px);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6), 0 0 28px var(--terracotta-glow, rgba(212, 106, 67, 0.5)) !important;
+}
+
+#news .grid:hover .card.card-pinned-terracotta:not(:hover) {
+    background: linear-gradient(165deg, rgba(212, 106, 67, 0.09) 0%, rgba(255, 255, 255, 0.03) 45%, rgba(18, 22, 28, 0.96) 100%) !important;
+    border-color: rgba(212, 106, 67, 0.35) !important;
+    transform: none;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), 0 0 12px rgba(212, 106, 67, 0.14);
+}
+
+.card-terracotta-badge {
+    background: rgba(212, 106, 67, 0.2);
+    color: #ff9d7a;
+    border: 1px solid rgba(212, 106, 67, 0.45);
+    font-weight: 700;
+    font-size: 0.72rem;
+    padding: 0.22rem 0.65rem;
+    border-radius: 999px;
+    letter-spacing: 0.03em;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
 /* News Card Expand Button */
 .card-expand-btn {
     position: absolute;
