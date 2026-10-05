@@ -623,9 +623,10 @@ if (newsScrollbarTrack && newsScrollbarThumb) {
     });
 }
 
-// --- Shared news carousel geometry (measured from the DOM, cached until resize) ---
-// All cards share the same width, so the natural (un-stuck) left edge of card i is
-// base + i * pitch. This matches the CSS snap points (scroll-snap-align: start + scroll-padding-left).
+// --- Dedicated Docked News Tabs & Unified Carousel Geometry ---
+const dockedTabAward = document.getElementById('dockedTabAward');
+const dockedTabCenturia = document.getElementById('dockedTabCenturia');
+
 let newsMetrics = null;
 
 function measureNewsMetrics() {
@@ -633,29 +634,18 @@ function measureNewsMetrics() {
     const cards = getNewsCards();
     if (!cards.length) return null;
 
-    const gridStyle = getComputedStyle(newsGrid);
-    const gap = parseFloat(gridStyle.columnGap) || 0;
+    const isMobile = window.innerWidth <= 768;
     const cardWidth = cards[0].offsetWidth;
-    let pitch = cardWidth + gap;
-    let base = 0;
-
-    // Measure from non-sticky cards (sticky cards report their stuck position)
-    const gridRect = newsGrid.getBoundingClientRect();
-    if (cards.length > 3) {
-        const r2 = cards[2].getBoundingClientRect();
-        const r3 = cards[3].getBoundingClientRect();
-        pitch = (r3.left - r2.left) || pitch;
-        base = (r2.left - gridRect.left - newsGrid.clientLeft + newsGrid.scrollLeft) - 2 * pitch;
-    }
-
-    const dockLeft = cards[1] ? (parseFloat(getComputedStyle(cards[1]).left) || 0) : 0;
+    const gridStyle = getComputedStyle(newsGrid);
+    const gap = parseFloat(gridStyle.columnGap) || (isMobile ? 16 : 32);
+    const pitch = cardWidth + gap;
+    const tabWidth = isMobile ? 36 : 48;
 
     newsMetrics = {
-        base,
-        pitch,
         cardWidth,
-        padLeft: parseFloat(gridStyle.scrollPaddingLeft) || 0,
-        dockLeft,
+        gap,
+        pitch,
+        tabWidth,
         count: cards.length
     };
     return newsMetrics;
@@ -669,7 +659,10 @@ function getNewsScrollTargetForIndex(index) {
     const m = getNewsMetrics();
     if (!m) return 0;
     if (index <= 0) return 0;
-    return Math.max(0, m.base + index * m.pitch - m.padLeft);
+    if (index === 1) {
+        return Math.max(0, m.pitch - m.tabWidth - 12);
+    }
+    return Math.max(0, (index * m.pitch) - (2 * m.tabWidth) - 12);
 }
 
 // While a programmatic smooth scroll runs, don't let intermediate scroll positions override the chosen card
@@ -691,7 +684,7 @@ function setActiveNewsCard(index, shouldScroll = true) {
     });
 
     if (shouldScroll && newsGrid) {
-        newsProgrammaticScrollUntil = performance.now() + 900;
+        newsProgrammaticScrollUntil = performance.now() + 800;
         newsGrid.scrollTo({
             left: getNewsScrollTargetForIndex(currentNewsIndex),
             behavior: 'smooth'
@@ -708,12 +701,17 @@ function updateActiveNewsCardOnScroll(scrollLeft, maxScroll) {
     if (scrollLeft === undefined) scrollLeft = newsGrid.scrollLeft;
     if (maxScroll === undefined) maxScroll = newsGrid.scrollWidth - newsGrid.clientWidth;
 
-    // Active card = the card resting right after the pinned stack
-    let closestIndex = scrollLeft <= 2 ? 0 : Math.round((scrollLeft + m.padLeft - m.base) / m.pitch);
+    let closestIndex = 0;
+    if (scrollLeft <= 50) {
+        closestIndex = 0;
+    } else if (scrollLeft < m.pitch * 0.7) {
+        closestIndex = 1;
+    } else {
+        closestIndex = Math.round((scrollLeft + (2 * m.tabWidth) + 12) / m.pitch);
+    }
     closestIndex = Math.max(0, Math.min(m.count - 1, closestIndex));
 
-    // At the very end the last cards can't reach the start position; keep a later selection
-    if (scrollLeft >= maxScroll - 2 && currentNewsIndex > closestIndex) {
+    if (scrollLeft >= maxScroll - 5 && currentNewsIndex > closestIndex) {
         closestIndex = currentNewsIndex;
     }
 
@@ -730,26 +728,32 @@ function updateActiveNewsCardOnScroll(scrollLeft, maxScroll) {
     }
 }
 
-// Update sticky horizontal peeking state for the two pinned news cards
-function updateNewsPinnedPeeking(scrollLeft) {
+// Update sticky horizontal docked state for the two pinned tabs overlay
+function updateNewsDockedTabs(scrollLeft) {
     if (!newsGrid) return;
-    const cards = getNewsCards();
-    if (cards.length < 2) return;
     const m = getNewsMetrics();
     if (!m) return;
 
     if (scrollLeft === undefined) scrollLeft = newsGrid.scrollLeft;
 
-    // Card 0 peeks when scrolled past 25px
-    cards[0].classList.toggle('is-peeking', scrollLeft > 25);
+    // Tab 0 docks when Card 0 is scrolled past (halfway out)
+    const dockThreshold0 = m.cardWidth * 0.45;
+    const isDocked0 = scrollLeft > dockThreshold0;
 
-    // Card 1 peeks once it has reached its docked position next to card 0
-    const card1NaturalLeft = m.base + m.pitch;
-    const card1Peeking = scrollLeft >= (card1NaturalLeft - m.dockLeft - 15);
-    cards[1].classList.toggle('is-peeking', card1Peeking);
+    // Tab 1 docks when Card 1 is scrolled past
+    const dockThreshold1 = m.pitch + (m.cardWidth * 0.25);
+    const isDocked1 = scrollLeft > dockThreshold1;
 
-    // Mask out cards sliding underneath the fully docked stack
-    newsGrid.classList.toggle('is-stacked', card1Peeking);
+    if (dockedTabAward) {
+        dockedTabAward.classList.toggle('is-docked', isDocked0);
+    }
+    if (dockedTabCenturia) {
+        dockedTabCenturia.classList.toggle('is-docked', isDocked1);
+    }
+
+    // Toggle grid mask classes so content under docked tabs is 100% transparent/masked
+    newsGrid.classList.toggle('docked-one', isDocked0 && !isDocked1);
+    newsGrid.classList.toggle('docked-two', isDocked1);
 }
 
 // Single rAF-throttled sync for all scroll-dependent UI (reads first, then writes)
@@ -761,7 +765,7 @@ function syncNewsScrollState() {
     const maxScroll = newsGrid.scrollWidth - newsGrid.clientWidth;
     updateNewsScrollbarPosition();
     updateNewsGridScrollFade(scrollLeft, maxScroll);
-    updateNewsPinnedPeeking(scrollLeft);
+    updateNewsDockedTabs(scrollLeft);
     updateActiveNewsCardOnScroll(scrollLeft, maxScroll);
 }
 
@@ -854,11 +858,24 @@ if (newsGrid) {
         if (!isDraggingGrid) return;
         isDraggingGrid = false;
         newsGrid.style.scrollSnapType = '';
-        setTimeout(() => {
-            updateActiveNewsCardOnScroll();
-            updateNewsPinnedPeeking();
-        }, 100);
+        setTimeout(syncNewsScrollState, 80);
     });
+
+    // Docked tab click handlers: smooth scroll back to pinned cards
+    if (dockedTabAward) {
+        dockedTabAward.addEventListener('click', (e) => {
+            e.preventDefault();
+            disableNewsAutoplay();
+            setActiveNewsCard(0, true);
+        });
+    }
+    if (dockedTabCenturia) {
+        dockedTabCenturia.addEventListener('click', (e) => {
+            e.preventDefault();
+            disableNewsAutoplay();
+            setActiveNewsCard(1, true);
+        });
+    }
 
     // Make clicking or hovering any card track selection, and enable detail modal
     getNewsCards().forEach((card, idx) => {
@@ -892,15 +909,6 @@ if (newsGrid) {
         card.addEventListener('click', (e) => {
             disableNewsAutoplay();
             if (hasDraggedGrid) return;
-
-            // If clicking a peeking / docked pinned card, smooth scroll directly back to it
-            if (card.classList.contains('is-peeking')) {
-                e.stopPropagation();
-                e.preventDefault();
-                setActiveNewsCard(idx, true);
-                return;
-            }
-
             if (e.target.closest('a, button, .card-image-wrapper')) return;
             setActiveNewsCard(idx, true);
         });
@@ -927,8 +935,7 @@ if (newsGrid) {
             window.scrollTo(0, newsEl.offsetTop);
         }
         newsGrid.scrollLeft = s;
-        updateNewsPinnedPeeking();
-        updateActiveNewsCardOnScroll();
+        syncNewsScrollState();
     }
 
     // Never hijack the vertical mouse wheel: page scrolling must always pass through the news section.

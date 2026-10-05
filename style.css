@@ -533,37 +533,53 @@ section {
     transform: translateY(0);
 }
 
+.news-carousel-container {
+    position: relative;
+    width: 100%;
+}
+
 #news .grid {
-    /* Width of the docked pinned stack (2 strips) and the resting gutter after it */
-    --news-stack-w: 96px;
-    --news-stack-gutter: 108px;
     display: flex;
     overflow-x: auto;
     overscroll-behavior-x: contain;
     scroll-snap-type: x mandatory;
-    scroll-padding-left: var(--news-stack-gutter);
+    scroll-padding-left: 0;
     padding-bottom: 0.5rem;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     -ms-overflow-style: none;
     cursor: grab;
+    transition: scroll-padding-left 0.25s ease;
 }
 
-/* Edge masks are toggled via classes from JS (only when the state actually changes) */
+/* Edge masks are toggled via classes from JS */
 #news .grid.fade-right {
     mask-image: linear-gradient(to right, black calc(100% - 60px), transparent 100%);
     -webkit-mask-image: linear-gradient(to right, black calc(100% - 60px), transparent 100%);
 }
 
-/* When both pinned cards are docked, hide cards sliding underneath the stack */
-#news .grid.is-stacked {
-    mask-image: linear-gradient(to right, black var(--news-stack-w), transparent var(--news-stack-w), transparent calc(var(--news-stack-gutter) - 4px), black var(--news-stack-gutter));
-    -webkit-mask-image: linear-gradient(to right, black var(--news-stack-w), transparent var(--news-stack-w), transparent calc(var(--news-stack-gutter) - 4px), black var(--news-stack-gutter));
+/* When Tab 0 is docked (48px): completely hide cards behind Tab 0 */
+#news .grid.docked-one {
+    scroll-padding-left: 60px;
+    mask-image: linear-gradient(to right, transparent 0px, transparent 48px, black 64px, black 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0px, transparent 48px, black 64px, black 100%);
 }
 
-#news .grid.is-stacked.fade-right {
-    mask-image: linear-gradient(to right, black var(--news-stack-w), transparent var(--news-stack-w), transparent calc(var(--news-stack-gutter) - 4px), black var(--news-stack-gutter), black calc(100% - 60px), transparent 100%);
-    -webkit-mask-image: linear-gradient(to right, black var(--news-stack-w), transparent var(--news-stack-w), transparent calc(var(--news-stack-gutter) - 4px), black var(--news-stack-gutter), black calc(100% - 60px), transparent 100%);
+#news .grid.docked-one.fade-right {
+    mask-image: linear-gradient(to right, transparent 0px, transparent 48px, black 64px, black calc(100% - 60px), transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0px, transparent 48px, black 64px, black calc(100% - 60px), transparent 100%);
+}
+
+/* When both Tab 0 & 1 are docked (96px): completely hide cards behind both tabs */
+#news .grid.docked-two {
+    scroll-padding-left: 108px;
+    mask-image: linear-gradient(to right, transparent 0px, transparent 96px, black 112px, black 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0px, transparent 96px, black 112px, black 100%);
+}
+
+#news .grid.docked-two.fade-right {
+    mask-image: linear-gradient(to right, transparent 0px, transparent 96px, black 112px, black calc(100% - 60px), transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0px, transparent 96px, black 112px, black calc(100% - 60px), transparent 100%);
 }
 
 #news .grid::-webkit-scrollbar {
@@ -982,71 +998,98 @@ section {
     white-space: nowrap;
 }
 
-/* --- Sticky Pinned News Cards & Peeking Stack --- */
-.card.is-sticky-card {
-    position: sticky;
-    top: 0;
-    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-        background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.card.card-featured-award.is-sticky-card {
-    left: 0;
-    z-index: 25;
-}
-
-.card.card-pinned-terracotta.is-sticky-card {
-    left: 48px;
-    z-index: 26;
-}
-
-/* When docked / peeking as horizontal stack on scroll */
-.card.is-sticky-card.is-peeking {
-    scroll-snap-align: none !important;
-    cursor: pointer !important;
-}
-
-.card.card-featured-award.is-peeking {
-    clip-path: inset(0 calc(100% - 48px) 0 0 round 12px 0 0 12px);
-    border-right: 1.5px solid var(--award-gold) !important;
-    box-shadow: 6px 0 24px rgba(0, 0, 0, 0.85), 0 0 20px var(--award-gold-glow, rgba(245, 158, 11, 0.45)) !important;
-}
-
-.card.card-pinned-terracotta.is-peeking {
-    clip-path: inset(0 calc(100% - 48px) 0 0 round 12px 0 0 12px);
-    border-right: 1.5px solid var(--terracotta) !important;
-    box-shadow: 8px 0 28px rgba(0, 0, 0, 0.9), 0 0 20px var(--terracotta-glow, rgba(212, 106, 67, 0.45)) !important;
-}
-
-.card.is-sticky-card.is-peeking .card-image-wrapper,
-.card.is-sticky-card.is-peeking .card-body {
-    opacity: 0;
-    pointer-events: none;
-}
-
-/* Vertical Peek Strip */
-.card-peek-strip {
+/* --- Dedicated Docked News Tabs Stack --- */
+.news-docked-stack {
     position: absolute;
     top: 0;
     left: 0;
-    bottom: 0;
+    bottom: 0.5rem; /* matches padding-bottom of .grid */
+    display: flex;
+    gap: 0;
+    z-index: 25;
+    pointer-events: none;
+}
+
+.docked-tab {
     width: 48px;
+    height: 100%;
+    border-radius: 12px 0 0 12px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: #0d1117;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
     padding: 16px 0;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.25s ease, background 0.25s ease;
-    z-index: 30;
-    background: #0d1117;
+    cursor: pointer;
     user-select: none;
+    opacity: 0;
+    transform: translateX(-24px);
+    pointer-events: none;
+    transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), filter 0.2s ease;
+    box-sizing: border-box;
+    will-change: transform, opacity;
 }
 
-.card.is-sticky-card.is-peeking .card-peek-strip {
+.docked-tab.docked-tab-award {
+    border-right: 1.5px solid var(--award-gold);
+    box-shadow: 6px 0 24px rgba(0, 0, 0, 0.85), 0 0 20px var(--award-gold-glow, rgba(245, 158, 11, 0.45));
+}
+
+.docked-tab.docked-tab-centuria {
+    border-right: 1.5px solid var(--terracotta);
+    box-shadow: 8px 0 28px rgba(0, 0, 0, 0.9), 0 0 20px var(--terracotta-glow, rgba(212, 106, 67, 0.45));
+}
+
+.docked-tab.is-docked {
     opacity: 1;
+    transform: translateX(0);
     pointer-events: auto;
+}
+
+.docked-tab:hover {
+    filter: brightness(1.2);
+}
+
+.docked-tab:hover .peek-strip-arrow {
+    opacity: 1;
+    transform: translateX(-3px);
+}
+
+.docked-tab:hover .peek-strip-pin {
+    transform: scale(1.08);
+}
+
+.docked-tab-award .peek-strip-pin {
+    background: rgba(245, 158, 11, 0.18);
+    color: var(--award-gold-bright, #fbbf24);
+    border: 1px solid rgba(245, 158, 11, 0.55);
+    box-shadow: 0 0 10px rgba(245, 158, 11, 0.35);
+}
+
+.docked-tab-centuria .peek-strip-pin {
+    background: rgba(212, 106, 67, 0.2);
+    color: #ff9d7a;
+    border: 1px solid rgba(212, 106, 67, 0.55);
+    box-shadow: 0 0 10px rgba(212, 106, 67, 0.35);
+}
+
+.docked-tab-award .peek-strip-title {
+    color: var(--award-gold-bright, #fbbf24);
+    text-shadow: 0 0 8px rgba(245, 158, 11, 0.4);
+}
+
+.docked-tab-centuria .peek-strip-title {
+    color: #ff9d7a;
+    text-shadow: 0 0 8px rgba(212, 106, 67, 0.4);
+}
+
+.docked-tab-award .peek-strip-arrow {
+    color: var(--award-gold-bright, #fbbf24);
+}
+
+.docked-tab-centuria .peek-strip-arrow {
+    color: #ff9d7a;
 }
 
 .peek-strip-pin {
@@ -1060,20 +1103,6 @@ section {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.card-featured-award .peek-strip-pin {
-    background: rgba(245, 158, 11, 0.18);
-    color: var(--award-gold-bright, #fbbf24);
-    border: 1px solid rgba(245, 158, 11, 0.55);
-    box-shadow: 0 0 10px rgba(245, 158, 11, 0.35);
-}
-
-.card-pinned-terracotta .peek-strip-pin {
-    background: rgba(212, 106, 67, 0.2);
-    color: #ff9d7a;
-    border: 1px solid rgba(212, 106, 67, 0.55);
-    box-shadow: 0 0 10px rgba(212, 106, 67, 0.35);
-}
-
 .peek-strip-title {
     writing-mode: vertical-rl;
     transform: rotate(180deg);
@@ -1085,16 +1114,6 @@ section {
     margin: auto 0;
 }
 
-.card-featured-award .peek-strip-title {
-    color: var(--award-gold-bright, #fbbf24);
-    text-shadow: 0 0 8px rgba(245, 158, 11, 0.4);
-}
-
-.card-pinned-terracotta .peek-strip-title {
-    color: #ff9d7a;
-    text-shadow: 0 0 8px rgba(212, 106, 67, 0.4);
-}
-
 .peek-strip-arrow {
     font-size: 14px;
     line-height: 1;
@@ -1102,42 +1121,11 @@ section {
     transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
 }
 
-.card-featured-award .peek-strip-arrow {
-    color: var(--award-gold-bright, #fbbf24);
-}
-
-.card-pinned-terracotta .peek-strip-arrow {
-    color: #ff9d7a;
-}
-
-.card.is-sticky-card.is-peeking:hover {
-    filter: brightness(1.15);
-}
-
-.card.is-sticky-card.is-peeking:hover .peek-strip-arrow {
-    opacity: 1;
-    transform: translateX(-3px);
-}
-
-.card.is-sticky-card.is-peeking:hover .peek-strip-pin {
-    transform: scale(1.08);
-}
-
 @media (max-width: 768px) {
-    #news .grid {
-        --news-stack-w: 72px;
-        --news-stack-gutter: 82px;
-    }
-    .card.card-pinned-terracotta.is-sticky-card {
-        left: 36px;
-    }
-    .card.card-featured-award.is-peeking,
-    .card.card-pinned-terracotta.is-peeking {
-        clip-path: inset(0 calc(100% - 36px) 0 0 round 10px 0 0 10px);
-    }
-    .card-peek-strip {
+    .docked-tab {
         width: 36px;
         padding: 12px 0;
+        border-radius: 10px 0 0 10px;
     }
     .peek-strip-pin {
         width: 24px;
@@ -1153,6 +1141,24 @@ section {
     }
     .peek-strip-arrow {
         font-size: 12px;
+    }
+    #news .grid.docked-one {
+        scroll-padding-left: 46px;
+        mask-image: linear-gradient(to right, transparent 0px, transparent 36px, black 48px, black 100%);
+        -webkit-mask-image: linear-gradient(to right, transparent 0px, transparent 36px, black 48px, black 100%);
+    }
+    #news .grid.docked-one.fade-right {
+        mask-image: linear-gradient(to right, transparent 0px, transparent 36px, black 48px, black calc(100% - 40px), transparent 100%);
+        -webkit-mask-image: linear-gradient(to right, transparent 0px, transparent 36px, black 48px, black calc(100% - 40px), transparent 100%);
+    }
+    #news .grid.docked-two {
+        scroll-padding-left: 82px;
+        mask-image: linear-gradient(to right, transparent 0px, transparent 72px, black 86px, black 100%);
+        -webkit-mask-image: linear-gradient(to right, transparent 0px, transparent 72px, black 86px, black 100%);
+    }
+    #news .grid.docked-two.fade-right {
+        mask-image: linear-gradient(to right, transparent 0px, transparent 72px, black 86px, black calc(100% - 40px), transparent 100%);
+        -webkit-mask-image: linear-gradient(to right, transparent 0px, transparent 72px, black 86px, black calc(100% - 40px), transparent 100%);
     }
 }
 
