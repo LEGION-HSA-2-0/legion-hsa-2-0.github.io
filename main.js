@@ -17,6 +17,7 @@ const revealOnScroll = () => {
     const revealPoint = 150;
 
     revealElements.forEach(el => {
+        if (el.classList.contains('active')) return; // already revealed, avoid layout reads
         const revealTop = el.getBoundingClientRect().top;
         if (revealTop < windowHeight - revealPoint) {
             el.classList.add('active');
@@ -218,52 +219,44 @@ if (mobileMenuBtn && mobileNav) {
 }
 
 // Dynamic Scroll Fade and Overflow Handler for Individual News Card Text & News Grid
-function updateNewsGridScrollFade() {
+// Optional pre-read values avoid extra layout reads when called from the rAF scroll sync.
+function updateNewsGridScrollFade(scrollLeft, maxScroll) {
     const grid = document.querySelector('#news .grid');
     if (!grid) return;
 
-    const hasOverflow = grid.scrollWidth > grid.clientWidth + 2;
+    if (scrollLeft === undefined) scrollLeft = grid.scrollLeft;
+    if (maxScroll === undefined) maxScroll = grid.scrollWidth - grid.clientWidth;
+
+    // Fade only the right edge; the left edge is handled by the sticky stack (.is-stacked)
+    const showRightFade = maxScroll > 2 && scrollLeft < maxScroll - 15;
+    grid.classList.toggle('fade-right', showRightFade);
+}
+
+function updateCardMiniScrollbar(wrapper) {
+    const scrollable = wrapper.querySelector('.news-text-scrollable');
+    const track = wrapper.querySelector('.card-scrollbar-track');
+    const thumb = wrapper.querySelector('.card-scrollbar-thumb');
+    if (!scrollable || !track || !thumb) return;
+
+    const maxScroll = scrollable.scrollHeight - scrollable.clientHeight;
+    const hasOverflow = maxScroll > 2;
+
     if (!hasOverflow) {
-        grid.style.maskImage = 'none';
-        grid.style.webkitMaskImage = 'none';
+        track.classList.remove('has-overflow');
         return;
     }
 
-    const isAtEnd = grid.scrollLeft + grid.clientWidth >= grid.scrollWidth - 15;
-
-    // Fade only the right edge so the sticky left pinned cards remain crisp and unmasked
-    if (!isAtEnd) {
-        grid.style.maskImage = 'linear-gradient(to right, black calc(100% - 60px), transparent 100%)';
-        grid.style.webkitMaskImage = 'linear-gradient(to right, black calc(100% - 60px), transparent 100%)';
-    } else {
-        grid.style.maskImage = 'none';
-        grid.style.webkitMaskImage = 'none';
+    track.classList.add('has-overflow');
+    const maxThumbTravel = track.clientHeight - thumb.offsetHeight;
+    if (maxThumbTravel > 0) {
+        const scrollRatio = Math.min(Math.max(scrollable.scrollTop / maxScroll, 0), 1);
+        const thumbY = scrollRatio * maxThumbTravel;
+        thumb.style.transform = `translateY(${thumbY}px)`;
     }
 }
 
 function updateCardMiniScrollbars() {
-    document.querySelectorAll('.news-text-wrapper').forEach(wrapper => {
-        const scrollable = wrapper.querySelector('.news-text-scrollable');
-        const track = wrapper.querySelector('.card-scrollbar-track');
-        const thumb = wrapper.querySelector('.card-scrollbar-thumb');
-        if (!scrollable || !track || !thumb) return;
-
-        const maxScroll = scrollable.scrollHeight - scrollable.clientHeight;
-        const hasOverflow = maxScroll > 2;
-
-        if (!hasOverflow) {
-            track.classList.remove('has-overflow');
-            return;
-        }
-
-        track.classList.add('has-overflow');
-        const maxThumbTravel = track.clientHeight - thumb.offsetHeight;
-        if (maxThumbTravel > 0) {
-            const scrollRatio = Math.min(Math.max(scrollable.scrollTop / maxScroll, 0), 1);
-            const thumbY = scrollRatio * maxThumbTravel;
-            thumb.style.transform = `translateY(${thumbY}px)`;
-        }
-    });
+    document.querySelectorAll('.news-text-wrapper').forEach(updateCardMiniScrollbar);
 }
 
 function initCardMiniScrollbars() {
@@ -274,10 +267,15 @@ function initCardMiniScrollbars() {
         if (!scrollable || !track || !thumb || wrapper._scrollbarInitialized) return;
         wrapper._scrollbarInitialized = true;
 
+        let textScrollRAF = null;
         scrollable.addEventListener('scroll', () => {
-            updateNewsScrollFades();
-            updateCardMiniScrollbars();
-        });
+            if (textScrollRAF) return;
+            textScrollRAF = requestAnimationFrame(() => {
+                textScrollRAF = null;
+                updateNewsTextFade(scrollable);
+                updateCardMiniScrollbar(wrapper);
+            });
+        }, { passive: true });
 
         // Track click-to-jump
         track.addEventListener('mousedown', (e) => {
@@ -331,34 +329,33 @@ function initCardMiniScrollbars() {
     updateCardMiniScrollbars();
 }
 
+const NEWS_TEXT_FADES = {
+    none: 'none',
+    bottom: 'linear-gradient(to bottom, black calc(100% - 24px), transparent 100%)',
+    top: 'linear-gradient(to bottom, transparent 0%, black 24px)',
+    both: 'linear-gradient(to bottom, transparent 0%, black 24px, black calc(100% - 24px), transparent 100%)'
+};
+
+function updateNewsTextFade(el) {
+    let state = 'none';
+    if (el.scrollHeight > el.clientHeight + 2) {
+        const isAtTop = el.scrollTop <= 2;
+        const isAtBottom = Math.abs(el.scrollTop + el.clientHeight - el.scrollHeight) <= 4;
+        if (isAtTop && !isAtBottom) state = 'bottom';
+        else if (isAtBottom && !isAtTop) state = 'top';
+        else if (!isAtTop && !isAtBottom) state = 'both';
+    }
+    // Only touch styles when the fade state actually changes
+    if (el.dataset.fadeState === state) return;
+    el.dataset.fadeState = state;
+    el.style.maskImage = NEWS_TEXT_FADES[state];
+    el.style.webkitMaskImage = NEWS_TEXT_FADES[state];
+}
+
 function updateNewsScrollFades() {
     updateNewsGridScrollFade();
     updateCardMiniScrollbars();
-    document.querySelectorAll('.news-text-scrollable').forEach(el => {
-        const hasOverflow = el.scrollHeight > el.clientHeight + 2;
-        if (!hasOverflow) {
-            el.style.maskImage = 'none';
-            el.style.webkitMaskImage = 'none';
-            return;
-        }
-
-        const isAtTop = el.scrollTop <= 2;
-        const isAtBottom = Math.abs(el.scrollTop + el.clientHeight - el.scrollHeight) <= 4;
-
-        if (isAtTop && !isAtBottom) {
-            el.style.maskImage = 'linear-gradient(to bottom, black calc(100% - 24px), transparent 100%)';
-            el.style.webkitMaskImage = 'linear-gradient(to bottom, black calc(100% - 24px), transparent 100%)';
-        } else if (isAtBottom && !isAtTop) {
-            el.style.maskImage = 'linear-gradient(to bottom, transparent 0%, black 24px)';
-            el.style.webkitMaskImage = 'linear-gradient(to bottom, transparent 0%, black 24px)';
-        } else if (!isAtTop && !isAtBottom) {
-            el.style.maskImage = 'linear-gradient(to bottom, transparent 0%, black 24px, black calc(100% - 24px), transparent 100%)';
-            el.style.webkitMaskImage = 'linear-gradient(to bottom, transparent 0%, black 24px, black calc(100% - 24px), transparent 100%)';
-        } else {
-            el.style.maskImage = 'none';
-            el.style.webkitMaskImage = 'none';
-        }
-    });
+    document.querySelectorAll('.news-text-scrollable').forEach(updateNewsTextFade);
 }
 
 // News Grid Navigation Buttons, Active Highlight & Centering Slideshow
@@ -577,7 +574,7 @@ if (newsScrollbarTrack && newsScrollbarThumb) {
         if (dragRAF) cancelAnimationFrame(dragRAF);
         newsScrollbarThumb.classList.remove('is-dragging');
         document.body.style.userSelect = '';
-        if (newsGrid) newsGrid.style.scrollSnapType = 'x proximity';
+        if (newsGrid) newsGrid.style.scrollSnapType = '';
         window.removeEventListener('mousemove', onThumbDrag);
         window.removeEventListener('mouseup', stopThumbDrag);
         window.removeEventListener('touchmove', onThumbDrag);
@@ -626,6 +623,58 @@ if (newsScrollbarTrack && newsScrollbarThumb) {
     });
 }
 
+// --- Shared news carousel geometry (measured from the DOM, cached until resize) ---
+// All cards share the same width, so the natural (un-stuck) left edge of card i is
+// base + i * pitch. This matches the CSS snap points (scroll-snap-align: start + scroll-padding-left).
+let newsMetrics = null;
+
+function measureNewsMetrics() {
+    if (!newsGrid) return null;
+    const cards = getNewsCards();
+    if (!cards.length) return null;
+
+    const gridStyle = getComputedStyle(newsGrid);
+    const gap = parseFloat(gridStyle.columnGap) || 0;
+    const cardWidth = cards[0].offsetWidth;
+    let pitch = cardWidth + gap;
+    let base = 0;
+
+    // Measure from non-sticky cards (sticky cards report their stuck position)
+    const gridRect = newsGrid.getBoundingClientRect();
+    if (cards.length > 3) {
+        const r2 = cards[2].getBoundingClientRect();
+        const r3 = cards[3].getBoundingClientRect();
+        pitch = (r3.left - r2.left) || pitch;
+        base = (r2.left - gridRect.left - newsGrid.clientLeft + newsGrid.scrollLeft) - 2 * pitch;
+    }
+
+    const dockLeft = cards[1] ? (parseFloat(getComputedStyle(cards[1]).left) || 0) : 0;
+
+    newsMetrics = {
+        base,
+        pitch,
+        cardWidth,
+        padLeft: parseFloat(gridStyle.scrollPaddingLeft) || 0,
+        dockLeft,
+        count: cards.length
+    };
+    return newsMetrics;
+}
+
+function getNewsMetrics() {
+    return newsMetrics || measureNewsMetrics();
+}
+
+function getNewsScrollTargetForIndex(index) {
+    const m = getNewsMetrics();
+    if (!m) return 0;
+    if (index <= 0) return 0;
+    return Math.max(0, m.base + index * m.pitch - m.padLeft);
+}
+
+// While a programmatic smooth scroll runs, don't let intermediate scroll positions override the chosen card
+let newsProgrammaticScrollUntil = 0;
+
 function setActiveNewsCard(index, shouldScroll = true) {
     const cards = getNewsCards();
     if (!cards.length) return;
@@ -638,101 +687,87 @@ function setActiveNewsCard(index, shouldScroll = true) {
     }
 
     cards.forEach((card, i) => {
-        if (i === currentNewsIndex) {
-            card.classList.add('is-active-news');
-        } else {
-            card.classList.remove('is-active-news');
-        }
+        card.classList.toggle('is-active-news', i === currentNewsIndex);
     });
 
     if (shouldScroll && newsGrid) {
-        const isMobile = window.innerWidth <= 768;
-        const cardWidth = cards[0].offsetWidth;
-        const gap = isMobile ? 16 : 32;
-        const dockOffset = isMobile ? 36 : 48;
-
-        let targetScrollLeft = 0;
-        if (currentNewsIndex === 0) {
-            targetScrollLeft = 0;
-        } else if (currentNewsIndex === 1) {
-            targetScrollLeft = Math.max(0, cardWidth + gap - dockOffset);
-        } else {
-            const naturalCenter = (currentNewsIndex * (cardWidth + gap)) + (cardWidth / 2);
-            targetScrollLeft = naturalCenter - (newsGrid.clientWidth / 2);
-        }
-
+        newsProgrammaticScrollUntil = performance.now() + 900;
         newsGrid.scrollTo({
-            left: Math.max(0, targetScrollLeft),
+            left: getNewsScrollTargetForIndex(currentNewsIndex),
             behavior: 'smooth'
         });
     }
 }
 
-function updateActiveNewsCardOnScroll() {
+function updateActiveNewsCardOnScroll(scrollLeft, maxScroll) {
     if (!newsGrid) return;
-    const cards = getNewsCards();
-    if (!cards.length) return;
+    const m = getNewsMetrics();
+    if (!m) return;
+    if (performance.now() < newsProgrammaticScrollUntil) return;
 
-    const isMobile = window.innerWidth <= 768;
-    const cardWidth = cards[0].offsetWidth;
-    const gap = isMobile ? 16 : 32;
-    const gridCenter = newsGrid.scrollLeft + (newsGrid.clientWidth / 2);
-    let closestIndex = 0;
-    let minDistance = Infinity;
+    if (scrollLeft === undefined) scrollLeft = newsGrid.scrollLeft;
+    if (maxScroll === undefined) maxScroll = newsGrid.scrollWidth - newsGrid.clientWidth;
 
-    cards.forEach((card, idx) => {
-        const naturalCenter = (idx * (cardWidth + gap)) + (cardWidth / 2);
-        const distance = Math.abs(naturalCenter - gridCenter);
-        if (distance < minDistance) {
-            minDistance = distance;
-            closestIndex = idx;
-        }
-    });
+    // Active card = the card resting right after the pinned stack
+    let closestIndex = scrollLeft <= 2 ? 0 : Math.round((scrollLeft + m.padLeft - m.base) / m.pitch);
+    closestIndex = Math.max(0, Math.min(m.count - 1, closestIndex));
 
-    if (closestIndex >= 1 || newsGrid.scrollLeft > 20) {
+    // At the very end the last cards can't reach the start position; keep a later selection
+    if (scrollLeft >= maxScroll - 2 && currentNewsIndex > closestIndex) {
+        closestIndex = currentNewsIndex;
+    }
+
+    if (closestIndex >= 1 || scrollLeft > 20) {
         showNewsScrollbar();
     }
 
-    if (closestIndex !== currentNewsIndex) {
+    const cards = getNewsCards();
+    if (closestIndex !== currentNewsIndex || !cards[closestIndex].classList.contains('is-active-news')) {
         currentNewsIndex = closestIndex;
         cards.forEach((c, idx) => {
-            if (idx === currentNewsIndex) {
-                c.classList.add('is-active-news');
-            } else {
-                c.classList.remove('is-active-news');
-            }
+            c.classList.toggle('is-active-news', idx === currentNewsIndex);
         });
     }
 }
 
 // Update sticky horizontal peeking state for the two pinned news cards
-function updateNewsPinnedPeeking() {
+function updateNewsPinnedPeeking(scrollLeft) {
     if (!newsGrid) return;
     const cards = getNewsCards();
     if (cards.length < 2) return;
-    const card0 = cards[0];
-    const card1 = cards[1];
+    const m = getNewsMetrics();
+    if (!m) return;
 
-    const isMobile = window.innerWidth <= 768;
-    const dockOffset = isMobile ? 36 : 48;
-    const scrollLeft = newsGrid.scrollLeft;
+    if (scrollLeft === undefined) scrollLeft = newsGrid.scrollLeft;
 
     // Card 0 peeks when scrolled past 25px
-    if (scrollLeft > 25) {
-        card0.classList.add('is-peeking');
-    } else {
-        card0.classList.remove('is-peeking');
-    }
+    cards[0].classList.toggle('is-peeking', scrollLeft > 25);
 
-    // Card 1 peeks when scrolled past its full reading position
-    const cardWidth = card0.offsetWidth;
-    const gap = isMobile ? 16 : 32;
-    const card1NaturalLeft = cardWidth + gap;
-    if (scrollLeft >= (card1NaturalLeft - dockOffset - 15)) {
-        card1.classList.add('is-peeking');
-    } else {
-        card1.classList.remove('is-peeking');
-    }
+    // Card 1 peeks once it has reached its docked position next to card 0
+    const card1NaturalLeft = m.base + m.pitch;
+    const card1Peeking = scrollLeft >= (card1NaturalLeft - m.dockLeft - 15);
+    cards[1].classList.toggle('is-peeking', card1Peeking);
+
+    // Mask out cards sliding underneath the fully docked stack
+    newsGrid.classList.toggle('is-stacked', card1Peeking);
+}
+
+// Single rAF-throttled sync for all scroll-dependent UI (reads first, then writes)
+let newsScrollRAF = null;
+function syncNewsScrollState() {
+    newsScrollRAF = null;
+    if (!newsGrid) return;
+    const scrollLeft = newsGrid.scrollLeft;
+    const maxScroll = newsGrid.scrollWidth - newsGrid.clientWidth;
+    updateNewsScrollbarPosition();
+    updateNewsGridScrollFade(scrollLeft, maxScroll);
+    updateNewsPinnedPeeking(scrollLeft);
+    updateActiveNewsCardOnScroll(scrollLeft, maxScroll);
+}
+
+function requestNewsScrollSync() {
+    if (newsScrollRAF) return;
+    newsScrollRAF = requestAnimationFrame(syncNewsScrollState);
 }
 
 function advanceNewsSlide() {
@@ -769,21 +804,24 @@ function disableNewsAutoplay() {
 
 if (newsGrid) {
     // Initial highlight on first card & peeking check
+    measureNewsMetrics();
     setActiveNewsCard(0, false);
-    updateNewsPinnedPeeking();
-    updateNewsScrollbarPosition();
+    syncNewsScrollState();
 
-    newsGrid.addEventListener('scroll', () => {
-        updateNewsGridScrollFade();
-        updateNewsPinnedPeeking();
-        updateActiveNewsCardOnScroll();
-        updateNewsScrollbarPosition();
-    });
+    newsGrid.addEventListener('scroll', requestNewsScrollSync, { passive: true });
 
+    let newsResizeTimer = null;
     window.addEventListener('resize', () => {
-        updateNewsPinnedPeeking();
-        updateNewsGridScrollFade();
-        updateNewsScrollbarPosition();
+        clearTimeout(newsResizeTimer);
+        newsResizeTimer = setTimeout(() => {
+            measureNewsMetrics();
+            syncNewsScrollState();
+        }, 120);
+    });
+    // Images/fonts can change card geometry after first paint
+    window.addEventListener('load', () => {
+        measureNewsMetrics();
+        syncNewsScrollState();
     });
 
     // Mouse Drag-to-Scroll (Grab & Drag) on News Grid
@@ -815,7 +853,7 @@ if (newsGrid) {
     window.addEventListener('mouseup', () => {
         if (!isDraggingGrid) return;
         isDraggingGrid = false;
-        newsGrid.style.scrollSnapType = 'x proximity';
+        newsGrid.style.scrollSnapType = '';
         setTimeout(() => {
             updateActiveNewsCardOnScroll();
             updateNewsPinnedPeeking();
@@ -859,17 +897,7 @@ if (newsGrid) {
             if (card.classList.contains('is-peeking')) {
                 e.stopPropagation();
                 e.preventDefault();
-                if (idx === 0) {
-                    newsGrid.scrollTo({ left: 0, behavior: 'smooth' });
-                } else if (idx === 1) {
-                    const isMobile = window.innerWidth <= 768;
-                    const dockOffset = isMobile ? 36 : 48;
-                    const card0Width = getNewsCards()[0] ? getNewsCards()[0].offsetWidth : 320;
-                    const gap = isMobile ? 16 : 32;
-                    const targetLeft = Math.max(0, card0Width + gap - dockOffset);
-                    newsGrid.scrollTo({ left: targetLeft, behavior: 'smooth' });
-                }
-                setActiveNewsCard(idx, false);
+                setActiveNewsCard(idx, true);
                 return;
             }
 
@@ -903,39 +931,13 @@ if (newsGrid) {
         updateActiveNewsCardOnScroll();
     }
 
-    // Convert mouse wheel to horizontal scrolling while preserving native trackpad gestures and card text scrolling
+    // Never hijack the vertical mouse wheel: page scrolling must always pass through the news section.
+    // Horizontal browsing works natively via trackpad swipe / Shift+wheel, drag, arrow buttons and the scrollbar.
     newsGrid.addEventListener('wheel', (e) => {
-        // 1. If hovering over a scrollable text container that can scroll vertically
-        const scrollableText = e.target.closest('.news-text-scrollable');
-        if (scrollableText) {
-            const hasVerticalOverflow = scrollableText.scrollHeight > scrollableText.clientHeight + 2;
-            if (hasVerticalOverflow) {
-                const canScrollDown = e.deltaY > 0 && (scrollableText.scrollTop + scrollableText.clientHeight < scrollableText.scrollHeight - 1);
-                const canScrollUp = e.deltaY < 0 && scrollableText.scrollTop > 0;
-                if (canScrollDown || canScrollUp) {
-                    return; // Allow native vertical scrolling of the card text
-                }
-            }
+        if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+            disableNewsAutoplay(); // user is actively browsing horizontally
         }
-
-        // 2. Trackpad bidirectional horizontal swipe (deltaX is present):
-        // If there is ANY horizontal delta from the touchpad, let the browser handle it completely natively in BOTH directions!
-        if (Math.abs(e.deltaX) > 0) {
-            disableNewsAutoplay();
-            return; // Pure native smooth bidirectional trackpad scrolling
-        }
-
-        // 3. Pure vertical mouse wheel (deltaX === 0): convert deltaY to horizontal scroll
-        if (Math.abs(e.deltaY) > 0) {
-            const canScrollRight = e.deltaY > 0 && newsGrid.scrollLeft + newsGrid.clientWidth < newsGrid.scrollWidth - 2;
-            const canScrollLeft = e.deltaY < 0 && newsGrid.scrollLeft > 2;
-            if (canScrollRight || canScrollLeft) {
-                e.preventDefault();
-                newsGrid.scrollLeft += e.deltaY;
-                disableNewsAutoplay();
-            }
-        }
-    }, { passive: false });
+    }, { passive: true });
 
     // Pause autoplay strictly when mouse is directly over the cards, scrollbar, or nav buttons
     const interactiveNewsElements = [newsGrid, newsScrollbarContainer, newsPrevBtn, newsNextBtn].filter(Boolean);

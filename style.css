@@ -534,19 +534,36 @@ section {
 }
 
 #news .grid {
+    /* Width of the docked pinned stack (2 strips) and the resting gutter after it */
+    --news-stack-w: 96px;
+    --news-stack-gutter: 108px;
     display: flex;
     overflow-x: auto;
     overscroll-behavior-x: contain;
-    scroll-snap-type: x proximity;
-    scroll-padding-left: 108px;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: var(--news-stack-gutter);
     padding-bottom: 0.5rem;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    cursor: grab;
+}
+
+/* Edge masks are toggled via classes from JS (only when the state actually changes) */
+#news .grid.fade-right {
     mask-image: linear-gradient(to right, black calc(100% - 60px), transparent 100%);
     -webkit-mask-image: linear-gradient(to right, black calc(100% - 60px), transparent 100%);
-    transition: mask-image 0.25s ease, -webkit-mask-image 0.25s ease;
-    cursor: grab;
+}
+
+/* When both pinned cards are docked, hide cards sliding underneath the stack */
+#news .grid.is-stacked {
+    mask-image: linear-gradient(to right, black var(--news-stack-w), transparent var(--news-stack-w), transparent calc(var(--news-stack-gutter) - 4px), black var(--news-stack-gutter));
+    -webkit-mask-image: linear-gradient(to right, black var(--news-stack-w), transparent var(--news-stack-w), transparent calc(var(--news-stack-gutter) - 4px), black var(--news-stack-gutter));
+}
+
+#news .grid.is-stacked.fade-right {
+    mask-image: linear-gradient(to right, black var(--news-stack-w), transparent var(--news-stack-w), transparent calc(var(--news-stack-gutter) - 4px), black var(--news-stack-gutter), black calc(100% - 60px), transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, black var(--news-stack-w), transparent var(--news-stack-w), transparent calc(var(--news-stack-gutter) - 4px), black var(--news-stack-gutter), black calc(100% - 60px), transparent 100%);
 }
 
 #news .grid::-webkit-scrollbar {
@@ -619,13 +636,14 @@ section {
 
 #news .grid > * {
     flex: 0 0 320px;
-    scroll-snap-align: center;
+    scroll-snap-align: start;
     cursor: default;
 }
 
 @media (max-width: 768px) {
     #news .grid > * {
-        flex: 0 0 85vw; /* Almost full width on mobile */
+        /* Fill the visible area to the right of the docked pinned stack */
+        flex: 0 0 calc(100% - var(--news-stack-gutter));
     }
 }
 
@@ -681,7 +699,7 @@ section {
 .news-text-scrollable {
     height: 100%;
     overflow-y: auto;
-    overscroll-behavior: contain;
+    overscroll-behavior-y: auto; /* let the page continue scrolling at the text end */
     -webkit-overflow-scrolling: touch;
     padding-right: 0.75rem;
     scrollbar-width: none;
@@ -968,7 +986,8 @@ section {
 .card.is-sticky-card {
     position: sticky;
     top: 0;
-    will-change: transform, left, clip-path;
+    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+        background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card.card-featured-award.is-sticky-card {
@@ -1106,7 +1125,8 @@ section {
 
 @media (max-width: 768px) {
     #news .grid {
-        scroll-padding-left: 82px;
+        --news-stack-w: 72px;
+        --news-stack-gutter: 82px;
     }
     .card.card-pinned-terracotta.is-sticky-card {
         left: 36px;
