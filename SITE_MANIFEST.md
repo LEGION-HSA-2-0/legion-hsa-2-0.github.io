@@ -1,6 +1,6 @@
 # LEGION Website — Site Manifest & Architecture Documentation
 
-> **Version**: 1.3.0  
+> **Version**: 1.8.2  
 > **Projekt**: LEGION (machine LEarninG-enabled Identification of archaeological Objects in the middle daNube river basin)  
 > **Repository**: [legion-hsa-2-0.github.io](https://github.com/LEGION-HSA-2-0/legion-hsa-2-0.github.io)  
 > **Zweck dieser Dokumentation**: Vollständiges Manifest zur Gestaltung, dem technischen Aufbau, den visuellen Tokens, den interaktiven Funktionen, den Systemgrenzen und einer schrittweisen Bauanleitung zur exakten Reproduktion der Website (z. B. in Kimi, ChatGPT oder Claude).
@@ -12,23 +12,26 @@
 Die LEGION-Website ist eine **moderne, hochperformante statische Webanwendung**, die ohne Build-Tools (wie Webpack, Vite oder React) auskommt. Sie setzt auf native Webstandards und CDN-eingebundene Libraries.
 
 ### Tech Stack
-* **HTML5**: Semantisches Markup, Schema.org Structured Data (`ResearchProject`), Open Graph / Twitter Card Meta-Tags.
-* **Vanilla CSS3**: Eigenes Design-System mit CSS Custom Properties (Variables), Flexbox, CSS Grid, Glassmorphic Layering, CSS-Masking (`mask-image`).
-* **Vanilla JavaScript (ES6+)**: Keine Frameworks. Leichtgewichtiges Skript (`main.js`) für Animationen, Scroll-Sync, 3D-Kamerasteuerung und Scroll-Spy.
-* **Google `<model-viewer>` (v3.x)**: Web Component für interaktives 3D-Rendering von GLB-Modellen inklusive AR-Unterstützung und Beleuchtungsanpassungen via CDN.
-* **Leaflet JS (v1.9.4)**: Für die interaktive GIS-Karte (`carnuntum-map.html`).
+* **HTML5**: Semantisches Markup, Schema.org Structured Data (`ResearchProject`, `Dataset`, `ScholarlyArticle`, `WebSite`), Open Graph / Twitter Card Meta-Tags, WCAG 2.1 AA konforme Zugänglichkeit mit vollen `aria-*`-Labels und Tastaturfokus.
+* **Vanilla CSS3**: Eigenes Design-System mit CSS Custom Properties (Variables), Flexbox, CSS Grid, Glassmorphic Layering, CSS-Masking (`mask-image`), `:focus-visible`-Outlines und optimiertes LCP-Poster-Rendering.
+* **Vanilla JavaScript (ES6+)**: Keine Frameworks. Leichtgewichtiges Skript (`main.js`) für on-demand LERP-Animationen (energieeffizient pausierend), Scroll-Sync, 3D-Kamerasteuerung, Scroll-Spy und Mini-Scrollbars.
+* **Google `<model-viewer>` (v4.4.0)**: Fest gepinnte Web Component für interaktives 3D-Rendering von GLB-Modellen inklusive AR-Unterstützung und nativer Poster-LCP-Optimierung via CDN.
+* **Leaflet JS (v1.9.4)**: Für die interaktive GIS-Karte (`carnuntum-map.html`, aktuell interner Entwurf / noindex).
 * **Google Fonts**: *Zilla Slab* (Serif für Headlines) & *Inter* (Sans-Serif für Fließtext).
+* **Automatisierung**: GitHub Actions (`daily-monitor.yml`) für tägliche automatische Verfügbarkeits- und Integritätsprüfungen sowie Suchmaschinen-Updates (IndexNow).
 * **Hosting**: GitHub Pages (Static Site Hosting).
 
 ### Ordner- & Dateistruktur
 ```
 legion-hsa-2-0.github.io/
+├── .github/workflows/          # CI/CD & Automatisierung (daily-monitor.yml)
 ├── index.html                  # Hauptseite (Landing Page, News, Team, 3D-Viewer, Partner)
-├── carnuntum-map.html          # Interaktive GIS-Karte (Draft / Auslagerung)
+├── carnuntum-map.html          # Interaktive GIS-Karte (Draft / unlisted / noindex)
 ├── legal.html                  # Impressum & Datenschutz (Legal Notice)
-├── style.css                   # Zentrales Stylesheet (Design System, Layout, Komponenten)
-├── main.js                     # Hauptinteraktionsskript (3D-Lerp, Scroll-Spy, Progress-Bar)
+├── style.css                   # Zentrales Stylesheet (Design System, Layout, Komponenten v1.8.2)
+├── main.js                     # Hauptinteraktionsskript (on-demand 3D-Lerp, Scroll-Spy, v1.8.2)
 ├── robots.txt & sitemap.xml    # SEO & Indexierungs-Vorgaben
+├── scripts/daily_interact.py   # Daily Monitor, Health Check & IndexNow-Ping
 ├── README.md                   # Repository-Überblick
 ├── SITE_MANIFEST.md            # Diese Architektur- & Design-Dokumentation
 └── assets/                     # Medien & 3D-Modelle
