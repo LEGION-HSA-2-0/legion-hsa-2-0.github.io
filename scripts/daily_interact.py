@@ -33,7 +33,6 @@ USER_AGENTS = [
 CORE_PAGES = [
     "/",
     "/legal.html",
-    "/carnuntum-map.html",
     "/sitemap.xml",
     "/robots.txt",
     "/google7b65fa1db544aae7.html",
@@ -108,7 +107,7 @@ def ping_indexnow():
         "host": HOST,
         "key": INDEXNOW_KEY,
         "keyLocation": f"https://{HOST}/{INDEXNOW_KEY}.txt",
-        "urlList": [f"{BASE_URL}{p}" for p in ["/", "/legal.html", "/carnuntum-map.html"]]
+        "urlList": [f"{BASE_URL}{p}" for p in ["/", "/legal.html"]]
     }
     data = json.dumps(payload).encode("utf-8")
     req = urllib.request.Request(

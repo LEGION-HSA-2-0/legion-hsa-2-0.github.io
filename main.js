@@ -28,32 +28,29 @@ const revealOnScroll = () => {
 window.addEventListener('scroll', revealOnScroll);
 revealOnScroll(); // Initial check
 
-// 3D Model Load Logic (Poster-First)
-function load3DModel(el) {
-    const container = el.parentElement;
-    const modelViewer = container.querySelector('model-viewer');
-    const loader = container.querySelector('.model-loader');
-    
-    if (modelViewer && loader) {
-        loader.style.display = 'block';
-        el.style.opacity = '0';
-        setTimeout(() => el.remove(), 500);
-        modelViewer.dismissPoster();
+// Smooth Scrolling for Anchor Links
+function handleSmoothAnchorClick(e) {
+    const href = this.getAttribute('href');
+    if (!href || !href.startsWith('#')) return;
+    e.preventDefault();
+    if (typeof closeNewsModal === 'function' && isNewsModalOpen) {
+        closeNewsModal();
+    }
+    if (href === '#') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+    }
+    const target = document.querySelector(href);
+    if (target) {
+        window.scrollTo({
+            top: target.offsetTop - 10,
+            behavior: 'smooth'
+        });
     }
 }
 
-// Smooth Schooling for Anchor Links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            window.scrollTo({
-                top: target.offsetTop - 10,
-                behavior: 'smooth'
-            });
-        }
-    });
+    anchor.addEventListener('click', handleSmoothAnchorClick);
 });
 
 // Smooth 3D Animation State
@@ -62,60 +59,85 @@ let targetPhi = 60, currentPhi = 60;
 let targetRadius = 350, currentRadius = 350;
 let isInteracting = false;
 let interactionTimeout;
+let smoothAnimateRAF = null;
 
 const viewer = document.querySelector('model-viewer');
 
+function requestSmoothAnimate() {
+    if (!viewer || smoothAnimateRAF) return;
+    smoothAnimateRAF = requestAnimationFrame(smoothAnimate);
+}
+
 if (viewer) {
     // Detect user interaction start
-    viewer.addEventListener('mousedown', () => isInteracting = true);
-    viewer.addEventListener('touchstart', () => isInteracting = true, {passive: true});
+    viewer.addEventListener('mousedown', () => {
+        isInteracting = true;
+        requestSmoothAnimate();
+    });
+    viewer.addEventListener('touchstart', () => {
+        isInteracting = true;
+        requestSmoothAnimate();
+    }, { passive: true });
 
     // Detect user interaction end + cooldown
     const endInteraction = () => {
+        if (!isInteracting) return;
         clearTimeout(interactionTimeout);
         interactionTimeout = setTimeout(() => {
             isInteracting = false;
+            requestSmoothAnimate();
         }, 3000); // Wait 3s after interaction before resuming scroll-sync
     };
 
     window.addEventListener('mouseup', endInteraction);
     window.addEventListener('touchend', endInteraction);
+
+    window.addEventListener('scroll', () => {
+        const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+        const maxScroll = 800;
+        const scrollPercent = Math.min(scrollY / maxScroll, 1);
+
+        targetTheta = 30 + (60 * scrollPercent);
+        targetPhi = 60 + (30 * scrollPercent);
+        targetRadius = 350 - (150 * scrollPercent);
+        if (scrollY <= maxScroll + 400) {
+            requestSmoothAnimate();
+        }
+    }, { passive: true });
 }
-
-window.addEventListener('scroll', () => {
-    const scrollY = window.pageYOffset || document.documentElement.scrollTop;
-    const maxScroll = 800; 
-    const scrollPercent = Math.min(scrollY / maxScroll, 1);
-
-    // Update target values - we always calculate these
-    targetTheta = 30 + (60 * scrollPercent);
-    targetPhi = 60 + (30 * scrollPercent);
-    targetRadius = 350 - (150 * scrollPercent);
-});
 
 function smoothAnimate() {
+    smoothAnimateRAF = null;
+    if (!viewer) return;
+
     const lerpFactor = 0.05;
-    
-    // Only apply scroll-based values if the user isn't currently playing with the model
-    if (!isInteracting && viewer) {
-        currentTheta += (targetTheta - currentTheta) * lerpFactor;
-        currentPhi += (targetPhi - currentPhi) * lerpFactor;
-        currentRadius += (targetRadius - currentRadius) * lerpFactor;
-        
+
+    if (!isInteracting) {
+        const dTheta = targetTheta - currentTheta;
+        const dPhi = targetPhi - currentPhi;
+        const dRadius = targetRadius - currentRadius;
+
+        currentTheta += dTheta * lerpFactor;
+        currentPhi += dPhi * lerpFactor;
+        currentRadius += dRadius * lerpFactor;
+
         viewer.cameraOrbit = `${currentTheta}deg ${currentPhi}deg ${currentRadius}%`;
-    } else if (isInteracting && viewer) {
-        // While interacting, sync current values back from the model's actual state 
-        // to prevent "jumping" when the user lets go
-        const orbit = viewer.getCameraOrbit();
-        currentTheta = (orbit.theta * 180) / Math.PI;
-        currentPhi = (orbit.phi * 180) / Math.PI;
-        currentRadius = orbit.radius * 100; // Radius as % approximated
+
+        if (Math.abs(dTheta) > 0.05 || Math.abs(dPhi) > 0.05 || Math.abs(dRadius) > 0.05) {
+            requestSmoothAnimate();
+        }
+    } else {
+        // Sync theta and phi from user drag without corrupting percentage radius with meter units
+        if (typeof viewer.getCameraOrbit === 'function') {
+            const orbit = viewer.getCameraOrbit();
+            currentTheta = (orbit.theta * 180) / Math.PI;
+            currentPhi = (orbit.phi * 180) / Math.PI;
+        }
+        requestSmoothAnimate();
     }
-    
-    requestAnimationFrame(smoothAnimate);
 }
 
-smoothAnimate();
+requestSmoothAnimate();
 
 // 3D Model Fade-in & Progress Bar Loading
 const modelViewers = document.querySelectorAll('model-viewer');
@@ -160,6 +182,7 @@ modelViewers.forEach(viewer => {
         }, { once: true });
     }
 });
+
 // Scroll Spy: Highlight active nav link & side dots
 const sections = document.querySelectorAll('section, footer');
 const navLinks = document.querySelectorAll('.nav-links a');
@@ -171,7 +194,6 @@ const scrollSpy = () => {
 
     sections.forEach(section => {
         const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
         if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 50) {
             current = 'partners'; // Force last section at bottom
         } else if (scrollPosition >= sectionTop) {
@@ -196,7 +218,7 @@ const scrollSpy = () => {
     });
 };
 
-window.addEventListener('scroll', scrollSpy);
+window.addEventListener('scroll', scrollSpy, { passive: true });
 window.addEventListener('load', scrollSpy);
 
 // Mobile Menu Logic
@@ -205,15 +227,20 @@ const mobileNav = document.querySelector('.mobile-nav');
 const mobileLinks = document.querySelectorAll('.mobile-nav a');
 
 if (mobileMenuBtn && mobileNav) {
+    mobileMenuBtn.setAttribute('aria-expanded', 'false');
     mobileMenuBtn.addEventListener('click', () => {
-        mobileNav.classList.toggle('active');
-        mobileMenuBtn.textContent = mobileNav.classList.contains('active') ? '✕' : '☰';
+        const isOpen = mobileNav.classList.toggle('active');
+        mobileMenuBtn.textContent = isOpen ? '✕' : '☰';
+        mobileMenuBtn.setAttribute('aria-expanded', String(isOpen));
+        mobileMenuBtn.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
     });
 
     mobileLinks.forEach(link => {
         link.addEventListener('click', () => {
             mobileNav.classList.remove('active');
             mobileMenuBtn.textContent = '☰';
+            mobileMenuBtn.setAttribute('aria-expanded', 'false');
+            mobileMenuBtn.setAttribute('aria-label', 'Open navigation menu');
         });
     });
 }
@@ -444,6 +471,9 @@ function openNewsModal(card) {
     const cardText = card.querySelector('.news-text-scrollable');
     if (cardText && modalNewsText) {
         modalNewsText.innerHTML = cardText.innerHTML;
+        modalNewsText.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', handleSmoothAnchorClick);
+        });
     }
 
     // 5. Links
@@ -453,6 +483,9 @@ function openNewsModal(card) {
         if (cardLinks.length > 0) {
             cardLinks.forEach(link => {
                 const clonedLink = link.cloneNode(true);
+                if (clonedLink.getAttribute('href')?.startsWith('#')) {
+                    clonedLink.addEventListener('click', handleSmoothAnchorClick);
+                }
                 modalNewsLinks.appendChild(clonedLink);
             });
             modalNewsLinks.style.display = 'flex';
@@ -462,10 +495,12 @@ function openNewsModal(card) {
     }
 
     // 6. Accent color for modal bottom border
-    const borderStyle = card.style.borderBottom || '';
+    const borderStyle = card.classList.contains('card-featured-award')
+        ? '4px solid var(--award-gold, #f59e0b)'
+        : (card.style.borderBottom || '4px solid var(--terracotta)');
     const modalContent = newsModal.querySelector('.news-modal-content');
     if (modalContent) {
-        modalContent.style.borderBottom = borderStyle || '4px solid var(--terracotta)';
+        modalContent.style.borderBottom = borderStyle;
     }
 
     if (typeof newsModal.showModal === 'function') {
@@ -992,23 +1027,18 @@ if (newsGrid) {
     }
 }
 
+const refreshNewsScrollbars = () => {
+    initCardMiniScrollbars();
+    updateNewsScrollFades();
+    updateNewsScrollbarPosition();
+};
+
+let scrollbarResizeTimer = null;
 window.addEventListener('resize', () => {
-    initCardMiniScrollbars();
-    updateNewsScrollFades();
-    updateNewsScrollbarPosition();
-});
-window.addEventListener('load', () => {
-    initCardMiniScrollbars();
-    updateNewsScrollFades();
-    updateNewsScrollbarPosition();
-});
-document.addEventListener('DOMContentLoaded', () => {
-    initCardMiniScrollbars();
-    updateNewsScrollFades();
-    updateNewsScrollbarPosition();
-});
-setTimeout(() => {
-    initCardMiniScrollbars();
-    updateNewsScrollFades();
-    updateNewsScrollbarPosition();
-}, 200);
+    clearTimeout(scrollbarResizeTimer);
+    scrollbarResizeTimer = setTimeout(refreshNewsScrollbars, 120);
+}, { passive: true });
+window.addEventListener('load', refreshNewsScrollbars);
+document.addEventListener('DOMContentLoaded', refreshNewsScrollbars);
+setTimeout(refreshNewsScrollbars, 200);
+

@@ -10,7 +10,7 @@
 <meta content="LEGION, AI Archaeology, Roman Pottery, Carnuntum, Machine Learning, Heritage Science Austria, TU Wien, OeAI / OeAW, CENTURIA Dataset, Common Ware, Computer Vision, Typochronology, VISART, WiCV, ECCV 2026, Heritage Meets Science 2, E-RIHS.at, Data Science" name="keywords"/>
 <meta content="LEGION Project Team" name="author"/>
 <link href="https://legion-hsa-2-0.github.io/" rel="canonical"/>
-<link as="image" href="assets/hero-jug.webp" rel="preload"/>
+<link as="image" fetchpriority="high" href="assets/hero-jug.webp" rel="preload"/>
 <!-- Open Graph / Facebook -->
 <meta content="website" property="og:type"/>
 <meta content="https://legion-hsa-2-0.github.io/" property="og:url"/>
@@ -247,13 +247,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link href="assets/logo.webp" rel="icon" type="image/webp"/>
-<link href="style.css?v=1.8.1" rel="stylesheet"/>
-<script src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js" type="module"></script>
+<link href="style.css?v=1.8.2" rel="stylesheet"/>
+<script src="https://unpkg.com/@google/model-viewer@4.4.0/dist/model-viewer.min.js" type="module"></script>
 </head>
 <body>
 <nav id="navbar">
 <a class="logo" href="#">
-<img alt="LEGION Logo" src="assets/logo.webp"/>
+<img alt="LEGION Logo" height="100" src="assets/logo.webp" width="100"/>
 </a>
 <div class="nav-links">
 <a href="#hero">LEGION</a>
@@ -265,7 +265,7 @@
 <a href="#contact">Team</a>
 <a href="#partners">Partners</a>
 </div>
-<button aria-label="Open navigation menu" class="mobile-menu-btn">☰</button>
+<button aria-expanded="false" aria-label="Open navigation menu" class="mobile-menu-btn" type="button">☰</button>
 <div class="mobile-nav">
 <a href="#hero">LEGION</a>
 <a href="#news">News</a>
@@ -293,7 +293,7 @@
 <div class="model-loader-fill"></div>
 </div>
 </div>
-<model-viewer alt="3D Model of the Roman Jug" ar="" auto-rotate="" camera-controls="" camera-orbit="30deg 75deg 180%" disable-zoom="" environment-image="neutral" exposure="1.2" interaction-prompt="none" poster="assets/hero-jug.webp" shadow-intensity="1" src="assets/jug1k.glb" style="width: 100%; height: 100%; background-color: transparent;" touch-action="pan-y">
+<model-viewer alt="3D Model of the Roman Jug" ar="" auto-rotate="" camera-controls="" camera-orbit="30deg 60deg 350%" disable-zoom="" environment-image="neutral" exposure="1.2" interaction-prompt="none" poster="assets/hero-jug.webp" shadow-intensity="1" src="assets/jug1k.glb" style="width: 100%; height: 100%; background-color: transparent;" touch-action="pan-y">
 </model-viewer>
 </div>
 <div class="gradient-blob blob-1"></div>
@@ -306,8 +306,8 @@
 <div class="news-header-row">
 <h2 class="section-title">Project News</h2>
 <div class="news-nav-buttons">
-<button aria-label="Previous News" class="news-nav-btn news-prev-btn" id="newsPrevBtn">←</button>
-<button aria-label="Next News" class="news-nav-btn news-next-btn" id="newsNextBtn">→</button>
+<button aria-label="Previous News" class="news-nav-btn news-prev-btn" id="newsPrevBtn" type="button">←</button>
+<button aria-label="Next News" class="news-nav-btn news-next-btn" id="newsNextBtn" type="button">→</button>
 </div>
 </div>
 <div class="news-carousel-container">
@@ -993,11 +993,11 @@
 <span class="researcher-meta">PI</span>
 </div>
 <div class="researcher-links">
-<a class="profile-link orcid" href="https://orcid.org/0000-0002-4481-6234" rel="noopener" target="_blank" title="ORCID Profile">
-<svg preserveaspectratio="xMidYMid" viewbox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M256 128c0 70.692-57.308 128-128 128C57.308 256 0 198.692 0 128 0 57.308 57.308 0 128 0c70.692 0 128 57.308 128 128" fill="#A6CE39"></path><path d="M86.3 186.2H70.9V79.1h15.4v107.1zM108.9 79.1h36.6c33.6 0 52.8 23.3 52.8 53.5 0 30.2-19.2 53.5-52.8 53.5h-36.6V79.1zm15.4 91.7h20.4c25.6 0 38.1-15.8 38.1-38.1 0-22.4-12.5-38.1-38.1-38.1h-20.4v76.2zM86.3 61.6c0 4.4-3.5 8-8 8s-8-3.5-8-8 3.5-8 8-8 8 3.5 8 8" fill="#FFF"></path></svg>
+<a aria-label="ORCID profile of Dominik Hagmann" class="profile-link orcid" href="https://orcid.org/0000-0002-4481-6234" rel="noopener" target="_blank" title="ORCID Profile">
+<svg aria-hidden="true" preserveaspectratio="xMidYMid" viewbox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M256 128c0 70.692-57.308 128-128 128C57.308 256 0 198.692 0 128 0 57.308 57.308 0 128 0c70.692 0 128 57.308 128 128" fill="#A6CE39"></path><path d="M86.3 186.2H70.9V79.1h15.4v107.1zM108.9 79.1h36.6c33.6 0 52.8 23.3 52.8 53.5 0 30.2-19.2 53.5-52.8 53.5h-36.6V79.1zm15.4 91.7h20.4c25.6 0 38.1-15.8 38.1-38.1 0-22.4-12.5-38.1-38.1-38.1h-20.4v76.2zM86.3 61.6c0 4.4-3.5 8-8 8s-8-3.5-8-8 3.5-8 8-8 8 3.5 8 8" fill="#FFF"></path></svg>
 </a>
-<a class="profile-link web" href="https://homepage.univie.ac.at/dominik.hagmann" rel="noopener" target="_blank" title="Personal Website">
-<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20"></path><path d="M2 12h20"></path><path d="M12 2a14.5 14.5 0 0 1 0 20"></path></svg>
+<a aria-label="Personal website of Dominik Hagmann" class="profile-link web" href="https://homepage.univie.ac.at/dominik.hagmann" rel="noopener" target="_blank" title="Personal Website">
+<svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20"></path><path d="M2 12h20"></path><path d="M12 2a14.5 14.5 0 0 1 0 20"></path></svg>
 </a>
 </div>
 </div>
@@ -1007,8 +1007,8 @@
 <span class="researcher-meta">Co-PI</span>
 </div>
 <div class="researcher-links">
-<a class="profile-link web" href="https://www.oeaw.ac.at/oeai/institut/team/person/silvia-radbauer" rel="noopener" target="_blank" title="Institutional Profile">
-<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20"></path><path d="M2 12h20"></path><path d="M12 2a14.5 14.5 0 0 1 0 20"></path></svg>
+<a aria-label="Institutional profile of Silvia Radbauer" class="profile-link web" href="https://www.oeaw.ac.at/oeai/institut/team/person/silvia-radbauer" rel="noopener" target="_blank" title="Institutional Profile">
+<svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20"></path><path d="M2 12h20"></path><path d="M12 2a14.5 14.5 0 0 1 0 20"></path></svg>
 </a>
 </div>
 </div>
@@ -1018,8 +1018,8 @@
 <span class="researcher-meta">Student Assistant</span>
 </div>
 <div class="researcher-links">
-<a class="profile-link web" href="https://www.oeaw.ac.at/oeai/institut/team/person/julia-tanzer" rel="noopener" target="_blank" title="Institutional Profile">
-<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20"></path><path d="M2 12h20"></path><path d="M12 2a14.5 14.5 0 0 1 0 20"></path></svg>
+<a aria-label="Institutional profile of Julia Tanzer" class="profile-link web" href="https://www.oeaw.ac.at/oeai/institut/team/person/julia-tanzer" rel="noopener" target="_blank" title="Institutional Profile">
+<svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20"></path><path d="M2 12h20"></path><path d="M12 2a14.5 14.5 0 0 1 0 20"></path></svg>
 </a>
 </div>
 </div>
@@ -1047,11 +1047,11 @@
 <span class="researcher-meta">Co-PI</span>
 </div>
 <div class="researcher-links">
-<a class="profile-link orcid" href="https://orcid.org/0000-0002-0219-9063" rel="noopener" target="_blank" title="ORCID Profile">
-<svg preserveaspectratio="xMidYMid" viewbox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M256 128c0 70.692-57.308 128-128 128C57.308 256 0 198.692 0 128 0 57.308 57.308 0 128 0c70.692 0 128 57.308 128 128" fill="#A6CE39"></path><path d="M86.3 186.2H70.9V79.1h15.4v107.1zM108.9 79.1h36.6c33.6 0 52.8 23.3 52.8 53.5 0 30.2-19.2 53.5-52.8 53.5h-36.6V79.1zm15.4 91.7h20.4c25.6 0 38.1-15.8 38.1-38.1 0-22.4-12.5-38.1-38.1-38.1h-20.4v76.2zM86.3 61.6c0 4.4-3.5 8-8 8s-8-3.5-8-8 3.5-8 8-8 8 3.5 8 8" fill="#FFF"></path></svg>
+<a aria-label="ORCID profile of Irene Ballester Campos" class="profile-link orcid" href="https://orcid.org/0000-0002-0219-9063" rel="noopener" target="_blank" title="ORCID Profile">
+<svg aria-hidden="true" preserveaspectratio="xMidYMid" viewbox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M256 128c0 70.692-57.308 128-128 128C57.308 256 0 198.692 0 128 0 57.308 57.308 0 128 0c70.692 0 128 57.308 128 128" fill="#A6CE39"></path><path d="M86.3 186.2H70.9V79.1h15.4v107.1zM108.9 79.1h36.6c33.6 0 52.8 23.3 52.8 53.5 0 30.2-19.2 53.5-52.8 53.5h-36.6V79.1zm15.4 91.7h20.4c25.6 0 38.1-15.8 38.1-38.1 0-22.4-12.5-38.1-38.1-38.1h-20.4v76.2zM86.3 61.6c0 4.4-3.5 8-8 8s-8-3.5-8-8 3.5-8 8-8 8 3.5 8 8" fill="#FFF"></path></svg>
 </a>
-<a class="profile-link web" href="https://cvl.tuwien.ac.at/staff/irene-ballester-campos/" rel="noopener" target="_blank" title="University Profile">
-<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20"></path><path d="M2 12h20"></path><path d="M12 2a14.5 14.5 0 0 1 0 20"></path></svg>
+<a aria-label="University profile of Irene Ballester Campos" class="profile-link web" href="https://cvl.tuwien.ac.at/staff/irene-ballester-campos/" rel="noopener" target="_blank" title="University Profile">
+<svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20"></path><path d="M2 12h20"></path><path d="M12 2a14.5 14.5 0 0 1 0 20"></path></svg>
 </a>
 </div>
 </div>
@@ -1061,11 +1061,11 @@
 <span class="researcher-meta">Co-PI</span>
 </div>
 <div class="researcher-links">
-<a class="profile-link orcid" href="https://orcid.org/0000-0002-5217-2854" rel="noopener" target="_blank" title="ORCID Profile">
-<svg preserveaspectratio="xMidYMid" viewbox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M256 128c0 70.692-57.308 128-128 128C57.308 256 0 198.692 0 128 0 57.308 57.308 0 128 0c70.692 0 128 57.308 128 128" fill="#A6CE39"></path><path d="M86.3 186.2H70.9V79.1h15.4v107.1zM108.9 79.1h36.6c33.6 0 52.8 23.3 52.8 53.5 0 30.2-19.2 53.5-52.8 53.5h-36.6V79.1zm15.4 91.7h20.4c25.6 0 38.1-15.8 38.1-38.1 0-22.4-12.5-38.1-38.1-38.1h-20.4v76.2zM86.3 61.6c0 4.4-3.5 8-8 8s-8-3.5-8-8 3.5-8 8-8 8 3.5 8 8" fill="#FFF"></path></svg>
+<a aria-label="ORCID profile of Martin Kampel" class="profile-link orcid" href="https://orcid.org/0000-0002-5217-2854" rel="noopener" target="_blank" title="ORCID Profile">
+<svg aria-hidden="true" preserveaspectratio="xMidYMid" viewbox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M256 128c0 70.692-57.308 128-128 128C57.308 256 0 198.692 0 128 0 57.308 57.308 0 128 0c70.692 0 128 57.308 128 128" fill="#A6CE39"></path><path d="M86.3 186.2H70.9V79.1h15.4v107.1zM108.9 79.1h36.6c33.6 0 52.8 23.3 52.8 53.5 0 30.2-19.2 53.5-52.8 53.5h-36.6V79.1zm15.4 91.7h20.4c25.6 0 38.1-15.8 38.1-38.1 0-22.4-12.5-38.1-38.1-38.1h-20.4v76.2zM86.3 61.6c0 4.4-3.5 8-8 8s-8-3.5-8-8 3.5-8 8-8 8 3.5 8 8" fill="#FFF"></path></svg>
 </a>
-<a class="profile-link web" href="https://cvl.tuwien.ac.at/staff/martin-kampel/" rel="noopener" target="_blank" title="University Profile">
-<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20"></path><path d="M2 12h20"></path><path d="M12 2a14.5 14.5 0 0 1 0 20"></path></svg>
+<a aria-label="University profile of Martin Kampel" class="profile-link web" href="https://cvl.tuwien.ac.at/staff/martin-kampel/" rel="noopener" target="_blank" title="University Profile">
+<svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20"></path><path d="M2 12h20"></path><path d="M12 2a14.5 14.5 0 0 1 0 20"></path></svg>
 </a>
 </div>
 </div>
@@ -1075,11 +1075,11 @@
 <span class="researcher-meta">Co-PI</span>
 </div>
 <div class="researcher-links">
-<a class="profile-link orcid" href="https://orcid.org/0000-0002-3459-8122" rel="noopener" target="_blank" title="ORCID Profile">
-<svg preserveaspectratio="xMidYMid" viewbox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M256 128c0 70.692-57.308 128-128 128C57.308 256 0 198.692 0 128 0 57.308 57.308 0 128 0c70.692 0 128 57.308 128 128" fill="#A6CE39"></path><path d="M86.3 186.2H70.9V79.1h15.4v107.1zM108.9 79.1h36.6c33.6 0 52.8 23.3 52.8 53.5 0 30.2-19.2 53.5-52.8 53.5h-36.6V79.1zm15.4 91.7h20.4c25.6 0 38.1-15.8 38.1-38.1 0-22.4-12.5-38.1-38.1-38.1h-20.4v76.2zM86.3 61.6c0 4.4-3.5 8-8 8s-8-3.5-8-8 3.5-8 8-8 8 3.5 8 8" fill="#FFF"></path></svg>
+<a aria-label="ORCID profile of Sebastian Zambanini" class="profile-link orcid" href="https://orcid.org/0000-0002-3459-8122" rel="noopener" target="_blank" title="ORCID Profile">
+<svg aria-hidden="true" preserveaspectratio="xMidYMid" viewbox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M256 128c0 70.692-57.308 128-128 128C57.308 256 0 198.692 0 128 0 57.308 57.308 0 128 0c70.692 0 128 57.308 128 128" fill="#A6CE39"></path><path d="M86.3 186.2H70.9V79.1h15.4v107.1zM108.9 79.1h36.6c33.6 0 52.8 23.3 52.8 53.5 0 30.2-19.2 53.5-52.8 53.5h-36.6V79.1zm15.4 91.7h20.4c25.6 0 38.1-15.8 38.1-38.1 0-22.4-12.5-38.1-38.1-38.1h-20.4v76.2zM86.3 61.6c0 4.4-3.5 8-8 8s-8-3.5-8-8 3.5-8 8-8 8 3.5 8 8" fill="#FFF"></path></svg>
 </a>
-<a class="profile-link web" href="https://cvl.tuwien.ac.at/staff/sebastian-zambanini/" rel="noopener" target="_blank" title="University Profile">
-<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20"></path><path d="M2 12h20"></path><path d="M12 2a14.5 14.5 0 0 1 0 20"></path></svg>
+<a aria-label="University profile of Sebastian Zambanini" class="profile-link web" href="https://cvl.tuwien.ac.at/staff/sebastian-zambanini/" rel="noopener" target="_blank" title="University Profile">
+<svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20"></path><path d="M2 12h20"></path><path d="M12 2a14.5 14.5 0 0 1 0 20"></path></svg>
 </a>
 </div>
 </div>
@@ -1089,8 +1089,8 @@
 <span class="researcher-meta">Master's student</span>
 </div>
 <div class="researcher-links">
-<a class="profile-link web" href="https://www.linkedin.com/in/gissu-valentina-naghavi/" rel="noopener" target="_blank" title="LinkedIn Profile">
-<svg fill="currentColor" viewbox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path></svg>
+<a aria-label="LinkedIn profile of Gissu Valentina Naghavi" class="profile-link web" href="https://www.linkedin.com/in/gissu-valentina-naghavi/" rel="noopener" target="_blank" title="LinkedIn Profile">
+<svg aria-hidden="true" fill="currentColor" viewbox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path></svg>
 </a>
 </div>
 </div>
@@ -1100,8 +1100,8 @@
 <span class="researcher-meta">Master's student</span>
 </div>
 <div class="researcher-links">
-<a class="profile-link web" href="https://www.linkedin.com/in/anna-laczko/" rel="noopener" target="_blank" title="LinkedIn Profile">
-<svg fill="currentColor" viewbox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path></svg>
+<a aria-label="LinkedIn profile of Anna Laczkó" class="profile-link web" href="https://www.linkedin.com/in/anna-laczko/" rel="noopener" target="_blank" title="LinkedIn Profile">
+<svg aria-hidden="true" fill="currentColor" viewbox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path></svg>
 </a>
 </div>
 </div>
@@ -1115,38 +1115,38 @@
 <h2 class="section-title">Leading Institutions</h2>
 <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
 <a class="partner-card" href="https://www.oeaw.ac.at/oeai/" rel="noopener" target="_blank">
-<img alt="OeAI Logo" height="80" loading="lazy" src="assets/logo-oeai.webp"/>
-<h4>OeAI / OeAW</h4>
+<img alt="OeAI Logo" height="80" loading="lazy" src="assets/logo-oeai.webp" width="167"/>
+<h3>OeAI / OeAW</h3>
 <p>Austrian Archaeological Institute</p>
 </a>
 <a class="partner-card" href="https://cvl.tuwien.ac.at/" rel="noopener" target="_blank">
-<img alt="CVL Logo" height="80" loading="lazy" src="assets/cvl_logo.webp"/>
-<h4>CVL / TU WIEN</h4>
+<img alt="CVL Logo" height="80" loading="lazy" src="assets/cvl_logo.webp" width="178"/>
+<h3>CVL / TU WIEN</h3>
 <p>Computer Vision Lab</p>
 </a>
 <a class="partner-card" href="https://www.oeaw.ac.at/acdh/" rel="noopener" target="_blank">
-<img alt="ACDH Logo" height="80" loading="lazy" src="assets/logo-acdh.webp"/>
-<h4>ACDH</h4>
+<img alt="ACDH Logo" height="80" loading="lazy" src="assets/logo-acdh.webp" width="264"/>
+<h3>ACDH</h3>
 <p>Austrian Centre for Digital Humanities</p>
 </a>
 <a class="partner-card" href="https://www.landessammlungen-noe.at/" rel="noopener" target="_blank">
-<img alt="LASC Logo" height="80" loading="lazy" src="assets/logo-lasc.webp"/>
-<h4>LSNÖ</h4>
+<img alt="LASC Logo" height="80" loading="lazy" src="assets/logo-lasc.webp" width="153"/>
+<h3>LSNÖ</h3>
 <p>Lower Austrian State Collections</p>
 </a>
 <a class="partner-card" href="https://www.carnuntum.at/" rel="noopener" target="_blank">
-<img alt="Carnuntum Logo" height="80" loading="lazy" src="assets/logo-carnuntum.webp"/>
-<h4>CARNUNTUM</h4>
+<img alt="Carnuntum Logo" height="80" loading="lazy" src="assets/logo-carnuntum.webp" width="123"/>
+<h3>CARNUNTUM</h3>
 <p>Roman City Carnuntum</p>
 </a>
 <a class="partner-card" href="https://www.wienmuseum.at/" rel="noopener" target="_blank">
-<img alt="Wien Museum Logo" height="80" loading="lazy" src="assets/logo-wienmuseum.webp"/>
-<h4>WIEN MUSEUM</h4>
+<img alt="Wien Museum Logo" height="80" loading="lazy" src="assets/logo-wienmuseum.webp" width="80"/>
+<h3>WIEN MUSEUM</h3>
 <p>Vienna Museum</p>
 </a>
 <a class="partner-card" href="https://www.donau-uni.ac.at/" rel="noopener" target="_blank">
-<img alt="UWK Logo" height="80" loading="lazy" src="assets/logo-uwk.webp"/>
-<h4>UWK</h4>
+<img alt="UWK Logo" height="80" loading="lazy" src="assets/logo-uwk.webp" width="211"/>
+<h3>UWK</h3>
 <p>University for Continuing Education Krems</p>
 </a>
 </div>
@@ -1176,7 +1176,7 @@
 <div class="footer-links">
 <h4>3D Assets</h4>
 <div class="asset-credit">
-<img alt="Landessammlungen NOE Logo" class="asset-logo" loading="lazy" src="https://media.sketchfab.com/avatars/a371dd4670814f9785326b41b544db1d/f0085c684d114b61b9b73c855f8276b7.jpeg"/>
+<img alt="Landessammlungen NOE Logo" class="asset-logo" height="42" loading="lazy" src="https://media.sketchfab.com/avatars/a371dd4670814f9785326b41b544db1d/f0085c684d114b61b9b73c855f8276b7.jpeg" width="42"/>
 <div class="asset-info">
 <div style="margin-bottom: 2px;">
 <span style="color: var(--text-dim); font-size: 0.9rem;">Provided by </span>
@@ -1216,7 +1216,7 @@
 <div class="funding-header">
 <h4 style="color: var(--cyan); margin: 0;">Initiative</h4>
 <a href="https://heritagescience.at/blog/" rel="noopener" target="_blank" title="Heritage Science Austria">
-<img alt="Heritage Science Austria Logo" class="initiative-logo" height="48" loading="lazy" src="assets/logo-heritage-science-austria.webp"/>
+<img alt="Heritage Science Austria Logo" class="initiative-logo" height="48" loading="lazy" src="assets/logo-heritage-science-austria.webp" width="50"/>
 </a>
 </div>
 <p style="font-size: 0.85rem; color: var(--text-dim); margin-bottom: 0.8rem;"><strong><a href="https://heritagescience.at/blog/" rel="noopener" style="color: inherit; text-decoration: underline;" target="_blank">Heritage Science Austria</a></strong> is an interdisciplinary network connecting the humanities, natural, and technical sciences to research and preserve material cultural heritage.</p>
@@ -1234,14 +1234,14 @@
 <div class="footer-bottom-top">
 <div class="license-container">
 <div class="license-item">
-<a href="http://creativecommons.org/licenses/by/4.0/" rel="license noopener" target="_blank" title="Creative Commons Attribution 4.0 International">
-<img alt="CC BY 4.0" loading="lazy" src="assets/license-cc-by.svg"/>
+<a href="https://creativecommons.org/licenses/by/4.0/" rel="license noopener" target="_blank" title="Creative Commons Attribution 4.0 International">
+<img alt="CC BY 4.0" height="22" loading="lazy" src="assets/license-cc-by.svg" width="63"/>
 </a>
-<span>Website content licensed under <a href="http://creativecommons.org/licenses/by/4.0/" rel="license noopener" style="color: inherit; text-decoration: underline;" target="_blank">CC BY 4.0</a>.</span>
+<span>Website content licensed under <a href="https://creativecommons.org/licenses/by/4.0/" rel="license noopener" style="color: inherit; text-decoration: underline;" target="_blank">CC BY 4.0</a>.</span>
 </div>
 <div class="license-item">
 <a href="https://opensource.org/licenses/MIT" rel="noopener" target="_blank" title="MIT License">
-<img alt="MIT License" loading="lazy" src="assets/license-mit.svg" style="border-radius: 2px;"/>
+<img alt="MIT License" height="22" loading="lazy" src="assets/license-mit.svg" style="border-radius: 2px;" width="90"/>
 </a>
 <span>Project code licensed under the <a href="https://opensource.org/licenses/MIT" rel="noopener" style="color: inherit; text-decoration: underline;" target="_blank">MIT License</a>.</span>
 </div>
@@ -1251,7 +1251,7 @@
 <div class="footer-github-ref">
 <span style="font-size: 0.85rem;">Project source code on</span>
 <a href="https://github.com/LEGION-HSA-2-0" rel="noopener" target="_blank" title="GitHub Repository">
-<img alt="GitHub" loading="lazy" src="assets/github-badge.svg" style="border-radius: 2px; height: 22px;"/>
+<img alt="GitHub" height="22" loading="lazy" src="assets/github-badge.svg" style="border-radius: 2px; height: 22px;" width="72"/>
 </a>
 </div>
 </div>
@@ -1267,21 +1267,21 @@
 </div>
 </footer>
 <div class="side-nav">
-<a class="side-dot" data-label="Top" href="#hero"></a>
-<a class="side-dot" data-label="News" href="#news"></a>
-<a class="side-dot" data-label="Project" href="#about"></a>
-<a class="side-dot" data-label="Innovation" href="#methodology"></a>
-<a class="side-dot" data-label="Impact" href="#impact"></a>
-<a class="side-dot" data-label="Open Source" href="#opensource"></a>
-<a class="side-dot" data-label="Team" href="#contact"></a>
-<a class="side-dot" data-label="Partners" href="#partners"></a>
+<a aria-label="Jump to Top section" class="side-dot" data-label="Top" href="#hero"></a>
+<a aria-label="Jump to News section" class="side-dot" data-label="News" href="#news"></a>
+<a aria-label="Jump to Project section" class="side-dot" data-label="Project" href="#about"></a>
+<a aria-label="Jump to Innovation section" class="side-dot" data-label="Innovation" href="#methodology"></a>
+<a aria-label="Jump to Impact section" class="side-dot" data-label="Impact" href="#impact"></a>
+<a aria-label="Jump to Open Source section" class="side-dot" data-label="Open Source" href="#opensource"></a>
+<a aria-label="Jump to Team section" class="side-dot" data-label="Team" href="#contact"></a>
+<a aria-label="Jump to Partners section" class="side-dot" data-label="Partners" href="#partners"></a>
 </div>
 <!-- News Detail Modal -->
 <dialog aria-labelledby="modalNewsTitle" aria-modal="true" class="news-modal" id="newsModal">
     <div class="news-modal-content">
         <button aria-label="Close news details" class="news-modal-close" id="newsModalClose" type="button">✕</button>
         <div class="news-modal-image-wrapper">
-            <img alt="" id="modalNewsImg" src=""/>
+            <img alt="" height="260" id="modalNewsImg" width="600"/>
             <div class="photocredit-tooltip photocredit-modal" id="modalNewsCredit"></div>
         </div>
         <div class="news-modal-body">
@@ -1292,6 +1292,6 @@
         </div>
     </div>
 </dialog>
-<script src="main.js?v=1.8.1"></script>
+<script src="main.js?v=1.8.2"></script>
 </body>
 </html>

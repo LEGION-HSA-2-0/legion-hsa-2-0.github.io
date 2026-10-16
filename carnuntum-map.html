@@ -31,10 +31,10 @@
     
     <!-- Leaflet CSS & Google Model-Viewer -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-    <script src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js" type="module"></script>
+    <script src="https://unpkg.com/@google/model-viewer@4.4.0/dist/model-viewer.min.js" type="module"></script>
 
     <!-- Project Stylesheet -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=1.8.2">
     
     <style>
         /* Leaflet Scale Control Customization */
@@ -84,12 +84,20 @@
     <!-- Navigation -->
     <nav id="navbar" class="scrolled">
         <a href="index.html" class="logo">
-            <img src="assets/logo.webp" alt="LEGION Logo">
+            <img src="assets/logo.webp" alt="LEGION Logo" width="100" height="100">
         </a>
         <div class="nav-links">
             <a href="index.html">← Back to Main Page</a>
-            <a href="index.html#research">Research</a>
-            <a href="index.html#models">3D Models</a>
+            <a href="index.html#methodology">Innovation</a>
+            <a href="index.html#about">Project &amp; 3D</a>
+            <a href="index.html#news">News</a>
+            <a href="#" class="active">Map (Draft)</a>
+        </div>
+        <button aria-expanded="false" aria-label="Open navigation menu" class="mobile-menu-btn" type="button">☰</button>
+        <div class="mobile-nav">
+            <a href="index.html">← Back to Main Page</a>
+            <a href="index.html#methodology">Innovation</a>
+            <a href="index.html#about">Project &amp; 3D</a>
             <a href="index.html#news">News</a>
             <a href="#" class="active">Map (Draft)</a>
         </div>
@@ -122,10 +130,10 @@
                 <div class="map-control-card">
                     <div class="map-search-box">
                         <span class="map-search-icon">🔍</span>
-                        <input type="text" id="map-search" class="map-search-input" placeholder="Search site or monument...">
+                        <input type="text" id="map-search" class="map-search-input" aria-label="Search site or monument" placeholder="Search site or monument...">
                     </div>
                     <div class="map-jump-select-wrapper">
-                        <select id="jump-select" class="map-jump-select">
+                        <select id="jump-select" class="map-jump-select" aria-label="Quick Jump to Site">
                             <option value="">-- Quick Jump to Site --</option>
                             <option value="heidentor">Heidentor (Triumphal Monument)</option>
                             <option value="legionslager">Legionary Fortress &amp; Fortifications</option>
@@ -146,19 +154,19 @@
                         Filter Categories
                     </div>
                     <div class="map-filter-group" id="filter-group">
-                        <button class="filter-pill active" data-category="all">
+                        <button type="button" class="filter-pill active" data-category="all">
                             <span>🌐</span> All (9)
                         </button>
-                        <button class="filter-pill" data-category="military">
+                        <button type="button" class="filter-pill" data-category="military">
                             <span>⚔️</span> Military (4)
                         </button>
-                        <button class="filter-pill" data-category="ceramic">
+                        <button type="button" class="filter-pill" data-category="ceramic">
                             <span>🏺</span> Ceramics &amp; Economy (3)
                         </button>
-                        <button class="filter-pill" data-category="civic">
+                        <button type="button" class="filter-pill" data-category="civic">
                             <span>🏛️</span> Civil Town (2)
                         </button>
-                        <button class="filter-pill" data-category="sacred">
+                        <button type="button" class="filter-pill" data-category="sacred">
                             <span>⛩️</span> Sanctuary (1)
                         </button>
                     </div>
@@ -171,7 +179,7 @@
                             <input type="checkbox" id="toggle-geojson" checked style="accent-color: var(--cyan); cursor: pointer; width: 16px; height: 16px;">
                             <span>🗺️ Archaeological Sectors (23 Polygons)</span>
                         </label>
-                        <button id="fit-geojson-btn" class="map-popup-btn" style="width: 100%; font-size: 0.72rem; padding: 4px 8px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);">
+                        <button type="button" id="fit-geojson-btn" class="map-popup-btn" style="width: 100%; font-size: 0.72rem; padding: 4px 8px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);">
                             🔍 Center on GIS Sectors
                         </button>
                     </div>
@@ -207,18 +215,18 @@
                     <div style="color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; font-weight: 600;">
                         Data Sources &amp; Attribution
                     </div>
-                    <div>• <strong>Base Maps:</strong> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>, <a href="https://carto.com/" target="_blank">CARTO</a>, <a href="https://www.esri.com/" target="_blank">Esri World Imagery</a></div>
+                    <div>• <strong>Base Maps:</strong> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>, <a href="https://carto.com/" target="_blank" rel="noopener">CARTO</a>, <a href="https://www.esri.com/" target="_blank" rel="noopener">Esri World Imagery</a></div>
                     <div>• <strong>GIS Sectors:</strong> AV Hintergrund Carnuntum (UWK / OeAW / OeAI)</div>
-                    <div>• <strong>Ceramic Analytics:</strong> <a href="https://legion-hsa-2-0.github.io/" target="_blank">LEGION HSA 2.0</a></div>
+                    <div>• <strong>Ceramic Analytics:</strong> <a href="https://legion-hsa-2-0.github.io/" target="_blank" rel="noopener">LEGION HSA 2.0</a></div>
                 </div>
 
             </div>
 
             <!-- Base Layer Switcher (Bottom Left) -->
             <div class="map-layer-switcher" id="layer-switcher" style="bottom: 60px;">
-                <button class="layer-btn active" data-tile="dark">🌙 Dark Map</button>
-                <button class="layer-btn" data-tile="topo">🗺️ Topo / OSM</button>
-                <button class="layer-btn" data-tile="sat">🛰️ Satellite</button>
+                <button type="button" class="layer-btn active" data-tile="dark">🌙 Dark Map</button>
+                <button type="button" class="layer-btn" data-tile="topo">🗺️ Topo / OSM</button>
+                <button type="button" class="layer-btn" data-tile="sat">🛰️ Satellite</button>
             </div>
 
             <!-- Map Stats Counter (Bottom Right) -->
@@ -239,11 +247,11 @@
                         <span class="map-popup-tag tag-military" id="drawer-tag">MILITARY</span>
                         <h2 class="drawer-section-title" id="drawer-title" style="font-size: 1.4rem; color: white; margin-top: 4px;">Legionary Fortress Carnuntum</h2>
                     </div>
-                    <button class="drawer-close-btn" id="drawer-close" title="Close">&times;</button>
+                    <button type="button" class="drawer-close-btn" id="drawer-close" aria-label="Close site details" title="Close">&times;</button>
                 </div>
                 <div class="drawer-body">
                     <div class="drawer-img-wrapper">
-                        <img id="drawer-img" src="assets/hero-jug.webp" alt="Site preview">
+                        <img id="drawer-img" src="assets/hero-jug.webp" alt="Site preview" width="1024" height="1024">
                     </div>
 
                     <div class="drawer-meta-grid">
@@ -266,7 +274,7 @@
                     </div>
 
                     <div>
-                        <h4 class="drawer-section-title">Archaeological Context</h4>
+                        <h3 class="drawer-section-title">Archaeological Context</h3>
                         <p class="drawer-description" id="drawer-desc">
                             The legionary fortress of Carnuntum served as the primary military stronghold on the Pannonian Limes. Stationed troops consumed vast quantities of local and imported coarse ceramic wares analyzed in the LEGION project.
                         </p>
@@ -275,7 +283,7 @@
                     <!-- Interactive 3D Model Viewer Card (LEGION) -->
                     <div class="drawer-artifact-card" id="drawer-artifact-container" style="flex-direction: column; align-items: stretch; gap: 8px;">
                         <div style="display: flex; align-items: center; justify-content: space-between;">
-                            <h5 id="drawer-artifact-title" style="color: var(--cyan); font-size: 0.95rem;">Interactive 3D Artifact</h5>
+                            <h4 id="drawer-artifact-title" style="color: var(--cyan); font-size: 0.95rem;">Interactive 3D Artifact</h4>
                             <span style="font-size: 0.7rem; color: var(--text-dim); background: rgba(0, 181, 204, 0.15); padding: 2px 8px; border-radius: 10px;">Drag to Rotate</span>
                         </div>
                         <div id="drawer-3d-model-wrapper" style="width: 100%; height: 210px; border-radius: 8px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.08); overflow: hidden;">
@@ -288,7 +296,7 @@
                         <div style="display: flex; align-items: center; gap: 10px;">
                             <span style="font-size: 1.5rem;">🧊</span>
                             <div>
-                                <h5 id="drawer-sketchfab-title" style="color: white; font-size: 0.88rem;">Landessammlungen NÖ 3D Collections</h5>
+                                <h4 id="drawer-sketchfab-title" style="color: white; font-size: 0.88rem;">Landessammlungen NÖ 3D Collections</h4>
                                 <p id="drawer-sketchfab-desc" style="font-size: 0.72rem; color: var(--text-dim);">Verified 3D models on Sketchfab (@landessammlungen-noe &amp; @www.noe-3d.at).</p>
                             </div>
                         </div>
@@ -746,6 +754,18 @@
 
                 visibleCountEl.innerText = count;
             });
+
+            // 10. Mobile Navigation Toggle
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const mobileNav = document.querySelector('.mobile-nav');
+            if (mobileMenuBtn && mobileNav) {
+                mobileMenuBtn.addEventListener('click', () => {
+                    const isOpen = mobileNav.classList.toggle('active');
+                    mobileMenuBtn.textContent = isOpen ? '✕' : '☰';
+                    mobileMenuBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+                    mobileMenuBtn.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
+                });
+            }
 
         });
     </script>

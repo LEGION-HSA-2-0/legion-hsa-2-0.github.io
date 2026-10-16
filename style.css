@@ -10,8 +10,11 @@ html {
     --bg-dark: #0a0a0a;
     --navy: #1A2B3C;
     --terracotta: #D46A43; /* From Logo */
+    --terracotta-bright: #e87a53;
     --cyan: #00B5CC;     /* From Logo */
+    --cyan-bright: #48cae4;
     --brand-bridge: #6A8F87; /* Mid-point */
+    --brand-bridge-bright: #d4a373;
     --brand-gradient: linear-gradient(135deg, var(--terracotta) 0%, var(--cyan) 100%);
     --brand-glow: rgba(212, 106, 67, 0.4); /* Soft brand glow */
     --terracotta-glow: rgba(212, 106, 67, 0.5);
@@ -20,6 +23,7 @@ html {
     --award-gold: #f59e0b;
     --award-gold-bright: #fbbf24;
     --award-gold-glow: rgba(245, 158, 11, 0.45);
+    --news-stack-gutter: 82px;
     
     --text-main: #f0f0f0;
     --text-dim: #a0a0a0;
@@ -27,6 +31,11 @@ html {
     
     /* Transitions */
     --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+:where(a:any-link, button, summary, [tabindex]:not([tabindex="-1"])):focus-visible {
+    outline: 2px solid var(--cyan);
+    outline-offset: 3px;
 }
 
 * {
@@ -278,6 +287,7 @@ model-viewer {
     pointer-events: auto;
 }
 
+model-viewer[poster],
 model-viewer.visible {
     opacity: 1;
 }
@@ -659,7 +669,7 @@ section {
 @media (max-width: 768px) {
     #news .grid > * {
         /* Fill the visible area to the right of the docked pinned stack */
-        flex: 0 0 calc(100% - var(--news-stack-gutter));
+        flex: 0 0 calc(100% - var(--news-stack-gutter, 82px));
     }
 }
 
@@ -757,6 +767,7 @@ section {
     position: absolute;
     top: 0;
     left: 0;
+    background-color: var(--terracotta);
     cursor: grab;
     will-change: transform;
     transition: background-color 0.2s ease, box-shadow 0.2s ease;
@@ -768,6 +779,15 @@ section {
 }
 
 /* Card color theming for custom mini scrollbar thumbs */
+.card-featured-award .card-scrollbar-thumb {
+    background-color: var(--award-gold, #f59e0b);
+}
+.card-featured-award .card-scrollbar-thumb:hover,
+.card-featured-award .card-scrollbar-thumb.is-dragging {
+    background-color: var(--award-gold-bright, #fbbf24);
+    box-shadow: 0 0 8px var(--award-gold-glow);
+}
+
 .card[style*="var(--terracotta)"] .card-scrollbar-thumb {
     background-color: var(--terracotta);
 }
@@ -1508,7 +1528,7 @@ dialog.news-modal::backdrop {
     transform: scale(1.05);
 }
 
-.partner-card h4 {
+.partner-card :is(h3, h4) {
     color: var(--text-main);
     font-size: 0.9rem;
     letter-spacing: 0.1em;
