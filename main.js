@@ -141,45 +141,106 @@ requestSmoothAnimate();
 
 // 3D Model Fade-in & Progress Bar Loading
 const modelViewers = document.querySelectorAll('model-viewer');
-modelViewers.forEach(viewer => {
-    const container = viewer.parentElement;
+modelViewers.forEach(mv => {
+    const container = mv.parentElement;
     const loader = container ? container.querySelector('.model-loader-container') : null;
     
     if (loader) {
         const fill = loader.querySelector('.model-loader-fill');
         const percentText = loader.querySelector('.model-loader-percent');
+        let displayedProgress = 0;
+        let isModelLoaded = Boolean(mv.loaded);
+        let isInViewport = false;
+        let isFinishing = false;
 
-        const updateProgress = (progress) => {
-            const percentage = Math.min(Math.max(Math.round(progress * 100), 0), 100);
+        // Disable transition on width during JS rAF animation for smooth tabular updates
+        const setProgressUI = (progress) => {
+            const clamped = Math.min(Math.max(progress, 0), 1);
+            const percentage = Math.round(clamped * 100);
             if (fill) fill.style.width = `${percentage}%`;
             if (percentText) percentText.textContent = `${percentage}%`;
         };
 
-        viewer.addEventListener('progress', (event) => {
-            updateProgress(event.detail.totalProgress);
-        });
+        const runFinishAnimation = () => {
+            if (isFinishing) return;
+            isFinishing = true;
 
-        const onComplete = () => {
-            updateProgress(1.0);
-            viewer.classList.add('visible');
-            setTimeout(() => {
-                loader.style.opacity = '0';
-                loader.style.transform = 'translate(-50%, -50%) scale(0.95)';
-                setTimeout(() => {
-                    loader.style.display = 'none';
-                }, 500);
-            }, 200);
+            const startProgress = displayedProgress;
+            const duration = startProgress < 0.85 ? 550 : 200;
+            const startTime = performance.now();
+
+            const step = (now) => {
+                const elapsed = now - startTime;
+                const t = Math.min(elapsed / duration, 1);
+                // Ease-out cubic
+                const eased = 1 - Math.pow(1 - t, 3);
+                const current = startProgress + (1 - startProgress) * eased;
+                setProgressUI(current);
+
+                if (t < 1) {
+                    requestAnimationFrame(step);
+                } else {
+                    setProgressUI(1.0);
+                    mv.classList.add('visible');
+                    setTimeout(() => {
+                        loader.style.opacity = '0';
+                        loader.style.transform = 'translate(-50%, -50%) scale(0.95)';
+                        setTimeout(() => {
+                            loader.style.display = 'none';
+                        }, 500);
+                    }, 220);
+                }
+            };
+
+            requestAnimationFrame(step);
         };
 
-        if (viewer.loaded) {
-            onComplete();
+        const checkReadyToFinish = () => {
+            if (isModelLoaded && isInViewport && !isFinishing) {
+                runFinishAnimation();
+            }
+        };
+
+        mv.addEventListener('progress', (event) => {
+            if (isFinishing) return;
+            const rawProgress = (event.detail && typeof event.detail.totalProgress === 'number')
+                ? event.detail.totalProgress
+                : 0;
+            // Only advance visible progress while in viewport so off-screen cards animate when scrolled to
+            if (isInViewport) {
+                displayedProgress = Math.max(displayedProgress, Math.min(rawProgress, 0.95));
+                setProgressUI(displayedProgress);
+            }
+        });
+
+        mv.addEventListener('load', () => {
+            isModelLoaded = true;
+            checkReadyToFinish();
+        }, { once: true });
+
+        if ('IntersectionObserver' in window && container) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        isInViewport = true;
+                        observer.disconnect();
+                        checkReadyToFinish();
+                    }
+                });
+            }, { threshold: 0.15 });
+            observer.observe(container);
         } else {
-            viewer.addEventListener('load', onComplete, { once: true });
+            isInViewport = true;
+            checkReadyToFinish();
         }
     } else {
-        viewer.addEventListener('load', () => {
-            viewer.classList.add('visible');
-        }, { once: true });
+        if (mv.loaded) {
+            mv.classList.add('visible');
+        } else {
+            mv.addEventListener('load', () => {
+                mv.classList.add('visible');
+            }, { once: true });
+        }
     }
 });
 

@@ -287,7 +287,10 @@ model-viewer {
     pointer-events: auto;
 }
 
-model-viewer[poster],
+model-viewer::part(default-progress-bar) {
+    display: none;
+}
+
 model-viewer.visible {
     opacity: 1;
 }
@@ -308,7 +311,7 @@ model-viewer.visible {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 6;
+    z-index: 15;
     display: flex;
     flex-direction: column;
     align-items: center;
