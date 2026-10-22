@@ -1367,6 +1367,7 @@ dialog.news-modal::backdrop {
     position: absolute;
     bottom: 10px;
     right: 10px;
+    max-width: calc(100% - 20px);
     opacity: 0.95;
     transform: none;
     pointer-events: auto;
@@ -2126,6 +2127,10 @@ footer {
     position: absolute;
     bottom: 12px;
     right: 12px;
+    max-width: calc(100% - 24px);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     background-image: linear-gradient(135deg, rgba(60, 34, 24, 0.92) 0%, rgba(8, 53, 58, 0.92) 100%), var(--brand-gradient);
     background-origin: padding-box, border-box;
     background-clip: padding-box, border-box;

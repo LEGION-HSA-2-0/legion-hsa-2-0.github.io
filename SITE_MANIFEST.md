@@ -1,6 +1,6 @@
 # LEGION Website — Site Manifest & Architecture Documentation
 
-> **Version**: 1.8.2  
+> **Version**: 1.8.4  
 > **Projekt**: LEGION (machine LEarninG-enabled Identification of archaeological Objects in the middle daNube river basin)  
 > **Repository**: [legion-hsa-2-0.github.io](https://github.com/LEGION-HSA-2-0/legion-hsa-2-0.github.io)  
 > **Zweck dieser Dokumentation**: Vollständiges Manifest zur Gestaltung, dem technischen Aufbau, den visuellen Tokens, den interaktiven Funktionen, den Systemgrenzen und einer schrittweisen Bauanleitung zur exakten Reproduktion der Website (z. B. in Kimi, ChatGPT oder Claude).
@@ -114,7 +114,7 @@ Die Hauptseite (`index.html`) gliedert sich in folgende logische Abschnitte:
 ### C. News Section (`#news`)
 * Raster-Grid (`.grid`) aus 21 News-Karten. Ganz links angeheftet: Die farblich dominante **Best Paper Award (VISART @ ECCV 2026)** Highlight-Karte mit leuchtendem Gold/Bernstein-Farbthema (`.card-featured-award`), gefolgt von der bisher angehefteten Karte zum **CENTURIA Dataset & Paper Release**, der Ankündigung zur Konferenz **Heritage Meets Science 2** (23. Oktober 2026, verlinkt mit offiziellem HSA-Beitrag auf heritagescience.at) und den nachfolgenden Karten in zyklischer Farbpalette (`terracotta` → `brand-bridge` → `cyan`).
 * Jede Karte enthält:
-  * 16:9 Vorschaubild mit Hover-Tooltip für Bildrechte (`.photocredit-tooltip`).
+  * 16:9 Vorschaubild mit Hover-Tooltip für Bildrechte (`.photocredit-tooltip` mit `max-width`, Ellipsis & Overflow-Schutz).
   * Datum / Tag, Überschrift mit einheitlicher Mindesthöhe, verlinkten Text und Buttons.
   * **Custom JavaScript Mini-Scrollbars (`.card-scrollbar-track` & `.card-scrollbar-thumb`)**: Einheitliche 36px-Schieber in Kachel-Akzentfarbe mit dynamischer CSS-Maske (`mask-image`), die bei Überlauf sanft einblenden und interaktives Drag-to-Scroll sowie Klick-Sprünge unterstützen.
 
