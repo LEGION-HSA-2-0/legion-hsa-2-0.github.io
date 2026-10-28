@@ -1861,122 +1861,74 @@ footer {
 }
 
 /* --- Student Callout Banner (Team Section) --- */
-@keyframes studentBannerGlow {
-    0%, 100% {
-        border-color: rgba(0, 181, 204, 0.45);
-        border-bottom-color: var(--cyan);
-        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.5), 0 0 18px rgba(0, 181, 204, 0.28), inset 0 0 18px rgba(0, 181, 204, 0.08);
-    }
-    50% {
-        border-color: rgba(56, 232, 255, 0.85);
-        border-bottom-color: #38e8ff;
-        box-shadow: 0 14px 36px rgba(0, 0, 0, 0.6), 0 0 34px rgba(0, 181, 204, 0.62), 0 0 14px rgba(212, 106, 67, 0.25), inset 0 0 26px rgba(0, 181, 204, 0.16);
-    }
-}
-
 @keyframes studentIconPulse {
     0%, 100% {
-        box-shadow: 0 0 12px rgba(0, 181, 204, 0.45);
-        transform: scale(1);
+        box-shadow: 0 0 8px rgba(0, 181, 204, 0.3);
+        border-color: rgba(0, 181, 204, 0.35);
     }
     50% {
-        box-shadow: 0 0 22px rgba(56, 232, 255, 0.85);
-        transform: scale(1.06);
+        box-shadow: 0 0 20px rgba(0, 181, 204, 0.85), 0 0 8px rgba(56, 232, 255, 0.6);
+        border-color: rgba(56, 232, 255, 0.9);
     }
 }
 
 .student-callout-banner {
-    position: relative;
-    overflow: hidden;
     display: flex;
     align-items: flex-start;
-    gap: 1.1rem;
-    background: linear-gradient(135deg, rgba(0, 181, 204, 0.16) 0%, rgba(26, 43, 60, 0.55) 55%, rgba(212, 106, 67, 0.12) 100%);
-    border: 1.5px solid rgba(0, 181, 204, 0.5);
+    gap: 1rem;
+    background: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     border-bottom: 4px solid var(--cyan);
-    padding: 1.25rem 1.5rem;
+    padding: 1.2rem 1.5rem;
     border-radius: 12px;
     transition: var(--transition-smooth);
-    animation: studentBannerGlow 3.2s ease-in-out infinite;
-}
-
-.student-callout-banner::before {
-    content: '';
-    position: absolute;
-    top: -40%;
-    right: -15%;
-    width: 220px;
-    height: 220px;
-    background: radial-gradient(circle, rgba(0, 181, 204, 0.35) 0%, transparent 70%);
-    pointer-events: none;
-    z-index: 0;
 }
 
 .student-callout-banner:hover {
-    background: linear-gradient(135deg, rgba(0, 181, 204, 0.24) 0%, rgba(26, 43, 60, 0.68) 55%, rgba(212, 106, 67, 0.18) 100%);
-    border-color: #38e8ff;
-    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.65), 0 0 38px rgba(0, 181, 204, 0.75), inset 0 0 28px rgba(0, 181, 204, 0.2);
-    transform: translateY(-4px);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--cyan-glow);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), 0 0 15px var(--cyan-glow);
+    transform: translateY(-5px);
 }
 
 .student-callout-icon {
-    position: relative;
-    z-index: 1;
-    width: 42px;
-    height: 42px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    background: rgba(0, 181, 204, 0.25);
-    border: 1px solid rgba(56, 232, 255, 0.6);
+    background: var(--cyan-glow);
+    border: 1px solid rgba(0, 181, 204, 0.45);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #38e8ff;
+    color: var(--cyan);
     flex-shrink: 0;
     margin-top: 0.1rem;
-    animation: studentIconPulse 3.2s ease-in-out infinite;
+    animation: studentIconPulse 2.8s ease-in-out infinite;
 }
 
 .student-callout-body {
-    position: relative;
-    z-index: 1;
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
+    gap: 0.2rem;
 }
 
 .student-callout-label {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.45rem;
+    display: block;
     font-size: 0.8rem;
-    color: #38e8ff;
+    color: var(--text-dim);
     text-transform: uppercase;
-    letter-spacing: 1.1px;
-    font-weight: 700;
-    text-shadow: 0 0 10px rgba(0, 181, 204, 0.5);
-}
-
-.student-callout-label::before {
-    content: '';
-    display: inline-block;
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background-color: #38e8ff;
-    box-shadow: 0 0 8px #38e8ff;
-    animation: pulseDraft 2s infinite;
+    letter-spacing: 1px;
 }
 
 .student-callout-title {
-    font-size: 1.12rem;
-    color: #ffffff;
+    font-size: 1.1rem;
+    color: var(--text-main);
     line-height: 1.3;
-    text-shadow: 0 0 12px rgba(0, 181, 204, 0.25);
 }
 
 .student-callout-text {
-    font-size: 0.92rem;
-    color: rgba(240, 240, 240, 0.9);
+    font-size: 0.9rem;
+    color: var(--text-dim);
     line-height: 1.5;
     margin: 0.15rem 0 0 0;
 }
