@@ -131,7 +131,7 @@ Die Hauptseite (`index.html`) gliedert sich in folgende logische Abschnitte:
 * **GitHub Organization Banner**: Prominenter Banner mit Direktlinks zur Organisation [`LEGION-HSA-2-0`](https://github.com/LEGION-HSA-2-0), Badges und Einladung zur wissenschaftlichen Open-Source-Zusammenarbeit.
 
 ### G. Team Section (`#contact`)
-* Linke Spalte mit Projektbeschreibung, institutionellen Projektseiten-Links (`@OeAI` & `@CVL`) sowie einem darunter platzierten **Student Callout Banner** (`.student-callout-banner` mit Cyan-Akzent), das Studierende der Archäologie und Computer Vision zur Mitarbeit (Volunteering, Praktika, Projektmitarbeit) einlädt und bündig mit den Team-Karten abschließt.
+* Linke Spalte mit Projektbeschreibung, institutionellen Projektseiten-Links (`@OeAI` & `@CVL`) sowie einem darunter platzierten **Student Callout Banner** (`.student-callout-banner` mit Cyan-Akzent), das Studierende der Computer Vision und Archäologie zur Mitarbeit (Volunteering, Praktika, Projektmitarbeit) einlädt und bündig mit den Team-Karten abschließt.
 * Rechte Spalte mit zwei institutionellen Team-Karten:
   1. **OeAI Team** (Austrian Archaeological Institute / OeAW)
   2. **CVL Team** (Computer Vision Lab / TU Wien)
