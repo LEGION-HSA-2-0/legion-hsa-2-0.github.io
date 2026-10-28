@@ -112,7 +112,7 @@ Die Hauptseite (`index.html`) gliedert sich in folgende logische Abschnitte:
 * **Unten**: Animierter Scroll-Indikator (Maus-Symbol).
 
 ### C. News Section (`#news`)
-* Raster-Grid (`.grid`) aus 21 News-Karten. Ganz links angeheftet: Die farblich dominante **Best Paper Award (VISART @ ECCV 2026)** Highlight-Karte mit leuchtendem Gold/Bernstein-Farbthema (`.card-featured-award`), gefolgt von der bisher angehefteten Karte zum **CENTURIA Dataset & Paper Release**, der Ankündigung zur Konferenz **Heritage Meets Science 2** (23. Oktober 2026, verlinkt mit offiziellem HSA-Beitrag auf heritagescience.at) und den nachfolgenden Karten in zyklischer Farbpalette (`terracotta` → `brand-bridge` → `cyan`).
+* Raster-Grid (`.grid`) aus 22 News-Karten. Ganz links angeheftet: Die farblich dominante **Best Paper Award (VISART @ ECCV 2026)** Highlight-Karte mit leuchtendem Gold/Bernstein-Farbthema (`.card-featured-award`), gefolgt von der bisher angehefteten Karte zum **CENTURIA Dataset & Paper Release**, dem neuen Feature-Beitrag des **Allen Institute for AI (Ai2)** zu **olmOCR 2 & LEGION** (28. Oktober 2026), der Ankündigung zur Konferenz **Heritage Meets Science 2** (23. Oktober 2026, verlinkt mit offiziellem HSA-Beitrag auf heritagescience.at) und den nachfolgenden Karten in zyklischer Farbpalette (`terracotta` → `brand-bridge` → `cyan`).
 * Jede Karte enthält:
   * 16:9 Vorschaubild mit Hover-Tooltip für Bildrechte (`.photocredit-tooltip` mit `max-width`, Ellipsis & Overflow-Schutz).
   * Datum / Tag, Überschrift mit einheitlicher Mindesthöhe, verlinkten Text und Buttons.
