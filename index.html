@@ -246,7 +246,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link href="assets/logo.webp" rel="icon" type="image/webp"/>
-<link href="style.css?v=1.8.4" rel="stylesheet"/>
+<link href="style.css?v=1.8.5" rel="stylesheet"/>
 <script src="https://unpkg.com/@google/model-viewer@4.4.0/dist/model-viewer.min.js" type="module"></script>
 </head>
 <body>
@@ -956,13 +956,13 @@
 <section id="contact" style="background: rgba(255,255,255,0.01);">
 <span class="section-label">Our Team</span>
 <h2 class="section-title">Experts Behind LEGION</h2>
-<div style="display: flex; gap: 4rem; align-items: flex-start; flex-wrap: wrap;">
-<div style="flex: 1; min-width: 300px;">
+<div class="contact-layout" style="display: flex; gap: 4rem; align-items: stretch; flex-wrap: wrap;">
+<div class="contact-left-col" style="flex: 1; min-width: 300px; display: flex; flex-direction: column;">
 <p style="margin-bottom: 1.5rem; font-size: 1.1rem;">The LEGION project is a multi-disciplinary collaboration bridging the gap between archaeological expertise and advanced computational methods.</p>
 <p style="margin-bottom: 2rem; font-size: 1.1rem;">We are always looking for collaboration and feedback. Reach out to the project lead for inquiries regarding data, methodology, or partnership opportunities.</p>
-<div style="display: flex; flex-direction: column; gap: 1.5rem;">
+<div class="contact-links-stack" style="display: flex; flex-direction: column; justify-content: space-between; gap: 1.25rem; flex: 1;">
 <a class="contact-link" href="https://www.oeaw.ac.at/oeai/forschung/historische-archaeologie/archaeologie-der-roemischen-provinzen-im-lateinischen-westen/legion" rel="noopener" style="display: flex; align-items: center; gap: 1rem; color: var(--text-main); text-decoration: none;" target="_blank">
-<div style="width: 40px; height: 40px; border-radius: 50%; background: var(--terracotta-glow); display: flex; align-items: center; justify-content: center; color: var(--terracotta);">
+<div style="width: 40px; height: 40px; border-radius: 50%; background: var(--terracotta-glow); display: flex; align-items: center; justify-content: center; color: var(--terracotta); flex-shrink: 0;">
 <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20"></path><path d="M2 12h20"></path><path d="M12 2a14.5 14.5 0 0 1 0 20"></path></svg>
 </div>
 <div>
@@ -971,7 +971,7 @@
 </div>
 </a>
 <a class="contact-link" href="https://cvl.tuwien.ac.at/research/projects/legion/" rel="noopener" style="display: flex; align-items: center; gap: 1rem; color: var(--text-main); text-decoration: none;" target="_blank">
-<div style="width: 40px; height: 40px; border-radius: 50%; background: var(--brand-bridge-glow); display: flex; align-items: center; justify-content: center; color: var(--brand-bridge);">
+<div style="width: 40px; height: 40px; border-radius: 50%; background: var(--brand-bridge-glow); display: flex; align-items: center; justify-content: center; color: var(--brand-bridge); flex-shrink: 0;">
 <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20"></path><path d="M2 12h20"></path><path d="M12 2a14.5 14.5 0 0 1 0 20"></path></svg>
 </div>
 <div>
@@ -979,10 +979,23 @@
 <strong style="font-size: 1.1rem;">Official Project Page @CVL</strong>
 </div>
 </a>
+<div class="student-callout-banner">
+<div class="student-callout-icon" aria-hidden="true">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="20">
+<path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+<path d="M6 12v5c0 2 3 3 6 3s6-1 6-3v-5"></path>
+</svg>
+</div>
+<div class="student-callout-body">
+<span class="student-callout-label">Archaeology Students</span>
+<strong class="student-callout-title">Interested in Collaborating with Us?</strong>
+<p class="student-callout-text">We warmly welcome motivated archaeology students for volunteering, internships, or project work within LEGION. If you are interested in joining our team, feel free to get in touch with the project lead.</p>
 </div>
 </div>
-<div style="flex: 1; min-width: 300px;">
-<div style="display: flex; flex-wrap: wrap; gap: 2rem;">
+</div>
+</div>
+<div class="contact-right-col" style="flex: 1; min-width: 300px; display: flex;">
+<div style="display: flex; flex-wrap: wrap; gap: 2rem; flex: 1; align-items: stretch;">
 <div class="card" style="flex: 1; min-width: 250px; border-top: 2px solid var(--terracotta);">
 <h3 style="color: var(--terracotta); margin-bottom: 0.5rem; font-size: 1.25rem;">OeAI Team</h3>
 <p style="font-size: 0.9rem; color: var(--text-dim); margin-bottom: 1rem;">Austrian Archaeological Institute (OeAI / OeAW)</p>
