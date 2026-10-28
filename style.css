@@ -1861,14 +1861,20 @@ footer {
 }
 
 /* --- Student Callout Banner (Team Section) --- */
-@keyframes studentIconPulse {
+@keyframes studentBannerHoverPulse {
     0%, 100% {
-        box-shadow: 0 0 8px rgba(0, 181, 204, 0.3);
-        border-color: rgba(0, 181, 204, 0.35);
+        background: var(--card-bg);
+        border-color: rgba(255, 255, 255, 0.05);
+        border-bottom-color: var(--cyan);
+        box-shadow: none;
+        transform: translateY(0);
     }
     50% {
-        box-shadow: 0 0 20px rgba(0, 181, 204, 0.85), 0 0 8px rgba(56, 232, 255, 0.6);
-        border-color: rgba(56, 232, 255, 0.9);
+        background: rgba(255, 255, 255, 0.08);
+        border-color: var(--cyan-glow);
+        border-bottom-color: var(--cyan);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), 0 0 15px var(--cyan-glow);
+        transform: translateY(-5px);
     }
 }
 
@@ -1884,7 +1890,12 @@ footer {
     transition: var(--transition-smooth);
 }
 
+.student-callout-banner.is-pulsing {
+    animation: studentBannerHoverPulse 1.25s cubic-bezier(0.16, 1, 0.3, 1) 0.25s 2;
+}
+
 .student-callout-banner:hover {
+    animation: none;
     background: rgba(255, 255, 255, 0.08);
     border-color: var(--cyan-glow);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), 0 0 15px var(--cyan-glow);
@@ -1896,14 +1907,12 @@ footer {
     height: 40px;
     border-radius: 50%;
     background: var(--cyan-glow);
-    border: 1px solid rgba(0, 181, 204, 0.45);
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--cyan);
     flex-shrink: 0;
     margin-top: 0.1rem;
-    animation: studentIconPulse 2.8s ease-in-out infinite;
 }
 
 .student-callout-body {

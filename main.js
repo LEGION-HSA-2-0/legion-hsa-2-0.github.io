@@ -1103,3 +1103,28 @@ window.addEventListener('load', refreshNewsScrollbars);
 document.addEventListener('DOMContentLoaded', refreshNewsScrollbars);
 setTimeout(refreshNewsScrollbars, 200);
 
+// --- Student Callout Banner: 2x Hover-Pulse on Viewport Entry ---
+const studentCalloutBanner = document.querySelector('.student-callout-banner');
+if (studentCalloutBanner && 'IntersectionObserver' in window) {
+    studentCalloutBanner.addEventListener('animationend', () => {
+        studentCalloutBanner.classList.remove('is-pulsing');
+    });
+
+    const bannerObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                    studentCalloutBanner.classList.remove('is-pulsing');
+                    void studentCalloutBanner.offsetWidth; // trigger reflow to restart animation
+                    studentCalloutBanner.classList.add('is-pulsing');
+                }
+            } else {
+                studentCalloutBanner.classList.remove('is-pulsing');
+            }
+        });
+    }, { threshold: 0.45 });
+
+    bannerObserver.observe(studentCalloutBanner);
+}
+
+
