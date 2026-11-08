@@ -1,6 +1,6 @@
 # LEGION Website — Site Manifest & Architecture Documentation
 
-> **Version**: 1.8.4  
+> **Version**: 1.8.9  
 > **Projekt**: LEGION (machine LEarninG-enabled Identification of archaeological Objects in the middle daNube river basin)  
 > **Repository**: [legion-hsa-2-0.github.io](https://github.com/LEGION-HSA-2-0/legion-hsa-2-0.github.io)  
 > **Zweck dieser Dokumentation**: Vollständiges Manifest zur Gestaltung, dem technischen Aufbau, den visuellen Tokens, den interaktiven Funktionen, den Systemgrenzen und einer schrittweisen Bauanleitung zur exakten Reproduktion der Website (z. B. in Kimi, ChatGPT oder Claude).
@@ -17,7 +17,7 @@ Die LEGION-Website ist eine **moderne, hochperformante statische Webanwendung**,
 * **Vanilla JavaScript (ES6+)**: Keine Frameworks. Leichtgewichtiges Skript (`main.js`) für on-demand LERP-Animationen (energieeffizient pausierend), Scroll-Sync, 3D-Kamerasteuerung, Scroll-Spy und Mini-Scrollbars.
 * **Google `<model-viewer>` (v4.4.0)**: Fest gepinnte Web Component für interaktives 3D-Rendering von GLB-Modellen inklusive AR-Unterstützung und nativer Poster-LCP-Optimierung via CDN.
 * **Leaflet JS (v1.9.4)**: Für die interaktive GIS-Karte (`carnuntum-map.html`, aktuell interner Entwurf / noindex).
-* **Google Fonts**: *Zilla Slab* (Serif für Headlines) & *Inter* (Sans-Serif für Fließtext).
+* **Lokale Web Fonts (Self-Hosted WOFF2, DSGVO-konform)**: *Zilla Slab* (Serif für Headlines, Schnitte 400/600/700) & *Inter* (Variable Sans-Serif für Fließtext, Schnitte 300–700) lokal unter `assets/fonts/` eingebunden mit `font-display: swap` und `font-size-adjust: from-font`.
 * **Automatisierung**: GitHub Actions (`daily-monitor.yml`) für tägliche automatische Verfügbarkeits- und Integritätsprüfungen sowie Suchmaschinen-Updates (IndexNow).
 * **Hosting**: GitHub Pages (Static Site Hosting).
 
@@ -28,13 +28,14 @@ legion-hsa-2-0.github.io/
 ├── index.html                  # Hauptseite (Landing Page, News, Team, 3D-Viewer, Partner)
 ├── carnuntum-map.html          # Interaktive GIS-Karte (Draft / unlisted / noindex)
 ├── legal.html                  # Impressum & Datenschutz (Legal Notice)
-├── style.css                   # Zentrales Stylesheet (Design System, Layout, Komponenten v1.8.2)
-├── main.js                     # Hauptinteraktionsskript (on-demand 3D-Lerp, Scroll-Spy, v1.8.2)
+├── style.css                   # Zentrales Stylesheet (Design System, Layout, Komponenten v1.8.9)
+├── main.js                     # Hauptinteraktionsskript (on-demand 3D-Lerp, Scroll-Spy, v1.8.8)
 ├── robots.txt & sitemap.xml    # SEO & Indexierungs-Vorgaben
 ├── scripts/daily_interact.py   # Daily Monitor, Health Check & IndexNow-Ping
 ├── README.md                   # Repository-Überblick
 ├── SITE_MANIFEST.md            # Diese Architektur- & Design-Dokumentation
-└── assets/                     # Medien & 3D-Modelle
+└── assets/                     # Medien, lokale Schriften & 3D-Modelle
+    ├── fonts/                  # Lokal gehostete WOFF2-Schriftarten (Inter v20 & Zilla Slab v12)
     ├── logo.webp               # LEGION Branding Logo
     ├── jug1k.glb               # 3D-Modell Krug (Hero Section)
     ├── folded_beaker1k.glb     # 3D-Modell Faltenbecher (Challenge Section)
@@ -190,7 +191,7 @@ Erstelle eine einseitige Landingpage für ein wissenschaftliches KI-Archäologie
 1. TECH STACK:
 - HTML5, Vanilla CSS3, Vanilla JavaScript (ES6+).
 - Einbindung von Google <model-viewer> (CDN: https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js) für 3D GLB-Modelle.
-- Google Fonts: 'Zilla Slab' (Headlines) und 'Inter' (Fließtext).
+- Lokale Web Fonts (WOFF2): 'Zilla Slab' (Headlines) und 'Inter' (Fließtext) unter assets/fonts/.
 
 2. DESIGN SYSTEM (CSS Variables):
 - Dark Mode Background: #0a0a0a
