@@ -25,7 +25,30 @@ const revealOnScroll = () => {
     });
 };
 
+const revealHashTarget = () => {
+    if (!window.location.hash || window.location.hash.length <= 1) return;
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    const hashTarget = document.getElementById(id);
+    if (!hashTarget) return;
+    if (hashTarget.classList.contains('reveal')) {
+        hashTarget.classList.add('active');
+    }
+    const parentReveal = hashTarget.closest('.reveal');
+    if (parentReveal) {
+        parentReveal.classList.add('active');
+    }
+};
+
 window.addEventListener('scroll', revealOnScroll);
+window.addEventListener('load', () => {
+    revealHashTarget();
+    revealOnScroll();
+});
+window.addEventListener('hashchange', () => {
+    revealHashTarget();
+    revealOnScroll();
+});
+revealHashTarget();
 revealOnScroll(); // Initial check
 
 // Smooth Scrolling for Anchor Links
@@ -36,16 +59,35 @@ function handleSmoothAnchorClick(e) {
     if (typeof closeNewsModal === 'function' && isNewsModalOpen) {
         closeNewsModal();
     }
+    const certDialog = document.getElementById('certificateModal');
+    if (certDialog && certDialog.open && typeof closeTopLayer === 'function') {
+        closeTopLayer(certDialog);
+    }
     if (href === '#') {
         window.scrollTo({ top: 0, behavior: 'smooth' });
         return;
     }
     const target = document.querySelector(href);
     if (target) {
+        if (target.classList.contains('reveal')) {
+            target.classList.add('active');
+        }
+        // Walk offsetParent chain to ignore CSS transforms (e.g. .reveal translateY)
+        let targetTop = 0;
+        let node = target;
+        while (node) {
+            targetTop += node.offsetTop;
+            node = node.offsetParent;
+        }
+        const offset = target.tagName === 'SECTION' ? 10 : 120;
         window.scrollTo({
-            top: target.offsetTop - 10,
+            top: Math.max(0, targetTop - offset),
             behavior: 'smooth'
         });
+        if (history.replaceState) {
+            history.replaceState(null, '', href);
+        }
+        revealOnScroll();
     }
 }
 
@@ -1126,5 +1168,149 @@ if (studentCalloutBanner && 'IntersectionObserver' in window) {
 
     bannerObserver.observe(studentCalloutBanner);
 }
+
+// --- Best Paper Award Certificate Lightbox (<dialog>) ---
+let supportsDisplayTransition;
+function canTransitionDisplay() {
+    if (supportsDisplayTransition !== undefined) return supportsDisplayTransition;
+    if (!window.CSS?.supports?.('transition-behavior', 'allow-discrete') || !document.body) {
+        return false;
+    }
+    const probe = document.createElement('div');
+    probe.style.cssText = 'transition: display 1s allow-discrete !important; display: block;';
+    document.body.appendChild(probe);
+    getComputedStyle(probe).display;
+    probe.style.display = 'none';
+    supportsDisplayTransition = getComputedStyle(probe).display === 'block';
+    probe.remove();
+    return supportsDisplayTransition;
+}
+
+function supportsTopLayerExit() {
+    return window.CSS?.supports?.('overlay', 'auto') && canTransitionDisplay();
+}
+
+async function closeTopLayer(element) {
+    if (!element || !element.open) return;
+    if (!supportsTopLayerExit()) {
+        element.setAttribute('data-closing', '');
+        const animations = element.getAnimations({ subtree: true });
+        if (animations.length > 0) {
+            await Promise.race([
+                Promise.allSettled(animations.map((a) => a.finished)),
+                new Promise((resolve) => setTimeout(resolve, 2000)),
+            ]);
+        }
+        if (!element.hasAttribute('data-closing')) return;
+        element.removeAttribute('data-closing');
+    }
+    if (element.open) {
+        element.close();
+    }
+}
+
+const certificateModal = document.getElementById('certificateModal');
+const certModalClose = document.getElementById('certModalClose');
+const openCertificateBtn = document.getElementById('openCertificateBtn');
+const openCertificateActionBtn = document.getElementById('openCertificateActionBtn');
+
+function openCertificateModal() {
+    if (!certificateModal) return;
+    certificateModal.removeAttribute('data-closing');
+    if (typeof certificateModal.showModal === 'function') {
+        if (!certificateModal.open) {
+            certificateModal.showModal();
+        }
+    } else {
+        certificateModal.setAttribute('open', '');
+    }
+}
+
+if (openCertificateBtn) {
+    openCertificateBtn.addEventListener('click', openCertificateModal);
+}
+if (openCertificateActionBtn) {
+    openCertificateActionBtn.addEventListener('click', openCertificateModal);
+}
+if (certificateModal) {
+    if (certModalClose) {
+        certModalClose.addEventListener('click', () => {
+            closeTopLayer(certificateModal);
+        });
+    }
+
+    certificateModal.addEventListener('cancel', (event) => {
+        event.preventDefault();
+        closeTopLayer(certificateModal);
+    });
+
+    if (!('closedBy' in HTMLDialogElement.prototype)) {
+        const isOutsideDialog = (event, dialog) => {
+            const rect = dialog.getBoundingClientRect();
+            return (
+                event.clientX < rect.left ||
+                event.clientX > rect.right ||
+                event.clientY < rect.top ||
+                event.clientY > rect.bottom
+            );
+        };
+        let pressedOutside = false;
+        certificateModal.addEventListener('pointerdown', (event) => {
+            pressedOutside = isOutsideDialog(event, certificateModal);
+        });
+        certificateModal.addEventListener('pointerup', (event) => {
+            if (pressedOutside && isOutsideDialog(event, certificateModal)) {
+                closeTopLayer(certificateModal);
+            }
+            pressedOutside = false;
+        });
+    }
+}
+
+// --- Copy Direct Link Buttons for Best Paper Award ---
+function copyTextWithFallback(text) {
+    if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+        return navigator.clipboard.writeText(text).catch(() => fallbackCopyText(text));
+    }
+    return fallbackCopyText(text);
+}
+
+function fallbackCopyText(text) {
+    return new Promise((resolve, reject) => {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.setAttribute('readonly', '');
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+            const ok = document.execCommand('copy');
+            textarea.remove();
+            if (ok) resolve();
+            else reject(new Error('execCommand copy failed'));
+        } catch (err) {
+            textarea.remove();
+            reject(err);
+        }
+    });
+}
+
+document.querySelectorAll('.copy-award-link-btn').forEach((btn) => {
+    let resetTimer = null;
+    btn.addEventListener('click', () => {
+        const url = btn.dataset.copyUrl || `${window.location.origin}${window.location.pathname}#best-paper-award`;
+        const label = btn.querySelector('.copy-link-label');
+        copyTextWithFallback(url).then(() => {
+            if (label) {
+                label.textContent = 'Link Copied!';
+                clearTimeout(resetTimer);
+                resetTimer = setTimeout(() => {
+                    label.textContent = 'Copy Direct Link';
+                }, 2000);
+            }
+        }).catch(() => {});
+    });
+});
 
 

@@ -1,6 +1,6 @@
 # LEGION Website — Site Manifest & Architecture Documentation
 
-> **Version**: 1.8.9  
+> **Version**: 1.9.0  
 > **Projekt**: LEGION (machine LEarninG-enabled Identification of archaeological Objects in the middle daNube river basin)  
 > **Repository**: [legion-hsa-2-0.github.io](https://github.com/LEGION-HSA-2-0/legion-hsa-2-0.github.io)  
 > **Zweck dieser Dokumentation**: Vollständiges Manifest zur Gestaltung, dem technischen Aufbau, den visuellen Tokens, den interaktiven Funktionen, den Systemgrenzen und einer schrittweisen Bauanleitung zur exakten Reproduktion der Website (z. B. in Kimi, ChatGPT oder Claude).
@@ -28,8 +28,8 @@ legion-hsa-2-0.github.io/
 ├── index.html                  # Hauptseite (Landing Page, News, Team, 3D-Viewer, Partner)
 ├── carnuntum-map.html          # Interaktive GIS-Karte (Draft / unlisted / noindex)
 ├── legal.html                  # Impressum & Datenschutz (Legal Notice)
-├── style.css                   # Zentrales Stylesheet (Design System, Layout, Komponenten v1.8.9)
-├── main.js                     # Hauptinteraktionsskript (on-demand 3D-Lerp, Scroll-Spy, v1.8.8)
+├── style.css                   # Zentrales Stylesheet (Design System, Layout, Komponenten v1.9.0)
+├── main.js                     # Hauptinteraktionsskript (on-demand 3D-Lerp, Scroll-Spy, Lightbox, v1.8.9)
 ├── robots.txt & sitemap.xml    # SEO & Indexierungs-Vorgaben
 ├── scripts/daily_interact.py   # Daily Monitor, Health Check & IndexNow-Ping
 ├── README.md                   # Repository-Überblick
@@ -42,6 +42,8 @@ legion-hsa-2-0.github.io/
     ├── incense_bowl1k.glb      # 3D-Modell Räucherschale (Challenge Section)
     ├── pot1k.glb               # 3D-Modell Topf (Challenge Section)
     ├── hero-jug.webp           # 3D-Poster Fallback Image
+    ├── award_visart_eccv_2026_certificate.webp # WebP-Vorschau des Best-Paper-Award-Zertifikats
+    ├── 2026_VISART_ECCV_Best_Paper_Award_Certificate.pdf # Original-PDF des Best-Paper-Award-Zertifikats
     └── news_*.webp             # News- & Methodik-Bilder
 ```
 
@@ -106,7 +108,7 @@ Die Hauptseite (`index.html`) gliedert sich in folgende logische Abschnitte:
   * Werden via Scroll-Spy automatisch als `.active` markiert.
 
 ### B. Hero Section (`#hero`)
-* **Links**: Titel ("LEGION"), Untertitel, Kurzbeschreibung & CTA-Button ("EXPLORE PROJECT").
+* **Links**: Tagline ("HERITAGE SCIENCE AUSTRIA 2.0") mit verlinkter Gold-Badge (`🏆 Best Paper Award · VISART VIII @ ECCV 2026` → `#best-paper-award`), Titel ("LEGION"), Untertitel, Kurzbeschreibung & CTA-Button ("EXPLORE PROJECT").
 * **Rechts**: Interaktiver 3D Model Viewer (`<model-viewer src="assets/jug1k.glb">`).
   * **Ladeanzeige**: Eigener Ladebalken (`.model-loader-container`), der den Asynchron-Ladefortschritt in % anzeigt.
   * **Scroll-Sync**: Dreht sich sanft bei Scrollen der Seite.
@@ -127,8 +129,9 @@ Die Hauptseite (`index.html`) gliedert sich in folgende logische Abschnitte:
 * Visualisierung der Semi-supervised Computer Vision Pipeline, Human-in-the-Loop (HITL), Open Source Tools & typochronologischen Auswertungen.
 
 ### F. Open Science, Data & Publications Section (`#opensource`)
-* **Featured Dataset Showcase**: CENTURIA Benchmark Dataset (507 Datensätze, LoRA Fine-Tuning, Workflow-Diagramm und GitHub-Link).
-* **Featured Publication Showcase**: Erste Projektpublikation (*"OCR-Based Field Extraction for Archaeological Pottery Metadata: The CENTURIA Dataset"*, arXiv:2608.30616 / WiCV & VISART VIII @ ECCV 2026) mit DOI, arXiv, PDF-Download und interaktivem BibTeX-Zitierblock.
+* **Best Paper Award Showcase (`#best-paper-award`)**: Vollbreites Gold-Banner ganz oben im Kapitel mit interaktiver WebP-Vorschau des **VISART VIII @ ECCV 2026 Best Paper Award** Zertifikats, Lightbox-Vollansicht (`#certificateModal`), direktem PDF-Download (`assets/2026_VISART_ECCV_Best_Paper_Award_Certificate.pdf`), „Copy Direct Link“ (`#best-paper-award`) sowie DOI- & Workshop-Links.
+* **Featured Dataset Showcase**: CENTURIA Benchmark Dataset (507 Datensätze — 57 Train / 450 Test, CC BY 4.0) auf **Zenodo** (`10.5281/zenodo.24145080`), öffentliches Evaluations- & LoRA-Fine-Tuning-Repository auf **GitHub** (`LEGION-HSA-2-0/CENTURIA`), feinabgestimmte LoRA-Checkpoints auf Zenodo (`10.5281/zenodo.24145610`) sowie ausklappbarer Zenodo-BibTeX-Zitierblock.
+* **Featured Publication Showcase**: Erste Projektpublikation (*"OCR-Based Field Extraction for Archaeological Pottery Metadata: The CENTURIA Dataset"*, arXiv:2608.30616 / WiCV & VISART VIII @ ECCV 2026) mit verlinktem Best-Paper-Award-Badge (`#best-paper-award`), Zertifikat-PDF-Button, DOI, arXiv, PDF-Download und interaktivem BibTeX-Zitierblock.
 * **GitHub Organization Banner**: Prominenter Banner mit Direktlinks zur Organisation [`LEGION-HSA-2-0`](https://github.com/LEGION-HSA-2-0), Badges und Einladung zur wissenschaftlichen Open-Source-Zusammenarbeit.
 
 ### G. Team Section (`#contact`)
@@ -161,6 +164,7 @@ Die Hauptseite (`index.html`) gliedert sich in folgende logische Abschnitte:
 | **News Scroll Fade Masking** | `updateNewsScrollFades()` | Prüft `scrollTop` und `clientHeight` von `.news-text-scrollable`. Erzeugt dynamische `linear-gradient` Transparenzen oben/unten. |
 | **Custom Card Mini-Scrollbars** | `initCardMiniScrollbars()` | Berechnet exakt einheitliche 36px Scroll-Thumbs in Kachel-Akzentfarben mit 1:1 Drag-Synchronisation und Track-Klick. |
 | **News Detail Modal / Lightbox** | `openNewsModal()` / `closeNewsModal()` | Öffnet ein zentriertes `<dialog>`-Modal mit vollständigem Text, großem Bild, Fotocredit, Links und Farbakzent beim Klick auf den Vergrößerungs-Button oder das Kartenbild. Pausiert den Autoplay-Slider und sperrt Body-Scroll. |
+| **Certificate Lightbox & Deep-Links** | `openCertificateModal()` / `closeTopLayer()` / `revealHashTarget()` | Öffnet das `<dialog closedby="any">` Zertifikats-Modal (`#certificateModal`) mit `@starting-style`-Top-Layer-Animation und Safari-Fallback, behandelt verschachtelte Anker-Scrolls (`#best-paper-award`) inklusive sofortigem `.reveal`-Activation bei Direktaufruf und kopiert Share-URLs per Clipboard-API. |
 | **Mobile Drawer Toggle** | Event-Listener auf `.mobile-menu-btn` | Schaltet die Klasse `.active` der mobilen Navigation um und wechselt das Icon zwischen ☰ und ✕. |
 
 ---

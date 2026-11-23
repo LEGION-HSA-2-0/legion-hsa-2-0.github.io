@@ -7,7 +7,7 @@
 <title>LEGION | AI-Enabled Archaeology</title>
 <meta content="LEGION: machine LEarninG-enabled Identification of archaeological Objects in the middle daNube river basin. Innovative AI-based methods and the CENTURIA benchmark for automated classification of Roman pottery." name="description"/>
 <meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots"/>
-<meta content="LEGION, AI Archaeology, Roman Pottery, Carnuntum, Machine Learning, Heritage Science Austria, TU Wien, OeAI / OeAW, CENTURIA Dataset, Common Ware, Computer Vision, Typochronology, VISART, WiCV, ECCV 2026, Heritage Meets Science 2, E-RIHS.at, Data Science" name="keywords"/>
+<meta content="LEGION, AI Archaeology, Roman Pottery, Carnuntum, Machine Learning, Heritage Science Austria, TU Wien, OeAI / OeAW, CENTURIA Dataset, Common Ware, Computer Vision, Typochronology, VISART, WiCV, ECCV 2026, Heritage Meets Science 2, E-RIHS.at, Data Science, Best Paper Award, VISART VIII, Zenodo" name="keywords"/>
 <meta content="LEGION Project Team" name="author"/>
 <link href="https://legion-hsa-2-0.github.io/" rel="canonical"/>
 <!-- Open Graph / Facebook -->
@@ -43,6 +43,7 @@
           "url": "https://legion-hsa-2-0.github.io/",
           "logo": "https://legion-hsa-2-0.github.io/assets/logo.webp",
           "image": "https://legion-hsa-2-0.github.io/assets/hero-jug.webp",
+          "award": "Best Paper Award — Vision for Art (VISART VIII) Workshop at ECCV 2026",
           "parentOrganization": [
             {
               "@type": "CollegeOrUniversity",
@@ -136,10 +137,16 @@
         {
           "@type": "Dataset",
           "@id": "https://legion-hsa-2-0.github.io/#dataset-centuria",
-          "name": "CENTURIA: Carnuntum Pottery HTR & Metadata Benchmark Dataset",
-          "description": "Benchmark dataset of 507 retro-digitised Roman pottery documentation records from Carnuntum providing handwritten transcriptions, bounding boxes, and field-level metadata for machine learning and automated archaeological typochronology.",
-          "url": "https://github.com/gissuvalentina/CENTURIA",
-          "sameAs": "https://doi.org/10.48550/arXiv.2608.30616",
+          "name": "CENTURIA: A Dataset for Handwritten Text Recognition and Key Information Extraction on Archaeological Pottery Records",
+          "description": "Benchmark dataset of 507 retro-digitised Roman pottery documentation records from Carnuntum (57 train, 450 test) providing German handwritten transcriptions, bounding boxes, technical drawing positions, and structured field-level metadata across seven categories, archived on Zenodo alongside open-source evaluation code and fine-tuned LoRA checkpoints.",
+          "identifier": "https://doi.org/10.5281/zenodo.24145080",
+          "datePublished": "2026-11-11",
+          "url": "https://zenodo.org/records/24145080",
+          "sameAs": [
+            "https://doi.org/10.5281/zenodo.24145080",
+            "https://github.com/LEGION-HSA-2-0/CENTURIA",
+            "https://doi.org/10.48550/arXiv.2608.30616"
+          ],
           "isAccessibleForFree": true,
           "keywords": [
             "archaeology",
@@ -148,9 +155,11 @@
             "handwritten text recognition",
             "HTR",
             "OCR",
+            "KIE",
             "computer vision",
             "machine learning",
-            "benchmark dataset"
+            "benchmark dataset",
+            "Zenodo"
           ],
           "creator": [
             {
@@ -187,8 +196,15 @@
           "distribution": [
             {
               "@type": "DataDownload",
+              "name": "CENTURIA_DATASET.zip (Zenodo)",
               "encodingFormat": "application/zip",
-              "contentUrl": "https://github.com/gissuvalentina/CENTURIA"
+              "contentUrl": "https://zenodo.org/records/24145080"
+            },
+            {
+              "@type": "DataDownload",
+              "name": "CENTURIA Fine-Tuned LoRA Checkpoints (olmOCR2 & LightOnOCR)",
+              "encodingFormat": "application/zip",
+              "contentUrl": "https://doi.org/10.5281/zenodo.24145610"
             }
           ],
           "license": "https://creativecommons.org/licenses/by/4.0/"
@@ -198,7 +214,7 @@
           "@id": "https://doi.org/10.48550/arXiv.2608.30616",
           "name": "OCR-Based Field Extraction for Archaeological Pottery Metadata: The CENTURIA Dataset",
           "headline": "OCR-Based Field Extraction for Archaeological Pottery Metadata: The CENTURIA Dataset",
-          "award": "Best Paper Award at VISART Workshop (ECCV 2026)",
+          "award": "Best Paper Award — Vision for Art (VISART VIII) Workshop at ECCV 2026 (Malmö, Sweden)",
           "author": [
             {
               "@type": "Person",
@@ -230,6 +246,13 @@
           },
           "about": {
             "@id": "https://legion-hsa-2-0.github.io/#dataset-centuria"
+          },
+          "associatedMedia": {
+            "@type": "MediaObject",
+            "name": "VISART VIII @ ECCV 2026 Best Paper Award Certificate",
+            "encodingFormat": "application/pdf",
+            "contentUrl": "https://legion-hsa-2-0.github.io/assets/2026_VISART_ECCV_Best_Paper_Award_Certificate.pdf",
+            "thumbnailUrl": "https://legion-hsa-2-0.github.io/assets/award_visart_eccv_2026_certificate.webp"
           }
         },
         {
@@ -245,7 +268,7 @@
 <link rel="preload" href="assets/fonts/inter-v20-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/zilla-slab-v12-latin-700.woff2" as="font" type="font/woff2" crossorigin>
 <link href="assets/logo.webp" rel="icon" type="image/webp"/>
-<link href="style.css?v=1.8.9" rel="stylesheet"/>
+<link href="style.css?v=1.9.0" rel="stylesheet"/>
 <script src="https://unpkg.com/@google/model-viewer@4.4.0/dist/model-viewer.min.js" type="module"></script>
 </head>
 <body>
@@ -278,7 +301,14 @@
 <main>
 <section class="hero" id="hero">
 <div class="hero-content">
+<div class="hero-top-meta">
 <p class="hero-tagline">HERITAGE SCIENCE AUSTRIA 2.0</p>
+<a aria-label="Best Paper Award at VISART VIII, ECCV 2026 — jump to award certificate" class="hero-award-pill" href="#best-paper-award">
+<span aria-hidden="true">🏆</span>
+<span>Best Paper Award · VISART VIII @ ECCV 2026</span>
+<span aria-hidden="true" class="hero-award-arrow">→</span>
+</a>
+</div>
 <h1>LEGION</h1>
 <p class="hero-subtitle">machine LEarninG-enabled Identification of archaeological Objects in the middle daNube river basin.</p>
 <p class="hero-description">Decoding the history of Roman Carnuntum through automated classification of common ware pottery using cutting-edge Machine Learning.</p>
@@ -344,8 +374,11 @@
 <div class="card-scrollbar-track"><div class="card-scrollbar-thumb"></div></div>
 </div>
 <div class="news-links-row">
+<a class="news-link" href="#best-paper-award" style="color: var(--award-gold-bright, #fbbf24);">Award Certificate ↓</a>
+<a class="news-link" href="assets/2026_VISART_ECCV_Best_Paper_Award_Certificate.pdf" rel="noopener" style="color: var(--award-gold-bright, #fbbf24);" target="_blank">Certificate (PDF) →</a>
 <a class="news-link" href="https://doi.org/10.48550/arXiv.2608.30616" rel="noopener" style="color: var(--award-gold-bright, #fbbf24);" target="_blank">arXiv Preprint (DOI) →</a>
-<a class="news-link" href="https://github.com/gissuvalentina/CENTURIA" rel="noopener" style="color: var(--award-gold-bright, #fbbf24);" target="_blank">CENTURIA on GitHub →</a>
+<a class="news-link" href="https://github.com/LEGION-HSA-2-0/CENTURIA" rel="noopener" style="color: var(--award-gold-bright, #fbbf24);" target="_blank">CENTURIA on GitHub →</a>
+<a class="news-link" href="https://zenodo.org/records/24145080" rel="noopener" style="color: var(--award-gold-bright, #fbbf24);" target="_blank">Dataset (Zenodo) →</a>
 <a class="news-link" href="https://visarts.eu" rel="noopener" style="color: var(--award-gold-bright, #fbbf24);" target="_blank">VISART @ ECCV 2026 →</a>
 </div>
 </div>
@@ -364,12 +397,14 @@
 </div>
 <h3>CENTURIA Dataset &amp; Paper Released</h3>
 <div class="news-text-wrapper">
-<p class="news-text-scrollable">We are proud to announce the official open-access release of the <strong>CENTURIA</strong> benchmark dataset on GitHub, accompanied by our first research paper, <em>"OCR-Based Field Extraction for Archaeological Pottery Metadata: The CENTURIA Dataset"</em> (arXiv:2608.30616). CENTURIA provides 507 retro-digitised Roman pottery drawings from Carnuntum with comprehensive handwritten text transcriptions, bounding boxes, and field-level metadata across seven categories. Evaluated across five document OCR models, we demonstrate that expert-validated LoRA fine-tuning reduces transcription error to &lt;1.5% and achieves over 87% field extraction accuracy.</p>
+<p class="news-text-scrollable">We are proud to announce the official open-access release of the <strong>CENTURIA</strong> benchmark dataset on Zenodo (DOI: 10.5281/zenodo.24145080) together with the public evaluation pipeline on GitHub and fine-tuned LoRA checkpoints, accompanied by our first research paper, <em>"OCR-Based Field Extraction for Archaeological Pottery Metadata: The CENTURIA Dataset"</em> (arXiv:2608.30616). CENTURIA provides 507 retro-digitised Roman pottery drawings from Carnuntum (57 train / 450 test) with comprehensive handwritten text transcriptions, bounding boxes, technical drawing positions, and field-level metadata across seven categories. Evaluated across five document OCR models, we demonstrate that expert-validated LoRA fine-tuning reduces transcription error to &lt;1.5% and achieves over 87% field extraction accuracy.</p>
 <div class="card-scrollbar-track"><div class="card-scrollbar-thumb"></div></div>
 </div>
 <div class="news-links-row">
 <a class="news-link" href="#opensource" style="color: var(--terracotta);">Open Data &amp; Publications ↓</a>
-<a class="news-link" href="https://github.com/gissuvalentina/CENTURIA" rel="noopener" style="color: var(--terracotta);" target="_blank">CENTURIA on GitHub →</a>
+<a class="news-link" href="https://zenodo.org/records/24145080" rel="noopener" style="color: var(--terracotta);" target="_blank">Dataset (Zenodo) →</a>
+<a class="news-link" href="https://github.com/LEGION-HSA-2-0/CENTURIA" rel="noopener" style="color: var(--terracotta);" target="_blank">Code &amp; Pipeline (GitHub) →</a>
+<a class="news-link" href="https://doi.org/10.5281/zenodo.24145610" rel="noopener" style="color: var(--terracotta);" target="_blank">LoRA Checkpoints (Zenodo) →</a>
 <a class="news-link" href="https://doi.org/10.48550/arXiv.2608.30616" rel="noopener" style="color: var(--terracotta);" target="_blank">arXiv Preprint (DOI) →</a>
 </div>
 </div>
@@ -418,7 +453,8 @@
 </div>
 <div class="news-links-row">
 <a class="news-link" href="https://www.linkedin.com/pulse/how-researchers-adapting-olmocr-2-historical-archaeological-archives-mh4xe/" rel="noopener" style="color: var(--terracotta);" target="_blank">Ai2 Feature (LinkedIn) →</a>
-<a class="news-link" href="https://github.com/gissuvalentina/CENTURIA" rel="noopener" style="color: var(--terracotta);" target="_blank">CENTURIA on GitHub →</a>
+<a class="news-link" href="https://github.com/LEGION-HSA-2-0/CENTURIA" rel="noopener" style="color: var(--terracotta);" target="_blank">CENTURIA on GitHub →</a>
+<a class="news-link" href="https://zenodo.org/records/24145080" rel="noopener" style="color: var(--terracotta);" target="_blank">Dataset (Zenodo) →</a>
 <a class="news-link" href="https://doi.org/10.48550/arXiv.2608.30616" rel="noopener" style="color: var(--terracotta);" target="_blank">Research Paper (DOI) →</a>
 </div>
 </div>
@@ -502,7 +538,7 @@
 <p class="card-date" style="color: var(--cyan);">4 September 2026</p>
 <h3>LEGION Featured @ Heritage Science Austria</h3>
 <div class="news-text-wrapper">
-<p class="news-text-scrollable">The national <a href="https://heritagescience.at/blog/" rel="noopener" style="color: inherit; text-decoration: underline;" target="_blank"><em>Heritage Science Austria</em></a> research portal featured the LEGION project in a dedicated science report celebrating the milestone release of the open-access <a href="https://github.com/gissuvalentina/CENTURIA" rel="noopener" style="color: inherit; text-decoration: underline;" target="_blank"><strong>CENTURIA</strong></a> benchmark dataset and accompanying research paper (arXiv:2608.30616). The article highlights the fruitful interdisciplinary collaboration between the Austrian Archaeological Institute (OeAI / OeAW) and TU Wien's Computer Vision Lab (CVL), our upcoming presentations at ECCV 2026 (WiCV and VISART VIII), and our overarching mission to automate Roman pottery classification using Artificial Intelligence.</p>
+<p class="news-text-scrollable">The national <a href="https://heritagescience.at/blog/" rel="noopener" style="color: inherit; text-decoration: underline;" target="_blank"><em>Heritage Science Austria</em></a> research portal featured the LEGION project in a dedicated science report celebrating the milestone release of the open-access <a href="https://github.com/LEGION-HSA-2-0/CENTURIA" rel="noopener" style="color: inherit; text-decoration: underline;" target="_blank"><strong>CENTURIA</strong></a> benchmark dataset and accompanying research paper (arXiv:2608.30616). The article highlights the fruitful interdisciplinary collaboration between the Austrian Archaeological Institute (OeAI / OeAW) and TU Wien's Computer Vision Lab (CVL), our upcoming presentations at ECCV 2026 (WiCV and VISART VIII), and our overarching mission to automate Roman pottery classification using Artificial Intelligence.</p>
 <div class="card-scrollbar-track"><div class="card-scrollbar-thumb"></div></div>
 </div>
 <div class="news-links-row">
@@ -867,14 +903,72 @@
 <h2 class="section-title">Open-Source Ecosystem &amp; Research</h2>
 <p style="margin-bottom: 3rem; font-size: 1.1rem; max-width: 800px;">LEGION is committed to <strong>Open Science, FAIR and CARE principles, and Reproducible AI</strong>. All developed machine learning pipelines, benchmark datasets, web platforms, and research findings are released openly for the global archaeological and computer vision communities.</p>
 
+<article class="award-showcase-banner reveal" id="best-paper-award">
+    <div class="award-cert-preview-col">
+        <button aria-label="Enlarge VISART VIII @ ECCV 2026 Best Paper Award Certificate" class="award-cert-frame" id="openCertificateBtn" type="button">
+            <img alt="Best Paper Award Certificate from Vision for Art (VISART VIII) Workshop at ECCV 2026 in Malmö, Sweden, awarded to Gissu Valentina Naghavi, Dominik Hagmann, Martin Kampel, and Irene Ballester for OCR-Based Field Extraction for Archaeological Pottery Metadata: The CENTURIA Dataset" decoding="async" height="1080" loading="lazy" src="assets/award_visart_eccv_2026_certificate.webp" width="1560"/>
+            <span aria-hidden="true" class="award-cert-zoom-hint">
+                <svg fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" viewBox="0 0 24 24" width="14"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" x2="14" y1="3" y2="10"></line><line x1="3" x2="10" y1="21" y2="14"></line></svg>
+                <span>Inspect Certificate</span>
+            </span>
+        </button>
+    </div>
+    <div class="award-showcase-body">
+        <div class="award-showcase-badges">
+            <span class="data-pub-badge badge-award">🏆 Best Paper Award</span>
+            <span class="data-pub-badge">VISART VIII @ ECCV 2026</span>
+            <span class="data-pub-badge">Malmö, Sweden · 8 Sept 2026</span>
+        </div>
+        <h3>Best Paper Award — Vision for Art (VISART VIII) @ ECCV 2026</h3>
+        <p class="award-showcase-desc">Recognised with the <strong>Best Paper Award</strong> at the 8th <em>Vision for Art (VISART VIII)</em> Workshop at the <strong>European Conference on Computer Vision (ECCV 2026)</strong> in Malmö, Sweden, for our contribution to AI-assisted processing of retro-digitised Roman pottery archives.</p>
+        <div class="award-meta-box">
+            <div class="award-meta-row">
+                <span class="award-meta-label">Paper Title</span>
+                <span class="award-meta-val"><em>“OCR-Based Field Extraction for Archaeological Pottery Metadata: The CENTURIA Dataset”</em></span>
+            </div>
+            <div class="award-meta-row">
+                <span class="award-meta-label">Awarded To</span>
+                <span class="award-meta-val"><strong>Gissu Valentina Naghavi</strong>, <strong>Dominik Hagmann</strong>, <strong>Martin Kampel</strong>, <strong>Irene Ballester</strong></span>
+            </div>
+            <div class="award-meta-row">
+                <span class="award-meta-label">VISART VIII Chairs</span>
+                <span class="award-meta-val">Signed by <strong>Stuart James</strong> (Chair) on behalf of <strong>Piera Riccio</strong>, <strong>Eva Cetinic</strong>, <strong>Amanda Wasielewski</strong>, <strong>Nanne van Noord</strong>, and <strong>Peter Bell</strong></span>
+            </div>
+        </div>
+        <div class="award-showcase-actions">
+            <a class="data-pub-btn btn-award-primary" href="assets/2026_VISART_ECCV_Best_Paper_Award_Certificate.pdf" rel="noopener" target="_blank">
+                <svg aria-hidden="true" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="16"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><path d="M12 18v-6"></path><path d="m9 15 3 3 3-3"></path></svg>
+                <span>Certificate (PDF)</span>
+            </a>
+            <button class="data-pub-btn btn-secondary" id="openCertificateActionBtn" type="button">
+                <svg aria-hidden="true" fill="none" height="15" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="15"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" x2="14" y1="3" y2="10"></line><line x1="3" x2="10" y1="21" y2="14"></line></svg>
+                <span>View Full Size</span>
+            </button>
+            <button class="data-pub-btn btn-secondary copy-award-link-btn" data-copy-url="https://legion-hsa-2-0.github.io/#best-paper-award" id="copyAwardLinkBtn" type="button">
+                <svg aria-hidden="true" fill="none" height="15" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="15"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                <span class="copy-link-label">Copy Direct Link</span>
+            </button>
+            <a class="data-pub-btn btn-secondary" href="https://doi.org/10.48550/arXiv.2608.30616" rel="noopener" target="_blank">
+                <svg aria-hidden="true" fill="none" height="15" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="15"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" x2="8" y1="13" y2="13"></line><line x1="16" x2="8" y1="17" y2="17"></line><line x1="10" x2="8" y1="9" y2="9"></line></svg>
+                <span>Paper (DOI) →</span>
+            </a>
+            <a class="data-pub-btn btn-secondary" href="https://visarts.eu" rel="noopener" target="_blank">
+                <svg aria-hidden="true" fill="none" height="15" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="15"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20"></path><path d="M2 12h20"></path><path d="M12 2a14.5 14.5 0 0 1 0 20"></path></svg>
+                <span>VISART VIII →</span>
+            </a>
+        </div>
+    </div>
+</article>
+
 <div class="open-science-showcase">
     <!-- 1. Featured Dataset: CENTURIA -->
     <div class="data-pub-card card-terracotta reveal">
         <div class="data-pub-header">
             <div class="data-pub-badges">
                 <span class="data-pub-badge badge-terracotta">Benchmark Dataset</span>
-                <span class="data-pub-badge">507 Records</span>
-                <span class="data-pub-badge">CC BY 4.0</span>
+                <span class="data-pub-badge">507 Records (57 / 450)</span>
+                <span class="data-pub-badge badge-bridge">Zenodo · CC BY 4.0</span>
+                <span class="data-pub-badge">Code &amp; Checkpoints</span>
                 <span class="data-pub-badge">Carnuntum</span>
             </div>
             <h3>CENTURIA Dataset &amp; Pipeline</h3>
@@ -883,7 +977,7 @@
         <div class="data-pub-image-preview">
             <img alt="CENTURIA Logo (OeAI / OeAW &amp; CVL / TU Wien)" height="140" loading="lazy" src="assets/news_centuria.webp" width="400"/>
         </div>
-        <p class="data-pub-description">The <strong>CENTURIA</strong> benchmark provides 507 retro-digitised Roman pottery documentation records from Carnuntum, complete with handwritten text ground truth, bounding boxes, and structured field labels across 7 metadata categories (provenance, project, find number, stratigraphic unit, pottery form, fabric, publication type, and rim diameter). Evaluates 5 state-of-the-art OCR models and provides LoRA fine-tuning workflows achieving &gt;87% extraction accuracy.</p>
+        <p class="data-pub-description">The <strong>CENTURIA</strong> benchmark provides 507 retro-digitised Roman pottery documentation records from Carnuntum (57 train / 450 test), complete with German handwritten text ground truth, bounding boxes, technical drawing positions, and structured field labels across 7 metadata categories. The open-access dataset is archived on <strong>Zenodo</strong> (DOI: 10.5281/zenodo.24145080), accompanied by the public evaluation and LoRA fine-tuning pipeline on <strong>GitHub</strong> and fine-tuned <strong>olmOCR 2</strong> and <strong>LightOnOCR</strong> checkpoints (DOI: 10.5281/zenodo.24145610) achieving &lt;1.5% transcription error and &gt;87% field extraction accuracy.</p>
         
         <div class="data-pub-stats">
             <div class="data-stat-item">
@@ -901,21 +995,47 @@
         </div>
 
         <div class="data-pub-actions">
-            <a class="data-pub-btn btn-primary" href="https://github.com/gissuvalentina/CENTURIA" rel="noopener" target="_blank">
-                <svg fill="currentColor" height="16" viewBox="0 0 24 24" width="16"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.43.372.823 1.102.823 2.222 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path></svg>
-                <span>CENTURIA on GitHub</span>
+            <a class="data-pub-btn btn-primary" href="https://zenodo.org/records/24145080" rel="noopener" target="_blank" title="DOI: 10.5281/zenodo.24145080">
+                <svg aria-hidden="true" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="16"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
+                <span>Dataset on Zenodo (DOI)</span>
+            </a>
+            <a class="data-pub-btn btn-secondary" href="https://github.com/LEGION-HSA-2-0/CENTURIA" rel="noopener" target="_blank">
+                <svg aria-hidden="true" fill="currentColor" height="16" viewBox="0 0 24 24" width="16"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.43.372.823 1.102.823 2.222 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path></svg>
+                <span>Code &amp; Pipeline (GitHub)</span>
+            </a>
+            <a class="data-pub-btn btn-secondary" href="https://doi.org/10.5281/zenodo.24145610" rel="noopener" target="_blank">
+                <span>Fine-Tuned Checkpoints (Zenodo) →</span>
             </a>
             <a class="data-pub-btn btn-secondary" href="https://doi.org/10.48550/arXiv.2608.30616" rel="noopener" target="_blank">
                 <span>View Paper (DOI) →</span>
             </a>
         </div>
+
+        <details class="bibtex-toggle-details">
+            <summary>
+                <span>Dataset BibTeX Citation (Zenodo)</span>
+                <span>▼</span>
+            </summary>
+            <div class="bibtex-content-box">
+                <button class="copy-bibtex-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000);" type="button">Copy</button>
+                <pre class="bibtex-code">@dataset{naghavi_2026_24145080,
+  author    = {Naghavi, Gissu Valentina and Hagmann, Dominik and Kampel, Martin and Ballester, Irene},
+  title     = {CENTURIA: A Dataset for Handwritten Text Recognition and Key Information Extraction on Archaeological Pottery Records},
+  month     = nov,
+  year      = {2026},
+  publisher = {Zenodo},
+  doi       = {10.5281/zenodo.24145080},
+  url       = {https://doi.org/10.5281/zenodo.24145080}
+}</pre>
+            </div>
+        </details>
     </div>
 
     <!-- 2. Featured Publication: First Paper -->
     <div class="data-pub-card card-cyan reveal">
         <div class="data-pub-header">
             <div class="data-pub-badges">
-                <span class="data-pub-badge badge-award">🏆 Best Paper Award</span>
+                <a class="data-pub-badge badge-award badge-award-link" href="#best-paper-award" title="View Best Paper Award Certificate">🏆 Best Paper Award</a>
                 <span class="data-pub-badge badge-cyan">First Project Publication</span>
                 <span class="data-pub-badge">Preprint / arXiv</span>
                 <span class="data-pub-badge">ECCV 2026</span>
@@ -938,6 +1058,9 @@
         <div class="data-pub-actions">
             <a class="data-pub-btn btn-primary" href="https://doi.org/10.48550/arXiv.2608.30616" rel="noopener" target="_blank">
                 <span>DOI: 10.48550/arXiv.2608.30616</span>
+            </a>
+            <a class="data-pub-btn btn-award-outline" href="assets/2026_VISART_ECCV_Best_Paper_Award_Certificate.pdf" rel="noopener" target="_blank">
+                <span>🏆 Award Certificate (PDF)</span>
             </a>
             <a class="data-pub-btn btn-secondary" href="https://arxiv.org/abs/2608.30616" rel="noopener" target="_blank">
                 <span>arXiv:2608.30616</span>
@@ -1353,6 +1476,25 @@
         </div>
     </div>
 </dialog>
-<script src="main.js?v=1.8.8"></script>
+<!-- Best Paper Award Certificate Lightbox -->
+<dialog aria-labelledby="certModalTitle" class="cert-modal" closedby="any" id="certificateModal">
+    <div class="cert-modal-content">
+        <div class="cert-modal-header">
+            <h3 class="cert-modal-title" id="certModalTitle">🏆 Best Paper Award — VISART VIII @ ECCV 2026</h3>
+            <button aria-label="Close certificate preview" autofocus class="cert-modal-close" id="certModalClose" type="button">✕</button>
+        </div>
+        <div class="cert-modal-figure">
+            <img alt="Best Paper Award Certificate — Vision for Art (VISART VIII) Workshop at ECCV 2026, Malmö, Sweden, awarded to Gissu Valentina Naghavi, Dominik Hagmann, Martin Kampel, and Irene Ballester" decoding="async" fetchpriority="low" height="1080" loading="lazy" src="assets/award_visart_eccv_2026_certificate.webp" width="1560"/>
+        </div>
+        <div class="cert-modal-footer">
+            <p class="cert-modal-caption">OCR-Based Field Extraction for Archaeological Pottery Metadata: The CENTURIA Dataset · Malmö, Sweden 2026</p>
+            <div class="cert-modal-actions">
+                <a class="data-pub-btn btn-award-primary" href="assets/2026_VISART_ECCV_Best_Paper_Award_Certificate.pdf" rel="noopener" target="_blank"><span>Download Original PDF</span></a>
+                <button class="data-pub-btn btn-secondary copy-award-link-btn" data-copy-url="https://legion-hsa-2-0.github.io/#best-paper-award" id="certModalCopyLinkBtn" type="button"><span class="copy-link-label">Copy Direct Link</span></button>
+            </div>
+        </div>
+    </div>
+</dialog>
+<script src="main.js?v=1.8.9"></script>
 </body>
 </html>
