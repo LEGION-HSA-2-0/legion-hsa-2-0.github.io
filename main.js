@@ -69,6 +69,16 @@ function handleSmoothAnchorClick(e) {
     }
     const target = document.querySelector(href);
     if (target) {
+        if (target.closest('#news .grid') && target.classList.contains('card')) {
+            if (typeof focusNewsCardByElement === 'function') {
+                focusNewsCardByElement(target);
+            }
+            if (history.replaceState) {
+                history.replaceState(null, '', href);
+            }
+            revealOnScroll();
+            return;
+        }
         if (target.classList.contains('reveal')) {
             target.classList.add('active');
         }
@@ -512,6 +522,8 @@ const modalNewsDate = document.getElementById('modalNewsDate');
 const modalNewsTitle = document.getElementById('modalNewsTitle');
 const modalNewsText = document.getElementById('modalNewsText');
 const modalNewsLinks = document.getElementById('modalNewsLinks');
+const newsModalCopyWrap = document.getElementById('newsModalCopyWrap');
+const newsModalCopyBtn = document.getElementById('newsModalCopyBtn');
 let isNewsModalOpen = false;
 
 function openNewsModal(card) {
@@ -568,6 +580,22 @@ function openNewsModal(card) {
     const cardTitle = card.querySelector('h3');
     if (cardTitle && modalNewsTitle) {
         modalNewsTitle.textContent = cardTitle.textContent;
+    }
+
+    // 3b. Direct link copy control for this news item
+    if (newsModalCopyWrap && newsModalCopyBtn) {
+        if (card.id) {
+            newsModalCopyWrap.style.display = 'inline-flex';
+            newsModalCopyBtn.setAttribute('commandfor', card.id);
+            const titleText = cardTitle ? cardTitle.textContent.trim() : 'news item';
+            newsModalCopyBtn.setAttribute('aria-label', `Copy direct link to ${titleText}`);
+            newsModalCopyBtn.removeAttribute('data-copied');
+            newsModalCopyBtn.removeAttribute('data-failed');
+            const tip = newsModalCopyWrap.querySelector('.copy-link-tip');
+            if (tip) tip.textContent = '';
+        } else {
+            newsModalCopyWrap.style.display = 'none';
+        }
     }
 
     // 4. Full Text
@@ -822,9 +850,13 @@ function setActiveNewsCard(index, shouldScroll = true) {
     });
 
     if (shouldScroll && newsGrid) {
+        const targetLeft = getNewsScrollTargetForIndex(currentNewsIndex);
+        // Apply docked-tab classes/scroll-padding-left BEFORE scrollTo so scroll-snap aligns clear of #newsDockedStack
+        updateNewsDockedTabs(targetLeft);
+        updateNewsGridScrollFade(targetLeft, newsGrid.scrollWidth - newsGrid.clientWidth);
         newsProgrammaticScrollUntil = performance.now() + 800;
         newsGrid.scrollTo({
-            left: getNewsScrollTargetForIndex(currentNewsIndex),
+            left: targetLeft,
             behavior: 'smooth'
         });
     }
@@ -944,11 +976,43 @@ function disableNewsAutoplay() {
     stopNewsAutoplay();
 }
 
+function focusNewsCardByElement(cardEl) {
+    if (!newsGrid || !cardEl) return false;
+    const cards = getNewsCards();
+    const idx = cards.indexOf(cardEl);
+    if (idx < 0) return false;
+
+    if (cardEl.classList.contains('reveal')) {
+        cardEl.classList.add('active');
+    }
+    disableNewsAutoplay();
+    measureNewsMetrics();
+    setActiveNewsCard(idx, true);
+
+    const sectionTop = newsSection ? newsSection.offsetTop - 10 : 0;
+    window.scrollTo({
+        top: Math.max(0, sectionTop),
+        behavior: 'smooth'
+    });
+    return true;
+}
+
+function focusNewsCardFromHash() {
+    if (!window.location.hash || window.location.hash.length <= 1) return false;
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    const target = document.getElementById(id);
+    if (target && target.closest('#news .grid') && target.classList.contains('card')) {
+        return focusNewsCardByElement(target);
+    }
+    return false;
+}
+
 if (newsGrid) {
     // Initial highlight on first card & peeking check
     measureNewsMetrics();
     setActiveNewsCard(0, false);
     syncNewsScrollState();
+    focusNewsCardFromHash();
 
     newsGrid.addEventListener('scroll', requestNewsScrollSync, { passive: true });
 
@@ -964,7 +1028,9 @@ if (newsGrid) {
     window.addEventListener('load', () => {
         measureNewsMetrics();
         syncNewsScrollState();
+        focusNewsCardFromHash();
     });
+    window.addEventListener('hashchange', focusNewsCardFromHash);
 
     // Mouse Drag-to-Scroll (Grab & Drag) on News Grid
     let isDraggingGrid = false;
@@ -1015,6 +1081,35 @@ if (newsGrid) {
         });
     }
 
+    // Inject top-right Copy Direct Link button on every news card with an id
+    getNewsCards().forEach((card) => {
+        if (!card.id) return;
+        const cardImgWrapper = card.querySelector('.card-image-wrapper');
+        if (!cardImgWrapper || cardImgWrapper.querySelector('.news-copy-link')) return;
+        const cardTitleText = card.querySelector('h3')?.textContent?.trim() || 'news item';
+
+        const wrap = document.createElement('span');
+        wrap.className = 'copy-link-wrap news-copy-link';
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'card-copy-link-btn';
+        btn.setAttribute('command', '--copy-link');
+        btn.setAttribute('commandfor', card.id);
+        btn.setAttribute('aria-label', `Copy direct link to ${cardTitleText}`);
+        btn.setAttribute('title', 'Copy direct link');
+        btn.innerHTML =
+            '<svg aria-hidden="true" class="icon-copy-link" fill="none" height="15" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="15"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>' +
+            '<svg aria-hidden="true" class="icon-copy-check" fill="none" height="15" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" viewBox="0 0 24 24" width="15"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+
+        const tip = document.createElement('span');
+        tip.className = 'copy-link-tip';
+        tip.setAttribute('role', 'status');
+
+        wrap.append(btn, tip);
+        cardImgWrapper.append(wrap);
+    });
+
     // Make clicking or hovering any card track selection, and enable detail modal
     getNewsCards().forEach((card, idx) => {
         card.addEventListener('mouseenter', () => {
@@ -1037,7 +1132,7 @@ if (newsGrid) {
             cardImgWrapper.style.cursor = 'pointer';
             cardImgWrapper.addEventListener('click', (e) => {
                 if (hasDraggedGrid) return;
-                if (e.target.closest('.card-expand-btn')) return;
+                if (e.target.closest('.card-expand-btn, .card-copy-link-btn, .copy-link-wrap')) return;
                 e.preventDefault();
                 e.stopPropagation();
                 openNewsModal(card);
@@ -1212,7 +1307,6 @@ async function closeTopLayer(element) {
 const certificateModal = document.getElementById('certificateModal');
 const certModalClose = document.getElementById('certModalClose');
 const openCertificateBtn = document.getElementById('openCertificateBtn');
-const openCertificateActionBtn = document.getElementById('openCertificateActionBtn');
 
 function openCertificateModal() {
     if (!certificateModal) return;
@@ -1228,9 +1322,6 @@ function openCertificateModal() {
 
 if (openCertificateBtn) {
     openCertificateBtn.addEventListener('click', openCertificateModal);
-}
-if (openCertificateActionBtn) {
-    openCertificateActionBtn.addEventListener('click', openCertificateModal);
 }
 if (certificateModal) {
     if (certModalClose) {
@@ -1267,50 +1358,90 @@ if (certificateModal) {
     }
 }
 
-// --- Copy Direct Link Buttons for Best Paper Award ---
-function copyTextWithFallback(text) {
-    if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
-        return navigator.clipboard.writeText(text).catch(() => fallbackCopyText(text));
+// --- Unified Direct-Link Copy Engine (Invoker Commands + Fallback) ---
+const copyFeedbackTimers = new WeakMap();
+let lastCopyMessage = '';
+
+function legacyCopyText(text) {
+    const field = Object.assign(document.createElement('textarea'), { value: text });
+    field.setAttribute('readonly', '');
+    field.style.cssText = 'position:fixed;inset-block-start:0;opacity:0';
+    document.body.append(field);
+    field.select();
+    try {
+        return document.execCommand('copy');
+    } catch {
+        return false;
+    } finally {
+        field.remove();
     }
-    return fallbackCopyText(text);
 }
 
-function fallbackCopyText(text) {
-    return new Promise((resolve, reject) => {
-        const textarea = document.createElement('textarea');
-        textarea.value = text;
-        textarea.setAttribute('readonly', '');
-        textarea.style.position = 'fixed';
-        textarea.style.opacity = '0';
-        document.body.appendChild(textarea);
-        textarea.select();
-        try {
-            const ok = document.execCommand('copy');
-            textarea.remove();
-            if (ok) resolve();
-            else reject(new Error('execCommand copy failed'));
-        } catch (err) {
-            textarea.remove();
-            reject(err);
+function reportCopyStatus(button, ok) {
+    if (!button) return;
+    const tip = button.nextElementSibling;
+    clearTimeout(copyFeedbackTimers.get(button));
+    button.removeAttribute('data-copied');
+    button.removeAttribute('data-failed');
+
+    let message = ok ? 'Copied' : 'Copy failed';
+    if (message === lastCopyMessage) {
+        message += '\u00A0';
+    }
+    lastCopyMessage = message;
+
+    if (tip) tip.textContent = '';
+    void button.offsetWidth;
+    button.setAttribute(ok ? 'data-copied' : 'data-failed', '');
+    requestAnimationFrame(() => {
+        if (tip) tip.textContent = message;
+    });
+
+    copyFeedbackTimers.set(button, setTimeout(() => {
+        button.removeAttribute('data-copied');
+        button.removeAttribute('data-failed');
+        if (tip) tip.textContent = '';
+    }, 2000));
+}
+
+function resolveDirectLinkUrl(target) {
+    if (!target || !target.id) return '';
+    const canonical = document.querySelector('link[rel="canonical"]')?.href?.replace(/#.*$/, '');
+    const base = canonical || `${window.location.origin}${window.location.pathname}`;
+    return `${base}#${encodeURIComponent(target.id)}`;
+}
+
+async function copyDirectLink(button, target) {
+    const url = resolveDirectLinkUrl(target);
+    if (!url) return;
+    try {
+        if (!navigator.clipboard || typeof navigator.clipboard.writeText !== 'function') {
+            throw new Error('Clipboard API unavailable');
         }
-    });
+        await navigator.clipboard.writeText(url);
+        reportCopyStatus(button, true);
+    } catch {
+        if (legacyCopyText(url)) {
+            reportCopyStatus(button, true);
+        } else {
+            reportCopyStatus(button, false);
+        }
+    }
 }
 
-document.querySelectorAll('.copy-award-link-btn').forEach((btn) => {
-    let resetTimer = null;
-    btn.addEventListener('click', () => {
-        const url = btn.dataset.copyUrl || `${window.location.origin}${window.location.pathname}#best-paper-award`;
-        const label = btn.querySelector('.copy-link-label');
-        copyTextWithFallback(url).then(() => {
-            if (label) {
-                label.textContent = 'Link Copied!';
-                clearTimeout(resetTimer);
-                resetTimer = setTimeout(() => {
-                    label.textContent = 'Copy Direct Link';
-                }, 2000);
-            }
-        }).catch(() => {});
+if ('CommandEvent' in window) {
+    document.addEventListener('command', (event) => {
+        if (event.command === '--copy-link') {
+            copyDirectLink(event.source, event.target);
+        }
+    }, true);
+} else {
+    document.addEventListener('click', (event) => {
+        const button = event.target.closest('button[command="--copy-link"]');
+        if (!button) return;
+        const target = document.getElementById(button.getAttribute('commandfor'));
+        if (target) copyDirectLink(button, target);
     });
-});
+}
 
 
