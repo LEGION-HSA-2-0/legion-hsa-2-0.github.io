@@ -4182,6 +4182,57 @@ dialog.cert-modal[open]:where(:not([data-closing]))::backdrop {
     }
 }
 
+/* Keep top-right BYOAI chalkboard unobstructed on CHNT31 card */
+#news-chnt31-maia .card-expand-btn {
+    right: auto;
+    left: 10px;
+}
+
+#news-chnt31-maia .news-copy-link {
+    right: auto;
+    left: 52px;
+}
+
+#news-chnt31-maia .news-copy-link .copy-link-tip {
+    inset-inline-end: auto;
+    inset-inline-start: calc(100% + 8px);
+    transform: translateY(-50%) translateX(-4px);
+}
+
+#news-chnt31-maia .news-copy-link .card-copy-link-btn[data-copied] + .copy-link-tip,
+#news-chnt31-maia .news-copy-link .card-copy-link-btn[data-failed] + .copy-link-tip {
+    transform: translateY(-50%) translateX(0);
+}
+
+@media (max-width: 768px) {
+    #news-chnt31-maia .news-copy-link .copy-link-tip {
+        inset-block-start: calc(100% + 6px);
+        inset-inline-start: 0;
+        inset-inline-end: auto;
+        transform: translateY(-4px);
+    }
+    #news-chnt31-maia .news-copy-link .card-copy-link-btn[data-copied] + .copy-link-tip,
+    #news-chnt31-maia .news-copy-link .card-copy-link-btn[data-failed] + .copy-link-tip {
+        transform: translateY(0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #news-chnt31-maia .news-copy-link .copy-link-tip,
+    #news-chnt31-maia .news-copy-link .card-copy-link-btn[data-copied] + .copy-link-tip,
+    #news-chnt31-maia .news-copy-link .card-copy-link-btn[data-failed] + .copy-link-tip {
+        transform: translateY(-50%);
+    }
+}
+
+@media (max-width: 768px) and (prefers-reduced-motion: reduce) {
+    #news-chnt31-maia .news-copy-link .copy-link-tip,
+    #news-chnt31-maia .news-copy-link .card-copy-link-btn[data-copied] + .copy-link-tip,
+    #news-chnt31-maia .news-copy-link .card-copy-link-btn[data-failed] + .copy-link-tip {
+        transform: none;
+    }
+}
+
 
 
 
